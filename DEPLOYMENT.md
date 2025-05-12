@@ -133,6 +133,30 @@ If you encounter issues with the deployment:
 3. Ensure your service account has the necessary permissions
 4. Check that your Dockerfile and nginx configuration are correct
 
+### Common Build Issues
+
+#### Missing Dependencies
+
+If you encounter build errors related to missing dependencies, such as:
+
+```
+Module not found: Error: Can't resolve 'react-slick' in '/workspace/src/components/sections'
+```
+
+Make sure all required dependencies are listed in your package.json file. For this project, we've added:
+
+```json
+"react-slick": "^0.30.2",
+"slick-carousel": "^1.8.1",
+```
+
+Also ensure that any required CSS files are imported in your application. For react-slick, we've added these imports to src/index.js:
+
+```javascript
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+```
+
 ## Cost Considerations
 
 - Cloud Run charges based on usage (requests and memory)
