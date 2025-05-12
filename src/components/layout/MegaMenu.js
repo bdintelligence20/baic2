@@ -122,6 +122,29 @@ const MenuLink = styled(Link)`
   }
 `;
 
+const ModelMenuItem = styled(MenuItem)`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+`;
+
+const ModelImage = styled.img`
+  width: 80px;
+  height: 60px;
+  object-fit: contain;
+  margin-right: 15px;
+  transition: transform 0.3s ease;
+`;
+
+const ModelLink = styled(MenuLink)`
+  display: flex;
+  align-items: center;
+  
+  &:hover ${ModelImage} {
+    transform: translateX(5px) scale(1.05);
+  }
+`;
+
 const FeaturedSection = styled.div`
   background-color: #f8f8f8;
   padding: 1.5rem;
@@ -196,55 +219,27 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
         return (
           <MegaMenuContent>
             <MenuColumn>
-              <MenuTitle>SUV Models</MenuTitle>
+              <MenuTitle>Our Models</MenuTitle>
               <MenuList>
-                <MenuItem className="menu-item">
-                  <MenuLink to="/vehicles/models/x55">X55</MenuLink>
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  <MenuLink to="/vehicles/models/x55-plus">X55 Plus</MenuLink>
-                </MenuItem>
-                <MenuItem className="menu-item">
-                  <MenuLink to="/vehicles/models/x55-dynamic">X55 Dynamic</MenuLink>
-                </MenuItem>
+                <ModelMenuItem className="menu-item">
+                  <ModelLink to="/vehicles/models/x55">
+                    <ModelImage src="/images/models/x55/x55-red.png" alt="X55" />
+                    <span>X55</span>
+                  </ModelLink>
+                </ModelMenuItem>
+                <ModelMenuItem className="menu-item">
+                  <ModelLink to="/vehicles/models/x55-plus">
+                    <ModelImage src="/images/models/x55-plus/15_20240708121819A007.png" alt="X55 PLUS" />
+                    <span>X55 PLUS</span>
+                  </ModelLink>
+                </ModelMenuItem>
+                <ModelMenuItem className="menu-item">
+                  <ModelLink to="/vehicles/models/b40-plus">
+                    <ModelImage src="/images/models/b40-plus/b40plus-black.png" alt="B40 PLUS" />
+                    <span>B40 PLUS</span>
+                  </ModelLink>
+                </ModelMenuItem>
               </MenuList>
-              
-              <FeaturedSection className="featured-section">
-                <FeaturedTitle>Featured Promotion</FeaturedTitle>
-                <FeaturedContent>
-                  <FeaturedImage src="/images/models/x55/14_20240708121758A006.png" alt="X55" />
-                  <FeaturedInfo>
-                    <FeaturedName>X55 Special Offer</FeaturedName>
-                    <FeaturedDescription>
-                      Experience urban elegance with our limited-time promotion.
-                    </FeaturedDescription>
-                    <FeaturedLink to="/vehicles/promotions/x55">View Offer</FeaturedLink>
-                  </FeaturedInfo>
-                </FeaturedContent>
-              </FeaturedSection>
-            </MenuColumn>
-            
-            <MenuColumn>
-              <MenuTitle>Off-Road Models</MenuTitle>
-              <MenuList>
-                <MenuItem className="menu-item">
-                  <MenuLink to="/vehicles/models/b40-plus">B40 Plus</MenuLink>
-                </MenuItem>
-              </MenuList>
-              
-              <FeaturedSection className="featured-section">
-                <FeaturedTitle>Featured Promotion</FeaturedTitle>
-                <FeaturedContent>
-                  <FeaturedImage src="/images/models/b40-plus/BJ40 plus 黑_20221028105044A009.png" alt="B40 Plus" />
-                  <FeaturedInfo>
-                    <FeaturedName>B40 Plus Adventure Offer</FeaturedName>
-                    <FeaturedDescription>
-                      Conquer any terrain with our exclusive off-road champion.
-                    </FeaturedDescription>
-                    <FeaturedLink to="/vehicles/promotions/b40-plus">View Offer</FeaturedLink>
-                  </FeaturedInfo>
-                </FeaturedContent>
-              </FeaturedSection>
             </MenuColumn>
             
             <MenuColumn>
@@ -257,9 +252,11 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
                   <MenuLink to="/find-dealer">Find a Dealer</MenuLink>
                 </MenuItem>
               </MenuList>
-              
+            </MenuColumn>
+            
+            <MenuColumn>
+              <MenuTitle>Company Overview</MenuTitle>
               <FeaturedSection className="featured-section">
-                <FeaturedTitle>Company Overview</FeaturedTitle>
                 <FeaturedContent>
                   <FeaturedImage src="/images/logos/download.png" alt="BAIC Logo" />
                   <FeaturedInfo>

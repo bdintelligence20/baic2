@@ -3,6 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import TypeformModal from './components/common/TypeformModal';
+import { ModalProvider } from './context/ModalContext';
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -74,10 +76,11 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <Router>
-      <GlobalStyle />
-      <Header />
-      <main>
-        <Routes>
+      <ModalProvider>
+        <GlobalStyle />
+        <Header />
+        <main>
+          <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about/company-overview" element={<CompanyOverviewPage />} />
           <Route path="/vehicles/models/x55" element={<X55Page />} />
@@ -91,9 +94,11 @@ function App() {
           <Route path="/find-dealer" element={<FindDealerPage />} />
           <Route path="/book-test-drive" element={<BookTestDrivePage />} />
           <Route path="/contact" element={<ContactUsPage />} />
-        </Routes>
-      </main>
-      <Footer />
+          </Routes>
+        </main>
+        <Footer />
+        <TypeformModal />
+      </ModalProvider>
     </Router>
   );
 }

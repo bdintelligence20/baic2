@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
+import GalleryModal from '../common/GalleryModal';
 // Import the CSS files in the index.js file instead to avoid issues
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
@@ -398,54 +399,133 @@ const HeroSection = () => {
       tagline: "Brave the City",
       title: "The X55",
       image: '/images/hero/web banners/WEBSITE_1920X1080PX_HOMEPAGE - x552 (1).jpg',
-      link: '/vehicles/models/x55'
+      link: '/vehicles/models/x55',
+      model: 'x55'
     },
     {
       tagline: "Intelligently Brave",
       title: "The X55 Plus",
       image: '/images/hero/web banners/WEBSITE_1920X1080PX_HOMEPAGE3 (2)x55plus.jpg',
-      link: '/vehicles/models/x55-plus'
+      link: '/vehicles/models/x55-plus',
+      model: 'x55-plus'
     },
     {
       tagline: "Bravely Intrepid",
       title: "The B40 Plus",
       image: '/images/hero/web banners/WEBSITE_1920X1080PX_HOMEPAGE4 b40(2).jpg',
-      link: '/vehicles/models/b40-plus'
-    },
-    {
-      tagline: "Bravery is Electric",
-      title: "The All-New B30",
-      image: '/images/hero/web banners/WEBSITE_1920X1080PX_HOMEPAGE3 (2)b30.jpg',
-      link: '/vehicles/models/b30'
+      link: '/vehicles/models/b40-plus',
+      model: 'b40-plus'
     }
   ];
   
+  // Gallery images for each model
+  const galleryImages = {
+    'x55': [
+      '/images/vehicles/x55/gallery/63f3351fb366b767f7580bbd_X55-exterior-gallery-1.jpg',
+      '/images/vehicles/x55/gallery/63f3351fb366b752b0580bc2_X55-exterior-gallery-2.jpg',
+      '/images/vehicles/x55/gallery/63f3351fb366b73c98580bc8_X55-exterior-gallery-3.jpg',
+      '/images/vehicles/x55/gallery/63f3351fb366b784fd580bd9_X55-exterior-gallery-5.jpg',
+      '/images/vehicles/x55/gallery/63f3351fb366b73c98580bc8_X55-exterior-gallery-6.jpg',
+      '/images/vehicles/x55/gallery/63f3351fb366b749a1580be3_X55-exterior-gallery-7.jpg',
+      '/images/vehicles/x55/gallery/63f3351fb366b7a7d2580bde_X55-exterior-gallery-8.jpg',
+      '/images/vehicles/x55/gallery/63f3351fb366b7a88d580be9_X55-exterior-gallery-9.jpg',
+      '/images/vehicles/x55/gallery/63f3351fb366b7ef3e580bee_X55-exterior-gallery-10.jpg',
+      '/images/vehicles/x55/gallery/X55-interior-gallery-1.jpg',
+      '/images/vehicles/x55/gallery/X55-interior-gallery-2.jpg',
+      '/images/vehicles/x55/gallery/X55-interior-gallery-3.jpg',
+      '/images/vehicles/x55/gallery/X55-interior-gallery-5.jpg',
+      '/images/vehicles/x55/gallery/X55-interior-gallery-6.jpg',
+      '/images/vehicles/x55/gallery/X55-interior-gallery-7.jpg',
+      '/images/vehicles/x55/gallery/X55-interior-gallery-8.jpg',
+      '/images/vehicles/x55/gallery/X55-interior-gallery-10.jpg'
+    ],
+    'x55-plus': [
+      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_1.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_2.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_3.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_4.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_5.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_6.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_7.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_8.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_1.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_2.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_3.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_4.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_5.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_6.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_7.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_8.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new1.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new2.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new3.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new4.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new5.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new6.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new7.jpg',
+      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new8.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-b-image.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview1.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview2.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview3.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview4.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview5.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview6.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview7.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview8.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview9.jpg',
+      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview10.jpg'
+    ],
+    'b40-plus': [
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-1.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-2.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-3.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-4.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-6.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-7.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-8.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-9.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-10.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-11.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-13.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-14.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-interior-gallery-1.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-interior-gallery-2.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-interior-gallery-3.jpg',
+      '/images/vehicles/b40-plus/gallery/B40-interior-gallery-4.jpg'
+    ]
+  };
+  
   // State for current slide index
-  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // State for gallery modal
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [currentGalleryModel, setCurrentGalleryModel] = useState('x55');
   
   // Function to go to the next slide
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  };
+  }, [slides.length]);
   
   // Function to go to the previous slide
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  };
+  }, [slides.length]);
   
   // Function to go to a specific slide
-  const goToSlide = (index) => {
+  const goToSlide = useCallback((index) => {
     setCurrentSlide(index);
-  };
+  }, []);
   
   // Auto-advance the carousel every 5 seconds
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
     }, 5000);
     
     return () => clearInterval(interval);
-  }, []);
+  }, [nextSlide]);
   
   // Function to scroll to content below the hero section
   const scrollToContent = () => {
@@ -472,7 +552,10 @@ const HeroSection = () => {
             <SlideTitle>{slide.title}</SlideTitle>
             <CTAContainer>
               <CTAButton to="/book-test-drive" $primary>Test Drive</CTAButton>
-              <CTAButton to={slide.link}>View VR</CTAButton>
+              <CTAButton as="button" onClick={() => {
+                setCurrentGalleryModel(slide.model);
+                setIsGalleryOpen(true);
+              }}>View Gallery</CTAButton>
             </CTAContainer>
           </SlideContent>
         </CarouselSlide>
@@ -494,6 +577,14 @@ const HeroSection = () => {
       <ScrollIndicator onClick={scrollToContent}>
         <ScrollIcon />
       </ScrollIndicator>
+      
+      {/* Gallery Modal */}
+      <GalleryModal 
+        isOpen={isGalleryOpen}
+        onClose={() => setIsGalleryOpen(false)}
+        images={galleryImages[currentGalleryModel] || []}
+        title={slides.find(slide => slide.model === currentGalleryModel)?.title || 'Gallery'}
+      />
     </CarouselContainer>
   );
 };

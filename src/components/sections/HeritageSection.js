@@ -30,7 +30,7 @@ const ContentWrapper = styled.div`
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Align to the left */
+  align-items: center; /* Center align */
 `;
 
 const SectionTitle = styled.h2`
@@ -42,14 +42,14 @@ const SectionTitle = styled.h2`
   font-weight: 700;
   position: relative;
   display: inline-block;
-  text-align: left; /* Align to the left */
+  text-align: center; /* Center align */
   
   &::after {
     content: '';
     position: absolute;
     bottom: -10px;
-    left: 0; /* Align to the left */
-    transform: none; /* Remove the transform */
+    left: 50%; /* Center align */
+    transform: translateX(-50%); /* Center align */
     width: 80px;
     height: 3px;
     background-color: #e60012;
@@ -57,9 +57,9 @@ const SectionTitle = styled.h2`
 `;
 
 const SectionContent = styled.div`
-  max-width: 600px; /* Reduced width for left column */
-  margin: 0;
-  text-align: left; /* Align to the left */
+  max-width: 600px; /* Reduced width for content */
+  margin: 0 auto; /* Center align */
+  text-align: center; /* Center align */
 `;
 
 const Paragraph = styled.p`

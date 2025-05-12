@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 const PageContainer = styled.div`
@@ -83,21 +83,6 @@ const Select = styled.select`
   }
 `;
 
-const Input = styled.input`
-  width: 100%;
-  padding: 0.8rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  color: #333;
-  
-  &:focus {
-    outline: none;
-    border-color: #e60012;
-    box-shadow: 0 0 0 2px rgba(230, 0, 18, 0.1);
-  }
-`;
-
 const Button = styled.button`
   padding: 0.8rem 2rem;
   background-color: #e60012;
@@ -160,7 +145,7 @@ const DealerName = styled.h3`
   margin-bottom: 0.5rem;
 `;
 
-const DealerType = styled.span`
+const DealerRegion = styled.span`
   display: inline-block;
   padding: 0.3rem 0.8rem;
   background-color: #e60012;
@@ -198,40 +183,31 @@ const DealerContact = styled.p`
   }
 `;
 
-const DealerHours = styled.div`
-  margin-top: 1rem;
+const DealerWebsite = styled.p`
+  color: #555;
+  margin-bottom: 0.5rem;
   
-  h4 {
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-  
-  p {
-    color: #555;
-    margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.6;
+  a {
+    color: #e60012;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `;
 
 const DealerActions = styled.div`
-  display: flex;
-  gap: 1rem;
   margin-top: 1.5rem;
-  
-  @media (max-width: 480px) {
-    flex-direction: column;
-  }
 `;
 
 const DealerButton = styled.a`
-  flex: 1;
   display: inline-block;
+  width: 100%;
   padding: 0.8rem 1rem;
   text-align: center;
-  background-color: ${props => props.$primary ? '#e60012' : 'transparent'};
-  color: ${props => props.$primary ? 'white' : '#e60012'};
+  background-color: transparent;
+  color: #e60012;
   border: 1px solid #e60012;
   border-radius: 4px;
   font-weight: 500;
@@ -239,112 +215,143 @@ const DealerButton = styled.a`
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: ${props => props.$primary ? '#c5000f' : 'rgba(230, 0, 18, 0.1)'};
+    background-color: rgba(230, 0, 18, 0.1);
     transform: translateY(-2px);
   }
 `;
 
-const MapSection = styled.div`
-  margin-top: 4rem;
-`;
-
-const MapContainer = styled.div`
-  height: 500px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  overflow: hidden;
-  position: relative;
-  
-  iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-  }
-`;
-
-// Mock dealer data
-const mockDealers = [
+// Dealership data
+const BAIC_DEALERSHIPS = [
+  // Gauteng
   {
-    id: 1,
-    name: 'BAIC Johannesburg',
-    type: 'Flagship Dealer',
-    address: '123 Main Road, Sandton, Johannesburg, 2196',
-    phone: '+27 11 123 4567',
-    email: 'johannesburg@baic.co.za',
-    hours: {
-      weekdays: 'Monday - Friday: 8:00 AM - 6:00 PM',
-      saturday: 'Saturday: 9:00 AM - 3:00 PM',
-      sunday: 'Sunday: Closed'
-    },
-    location: {
-      lat: -26.107567,
-      lng: 28.056702
-    }
+    region: "Gauteng",
+    name: "BAIC Nigel",
+    address: "64 Springs Road, Nigel, 1491, Nigel",
+    phone: "011 100 5657",
+    email: "workshop@baicnigel.co.za",
+    website: "www.epsonmotors.co.za",
+    map_link: "https://maps.google.com/?q=64+Springs+Road,+Nigel,+1491,+Nigel"
   },
   {
-    id: 2,
-    name: 'BAIC Cape Town',
-    type: 'Authorized Dealer',
-    address: '456 Beach Road, Sea Point, Cape Town, 8001',
-    phone: '+27 21 987 6543',
-    email: 'capetown@baic.co.za',
-    hours: {
-      weekdays: 'Monday - Friday: 8:00 AM - 5:30 PM',
-      saturday: 'Saturday: 9:00 AM - 2:00 PM',
-      sunday: 'Sunday: Closed'
-    },
-    location: {
-      lat: -33.908747,
-      lng: 18.413977
-    }
+    region: "Gauteng",
+    name: "BAIC Pretoria North",
+    address: "466 Gerrit Maritz Road, Pretoria North, 0116, Pretoria North",
+    phone: "073 786 5814",
+    email: "md@squadcars.co.za; adnaan@squadcars.co.za",
+    website: "www.scmg.co.za",
+    map_link: "https://maps.google.com/?q=466+Gerrit+Maritz+Road,+Pretoria+North,+0116,+Pretoria+North"
   },
+  // KZN
   {
-    id: 3,
-    name: 'BAIC Durban',
-    type: 'Authorized Dealer',
-    address: '789 Umhlanga Rocks Drive, Umhlanga, Durban, 4320',
-    phone: '+27 31 765 4321',
-    email: 'durban@baic.co.za',
-    hours: {
-      weekdays: 'Monday - Friday: 8:30 AM - 5:30 PM',
-      saturday: 'Saturday: 9:00 AM - 1:00 PM',
-      sunday: 'Sunday: Closed'
-    },
-    location: {
-      lat: -29.726230,
-      lng: 31.066010
-    }
+    region: "KZN",
+    name: "BAIC Ladysmith",
+    address: "295 Murchison Street, Ladysmith, 3370, Ladysmith",
+    phone: "036 637 7837",
+    email: "dp@sntr.co.za",
+    website: "www.sntr.co.za",
+    map_link: "https://maps.google.com/?q=295+Murchison+Street,+Ladysmith,+3370,+Ladysmith"
   },
+  // Western Cape
   {
-    id: 4,
-    name: 'BAIC Pretoria',
-    type: 'Authorized Dealer',
-    address: '321 Pretorius Street, Hatfield, Pretoria, 0083',
-    phone: '+27 12 345 6789',
-    email: 'pretoria@baic.co.za',
-    hours: {
-      weekdays: 'Monday - Friday: 8:00 AM - 6:00 PM',
-      saturday: 'Saturday: 9:00 AM - 3:00 PM',
-      sunday: 'Sunday: Closed'
-    },
-    location: {
-      lat: -25.748884,
-      lng: 28.230480
-    }
+    region: "Western Cape",
+    name: "BAIC Malmesbury",
+    address: "22 Bokomo Street, Malmesbury, 7299, Malmesbury",
+    phone: "022 482 2981",
+    email: "info@baicmalmesbury.co.za",
+    website: "",
+    map_link: "https://maps.google.com/?q=22+Bokomo+Street,+Malmesbury,+7299,+Malmesbury"
+  },
+  // Free State
+  {
+    region: "Free State",
+    name: "BAIC Bethlehem",
+    address: "Corner of Muller and Commissioner Streets, Bethlehem, 9701, Bethlehem",
+    phone: "058 303 3600",
+    email: "trevor@scottgroup.co.za",
+    website: "www.scottgroup.co.za",
+    map_link: "https://maps.google.com/?q=Corner+of+Muller+and+Commissioner+Streets,+Bethlehem,+9701,+Bethlehem"
+  },
+  // Limpopo
+  {
+    region: "Limpopo",
+    name: "BAIC Polokwane",
+    address: "Cnr Landros Mare and Rissik Stree, Polokwane, Polokwane",
+    phone: "015 297 4823",
+    email: "service@bbmazdapol.co.za",
+    website: "",
+    map_link: "https://maps.google.com/?q=Cnr+Landros+Mare+and+Rissik+Stree,+Polokwane,+Polokwane"
+  },
+  // Eastern Cape
+  {
+    region: "Eastern Cape",
+    name: "BAIC Port Elizabeth",
+    address: "81 Perkins Street, North End, Port Elizabeth, 6001, Port Elizabeth",
+    phone: "041 395 8200",
+    email: "vinesh.ba@tavcor.co.za",
+    website: "https://www.tavcorautosales.co.za/baic/",
+    map_link: "https://maps.google.com/?q=81+Perkins+Street,+North+End,+Port+Elizabeth,+6001,+Port+Elizabeth"
+  },
+  // Mpumalanga
+  {
+    region: "Mpumalanga",
+    name: "BAIC Mbombela",
+    address: "6 Naaldekoker Crescent, Riverside, Mbombela, Mbombela",
+    phone: "013 756 4444",
+    email: "dvstaden@alanhudson.co.za",
+    website: "",
+    map_link: "https://maps.google.com/?q=6+Naaldekoker+Crescent,+Riverside,+Mbombela,+Mbombela"
+  },
+  // Northern Cape
+  {
+    region: "Northern Cape",
+    name: "BAIC Kimberley",
+    address: "59 Pniel Road, Kimberley, Kimberley",
+    phone: "053 807 4300",
+    email: "reenoc@groupmorgan.co.za",
+    website: "",
+    map_link: "https://maps.google.com/?q=59+Pniel+Road,+Kimberley,+Kimberley"
+  },
+  // North West
+  {
+    region: "North West",
+    name: "BAIC Klerksdorp",
+    address: "N12 Highway, Stilfontein, North West, Stilfontein",
+    phone: "081 062 6741",
+    email: "baickldsales@gmail.com",
+    website: "www.mmu-motors.co.za",
+    map_link: "https://maps.google.com/?q=N12+Highway,+Stilfontein,+North+West,+Stilfontein"
+  },
+  // Botswana
+  {
+    region: "Botswana",
+    name: "BAIC Botswana Gaborone CML Motors",
+    address: "Plot 5664 Kubu Road, Broadhurst Industrial, Gaborone, Gabrone",
+    phone: "(+267) 395 2652 / 241 0977",
+    email: "akhtar@commercialmotors.co.bw",
+    website: "",
+    map_link: "https://maps.google.com/?q=Plot+5664+Kubu+Road,+Broadhurst+Industrial,+Gaborone,+Gabrone"
   }
 ];
 
 const FindDealerPage = () => {
-  const [province, setProvince] = useState('');
-  const [city, setCity] = useState('');
-  const [dealers, setDealers] = useState(mockDealers);
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const [filteredDealers, setFilteredDealers] = useState(BAIC_DEALERSHIPS);
+  
+  // Get unique regions for the dropdown
+  const regions = [...new Set(BAIC_DEALERSHIPS.map(dealer => dealer.region))].sort();
+  
+  // Filter dealers when region changes
+  useEffect(() => {
+    if (selectedRegion) {
+      setFilteredDealers(BAIC_DEALERSHIPS.filter(dealer => dealer.region === selectedRegion));
+    } else {
+      setFilteredDealers(BAIC_DEALERSHIPS);
+    }
+  }, [selectedRegion]);
   
   const handleSearch = (e) => {
     e.preventDefault();
-    // In a real application, this would filter dealers based on province and city
-    // For this demo, we'll just use the mock data
-    console.log('Searching for dealers in', province, city);
-    setDealers(mockDealers);
+    // Filtering is already handled by the useEffect
   };
   
   return (
@@ -357,34 +364,17 @@ const FindDealerPage = () => {
       <SearchSection>
         <SearchForm onSubmit={handleSearch}>
           <FormGroup>
-            <Label htmlFor="province">Province</Label>
+            <Label htmlFor="region">Province</Label>
             <Select 
-              id="province" 
-              value={province} 
-              onChange={(e) => setProvince(e.target.value)}
+              id="region" 
+              value={selectedRegion} 
+              onChange={(e) => setSelectedRegion(e.target.value)}
             >
-              <option value="">Select Province</option>
-              <option value="gauteng">Gauteng</option>
-              <option value="western-cape">Western Cape</option>
-              <option value="kwazulu-natal">KwaZulu-Natal</option>
-              <option value="eastern-cape">Eastern Cape</option>
-              <option value="free-state">Free State</option>
-              <option value="mpumalanga">Mpumalanga</option>
-              <option value="limpopo">Limpopo</option>
-              <option value="north-west">North West</option>
-              <option value="northern-cape">Northern Cape</option>
+              <option value="">All Provinces</option>
+              {regions.map(region => (
+                <option key={region} value={region}>{region}</option>
+              ))}
             </Select>
-          </FormGroup>
-          
-          <FormGroup>
-            <Label htmlFor="city">City</Label>
-            <Input 
-              type="text" 
-              id="city" 
-              placeholder="Enter city name" 
-              value={city} 
-              onChange={(e) => setCity(e.target.value)}
-            />
           </FormGroup>
           
           <Button type="submit">Search</Button>
@@ -393,11 +383,11 @@ const FindDealerPage = () => {
       
       <ResultsSection>
         <ResultsGrid>
-          {dealers.map(dealer => (
-            <DealerCard key={dealer.id}>
+          {filteredDealers.map((dealer, index) => (
+            <DealerCard key={index}>
               <DealerHeader>
                 <DealerName>{dealer.name}</DealerName>
-                <DealerType>{dealer.type}</DealerType>
+                <DealerRegion>{dealer.region}</DealerRegion>
               </DealerHeader>
               
               <DealerBody>
@@ -406,24 +396,21 @@ const FindDealerPage = () => {
                   <DealerContact>
                     Phone: <a href={`tel:${dealer.phone}`}>{dealer.phone}</a>
                   </DealerContact>
-                  <DealerContact>
-                    Email: <a href={`mailto:${dealer.email}`}>{dealer.email}</a>
-                  </DealerContact>
-                  
-                  <DealerHours>
-                    <h4>Business Hours</h4>
-                    <p>{dealer.hours.weekdays}</p>
-                    <p>{dealer.hours.saturday}</p>
-                    <p>{dealer.hours.sunday}</p>
-                  </DealerHours>
+                  {dealer.email && (
+                    <DealerContact>
+                      Email: <a href={`mailto:${dealer.email}`}>{dealer.email}</a>
+                    </DealerContact>
+                  )}
+                  {dealer.website && (
+                    <DealerWebsite>
+                      Website: <a href={`https://${dealer.website}`} target="_blank" rel="noopener noreferrer">{dealer.website}</a>
+                    </DealerWebsite>
+                  )}
                 </DealerInfo>
                 
                 <DealerActions>
-                  <DealerButton href={`https://www.google.com/maps/search/?api=1&query=${dealer.location.lat},${dealer.location.lng}`} target="_blank" rel="noopener noreferrer">
+                  <DealerButton href={dealer.map_link} target="_blank" rel="noopener noreferrer">
                     Get Directions
-                  </DealerButton>
-                  <DealerButton href="/contact" $primary={true}>
-                    Book a Test Drive
                   </DealerButton>
                 </DealerActions>
               </DealerBody>
@@ -431,17 +418,6 @@ const FindDealerPage = () => {
           ))}
         </ResultsGrid>
       </ResultsSection>
-      
-      <MapSection>
-        <MapContainer>
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.1776517860574!2d18.4117892!3d-33.9087474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc67a6aff8c4a7%3A0x1d1c7a47a8e8c0eb!2sSea%20Point%2C%20Cape%20Town%2C%208001!5e0!3m2!1sen!2sza!4v1620144000000!5m2!1sen!2sza" 
-            allowFullScreen="" 
-            loading="lazy"
-            title="Dealer Locations"
-          ></iframe>
-        </MapContainer>
-      </MapSection>
     </PageContainer>
   );
 };

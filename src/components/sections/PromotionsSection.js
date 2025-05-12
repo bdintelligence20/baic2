@@ -151,24 +151,26 @@ const PromotionsSection = () => {
       image: '/images/promotions/x55promo.jpg',
       title: 'BEIJING X55 PLUS',
       subtitle: 'From R429 900',
-      enquireLink: '/contact-us',
-      financeLink: '/finance-options'
+      enquireLink: '/book-test-drive',
+      financeLink: '/finance-options',
+      showFinanceOptions: true
     },
     {
       id: 2,
       image: '/images/promotions/x55pluspromo.jpg',
       title: 'X55 PLUS',
       subtitle: 'at PRIME MINUS 5.35%',
-      enquireLink: '/contact-us',
-      financeLink: '/finance-options'
+      enquireLink: '/book-test-drive',
+      financeLink: '/vehicles/models/x55-plus#finance-options',
+      showFinanceOptions: true
     },
     {
       id: 3,
       image: '/images/promotions/b40pluspromo.jpg',
       title: 'B40 PLUS',
       subtitle: 'From R574 500',
-      enquireLink: '/contact-us',
-      financeLink: '/finance-options'
+      enquireLink: '/book-test-drive',
+      showFinanceOptions: false
     }
   ];
 
@@ -186,7 +188,9 @@ const PromotionsSection = () => {
                 <CardSubtitle>{promo.subtitle}</CardSubtitle>
                 <ButtonContainer>
                   <PrimaryButton to={promo.enquireLink}>Enquire Now</PrimaryButton>
-                  <SecondaryButton to={promo.financeLink}>Finance Options</SecondaryButton>
+                  {promo.showFinanceOptions && (
+                    <SecondaryButton to={promo.financeLink}>Finance Options</SecondaryButton>
+                  )}
                 </ButtonContainer>
               </CardContent>
             </Card>

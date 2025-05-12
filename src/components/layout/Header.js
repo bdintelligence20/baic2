@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
+import { useModal } from '../../context/ModalContext';
 
 const HeaderContainer = styled.header`
-  background-color: rgba(245, 245, 245, 0.9);
+  background-color: #ffffff;
   color: #333;
   padding: 1rem 2rem;
   display: flex;
@@ -17,10 +18,6 @@ const HeaderContainer = styled.header`
   z-index: 100;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.98);
-  }
   
   @media (max-width: 992px) {
     padding: 0.8rem 1.5rem;
@@ -122,7 +119,7 @@ const NavLink = styled(Link)`
   }
 `;
 
-const TestDriveButton = styled(Link)`
+const TestDriveButton = styled.button`
   background-color: #e60012;
   color: white;
   text-decoration: none;
@@ -381,6 +378,7 @@ const MobileTestDriveButton = styled(TestDriveButton)`
 `;
 
 const Header = () => {
+  const { openTypeformModal } = useModal();
   const [activeMenu, setActiveMenu] = useState(null);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -435,7 +433,7 @@ const Header = () => {
   
   return (
     <HeaderContainer onMouseLeave={handleMouseLeave} style={{ 
-      backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(245, 245, 245, 0.9)',
+      backgroundColor: '#ffffff',
       boxShadow: scrolled ? '0 2px 15px rgba(0, 0, 0, 0.15)' : '0 2px 10px rgba(0, 0, 0, 0.1)'
     }}>
       <LogoContainer>
@@ -469,7 +467,7 @@ const Header = () => {
         <MegaMenu isOpen={megaMenuOpen} activeMenu={activeMenu} />
       </Nav>
       
-      <TestDriveButton to="/book-test-drive">BOOK A TEST DRIVE</TestDriveButton>
+      <TestDriveButton onClick={openTypeformModal}>BOOK A TEST DRIVE</TestDriveButton>
       
       <MobileMenuButton onClick={toggleMobileMenu} aria-label="Toggle mobile menu">
         <HamburgerIcon className={mobileMenuOpen ? 'open' : ''}>
@@ -519,7 +517,7 @@ const Header = () => {
           <MobileNavLink to="/find-dealer" onClick={closeMobileMenu}>Find a Dealer</MobileNavLink>
         </MobileNavItem>
         
-        <MobileTestDriveButton to="/book-test-drive" onClick={closeMobileMenu}>BOOK A TEST DRIVE</MobileTestDriveButton>
+        <MobileTestDriveButton onClick={() => { closeMobileMenu(); openTypeformModal(); }}>BOOK A TEST DRIVE</MobileTestDriveButton>
         
         <MobileSocialIcons>
           <MobileSocialIcon href="#" aria-label="Instagram">
