@@ -157,6 +157,31 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 ```
 
+#### Port Configuration for Google Cloud Run
+
+Google Cloud Run expects your container to listen on the port specified by the `PORT` environment variable, which is typically set to `8080`. If your container is not configured to listen on this port, you'll encounter an error like:
+
+```
+ERROR: Revision is not ready and cannot serve traffic. The user-provided container failed to start and listen on the port defined provided by the PORT=8080 environment variable.
+```
+
+To fix this issue:
+
+1. Configure your Nginx server to listen on port 8080 in `nginx/nginx.conf`:
+   ```nginx
+   server {
+       listen 8080;
+       # rest of your configuration
+   }
+   ```
+
+2. Update your Dockerfile to expose port 8080:
+   ```dockerfile
+   EXPOSE 8080
+   ```
+
+This ensures that your container will properly listen on the port expected by Google Cloud Run.
+
 ## Cost Considerations
 
 - Cloud Run charges based on usage (requests and memory)
