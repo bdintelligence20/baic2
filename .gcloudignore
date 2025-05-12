@@ -1,0 +1,36 @@
+# .gcloudignore file for Google Cloud Build
+# Similar to .gitignore, but specifically for Google Cloud
+
+# Exclude git and GitHub files
+.git
+.github
+.gitignore
+
+# Exclude node modules (will be installed during build)
+node_modules/
+
+# Exclude build artifacts (will be generated during build)
+build/
+dist/
+
+# Exclude development and test files
+*.test.js
+*.spec.js
+__tests__/
+coverage/
+
+# Exclude documentation and other non-essential files
+*.md
+!DEPLOYMENT.md
+LICENSE
+.DS_Store
+
+# Exclude environment files
+.env*
+!.env.example
+
+# Exclude editor-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
