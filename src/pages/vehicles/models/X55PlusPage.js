@@ -411,8 +411,8 @@ const SpecDescription = styled.p`
 
 const SafetySection = styled.section`
   padding: 8rem 0;
-  background-color: #000;
-  color: white;
+  background-color: #fff;
+  color: #333;
 `;
 
 const SafetyContainer = styled.div`
@@ -875,6 +875,7 @@ const X55PlusPage = () => {
           <CTAContainer>
             <CTAButton to="/book-test-drive" $primary>Test Drive</CTAButton>
             <CTAButton as="button" onClick={openGallery}>View Gallery</CTAButton>
+            <CTAButton as="a" href="/documents/brochures/X55-PLUS-Brochure.pdf" target="_blank" rel="noopener noreferrer">Download Brochure</CTAButton>
           </CTAContainer>
         </HeroContent>
       </HeroSection>

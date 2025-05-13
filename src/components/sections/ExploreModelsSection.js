@@ -348,9 +348,9 @@ const ActionButtons = styled.div`
 `;
 
 const PrimaryButton = styled(Link)`
-  background-color: #e60012;
-  color: white;
-  border: none;
+  background-color: transparent;
+  color: #e60012;
+  border: 2px solid #e60012;
   padding: 1rem 2.5rem;
   font-size: 1rem;
   text-transform: uppercase;
@@ -362,7 +362,8 @@ const PrimaryButton = styled(Link)`
   font-weight: 600;
   
   &:hover {
-    background-color: #c5000f;
+    background-color: #e60012;
+    color: white;
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(230, 0, 18, 0.2);
   }
@@ -565,20 +566,6 @@ const ExploreModelsSection = () => {
 
   const models = [
     { 
-      id: 'x55', 
-      name: 'X55', 
-      color: '#c53030',
-      image: '/images/models/x55/x55-red.png',
-      tagline: 'Urban Elegance',
-      price: 'From R399,900',
-      specs: {
-        engine: '2.0L Turbo',
-        power: '160 kW',
-        acceleration: '7.9s',
-        economy: '7.2L/100km'
-      }
-    },
-    { 
       id: 'x55plus', 
       name: 'X55 Plus', 
       color: '#4a7a9b',
@@ -586,10 +573,10 @@ const ExploreModelsSection = () => {
       tagline: 'Premium Performance',
       price: 'From R459,900',
       specs: {
-        engine: '2.0L Turbo+',
-        power: '180 kW',
-        acceleration: '7.2s',
-        economy: '7.5L/100km'
+        engine: '1.5L Turbo',
+        power: '138 kW',
+        acceleration: '7.9s',
+        economy: '7.2L/100km'
       }
     },
     { 
@@ -604,6 +591,20 @@ const ExploreModelsSection = () => {
         power: '140 kW',
         acceleration: '9.5s',
         economy: '8.0L/100km'
+      }
+    },
+    { 
+      id: 'b30', 
+      name: 'B30', 
+      color: '#4a7a9b',
+      image: '/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png',
+      tagline: 'Coming Soon',
+      price: 'TBA',
+      specs: {
+        engine: 'Coming Soon',
+        power: 'Coming Soon',
+        acceleration: 'Coming Soon',
+        economy: 'Coming Soon'
       }
     }
   ];
@@ -623,6 +624,11 @@ const ExploreModelsSection = () => {
   }, [activeModel]);
   
   const handleModelChange = (modelId) => {
+    // Don't allow selecting B30 since it's coming soon
+    if (modelId === 'b30') {
+      return;
+    }
+    
     if (modelId !== activeModel && !animating) {
       setAnimating(true);
       setActiveModel(modelId);

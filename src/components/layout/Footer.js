@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const FooterContainer = styled.footer`
-  background-color: #111;
+  background-color: #f0f0f0;
   color: #666;
   padding: 4rem 2rem 2rem;
 `;
@@ -39,7 +39,7 @@ const FooterColumn = styled.div`
 `;
 
 const FooterTitle = styled.h4`
-  color: #fff;
+  color: #333;
   margin-bottom: 1.2rem;
   font-size: 1rem;
   font-weight: 600;
@@ -98,7 +98,7 @@ const SocialIcon = styled.a`
 
 const Divider = styled.hr`
   border: none;
-  border-top: 1px solid #333;
+  border-top: 1px solid #ccc;
   margin: 3rem 0 1.5rem;
 `;
 
@@ -141,63 +141,41 @@ const Footer = () => {
     <FooterContainer>
       <FooterContent>
         <FooterColumn>
-          <FooterTitle>BAIC</FooterTitle>
-          <FooterLink to="/about">About Us</FooterLink>
-          <FooterLink to="/about">Our History</FooterLink>
-          <FooterLink to="/careers">Careers</FooterLink>
-          <FooterLink to="/sustainability">Sustainability</FooterLink>
-          <ExternalLink href="#">Innovation</ExternalLink>
+          <FooterTitle>NAVIGATION</FooterTitle>
+          <FooterLink to="/">Home</FooterLink>
+          <FooterLink to="/about/company-overview">Company Overview</FooterLink>
+          <FooterLink to="/find-dealer">Find a Dealer</FooterLink>
+          <FooterLink to="/book-test-drive">Book a Test Drive</FooterLink>
         </FooterColumn>
         
         <FooterColumn>
           <FooterTitle>MODELS</FooterTitle>
-          <FooterLink to="/vehicles">X55</FooterLink>
-          <FooterLink to="/vehicles">X55 Plus</FooterLink>
-          <FooterLink to="/vehicles">X55 Dynamic</FooterLink>
-          <FooterLink to="/vehicles">B40 PLUS</FooterLink>
-          <ExternalLink href="#">Vehicle Comparison</ExternalLink>
-          <ExternalLink href="#">Price List</ExternalLink>
-        </FooterColumn>
-        
-        <FooterColumn>
-          <FooterTitle>SERVICES</FooterTitle>
-          <ExternalLink href="#">Financing</ExternalLink>
-          <ExternalLink href="#">Insurance</ExternalLink>
-          <ExternalLink href="#">Maintenance</ExternalLink>
-          <ExternalLink href="#">Warranty</ExternalLink>
-          <ExternalLink href="#">Roadside Assistance</ExternalLink>
-        </FooterColumn>
-        
-        <FooterColumn>
-          <FooterTitle>RESOURCES</FooterTitle>
-          <ExternalLink href="#">Brochures</ExternalLink>
-          <ExternalLink href="#">Owner Manuals</ExternalLink>
-          <FooterLink to="/media">Videos</FooterLink>
-          <ExternalLink href="#">FAQs</ExternalLink>
-          <FooterLink to="/media">News</FooterLink>
+          <span style={{ color: '#999', fontSize: '0.85rem' }}>B30 (Coming Soon)</span>
+          <FooterLink to="/vehicles/models/x55-plus">X55 Plus</FooterLink>
+          <FooterLink to="/vehicles/models/b40-plus">B40 Plus</FooterLink>
         </FooterColumn>
         
         <FooterColumn>
           <FooterTitle>CONNECT</FooterTitle>
-          <FooterLink to="/contact">Contact Us</FooterLink>
-          <FooterLink to="/contact">Dealerships</FooterLink>
-          <ExternalLink href="#">Newsletter</ExternalLink>
           <SocialIconsContainer>
             <SocialIcons>
-              <SocialIcon href="#" aria-label="Facebook">
+              <SocialIcon href="https://www.facebook.com/BAICSouthAfrica1" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <i className="fab fa-facebook-f"></i>
               </SocialIcon>
-              <SocialIcon href="#" aria-label="Twitter">
+              <SocialIcon href="https://x.com/baic_sa" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
                 <i className="fab fa-twitter"></i>
               </SocialIcon>
-              <SocialIcon href="#" aria-label="Instagram">
+              <SocialIcon href="https://www.instagram.com/baic.southafrica/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <i className="fab fa-instagram"></i>
               </SocialIcon>
-              <SocialIcon href="#" aria-label="YouTube">
+              <SocialIcon href="https://www.linkedin.com/company/99310100/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <i className="fab fa-linkedin-in"></i>
+              </SocialIcon>
+              <SocialIcon href="https://www.youtube.com/channel/UChPAuLblJuCt6k6rjua5lqg" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                 <i className="fab fa-youtube"></i>
               </SocialIcon>
-              <SocialIcon href="#" aria-label="LinkedIn">
-                <i className="fab fa-linkedin-in"></i>
+              <SocialIcon href="https://www.tiktok.com/@baic_sa" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <i className="fab fa-tiktok"></i>
               </SocialIcon>
             </SocialIcons>
           </SocialIconsContainer>

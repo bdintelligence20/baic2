@@ -129,8 +129,8 @@ const LeadershipTeamPage = () => {
       title: 'Chief Executive Officer',
       bio: 'With over 25 years of experience in the automotive industry, Wei has led BAIC through a period of unprecedented global growth and innovation.',
       social: {
-        linkedin: '#',
-        twitter: '#'
+        linkedin: 'https://www.linkedin.com/company/99310100/',
+        twitter: 'https://x.com/baic_sa'
       }
     },
     {
@@ -138,7 +138,7 @@ const LeadershipTeamPage = () => {
       title: 'Chief Financial Officer',
       bio: 'Li brings extensive financial expertise from both the automotive and technology sectors, driving BAIC\'s financial strategy and sustainable growth.',
       social: {
-        linkedin: '#'
+        linkedin: 'https://www.linkedin.com/company/99310100/'
       }
     },
     {
@@ -146,8 +146,8 @@ const LeadershipTeamPage = () => {
       title: 'Chief Technology Officer',
       bio: 'A pioneer in automotive technology, Sarah leads BAIC\'s research and development efforts, focusing on electric vehicles and autonomous driving.',
       social: {
-        linkedin: '#',
-        twitter: '#'
+        linkedin: 'https://www.linkedin.com/company/99310100/',
+        twitter: 'https://x.com/baic_sa'
       }
     }
   ];
@@ -158,7 +158,7 @@ const LeadershipTeamPage = () => {
       title: 'Director of Global Operations',
       bio: 'Michael oversees BAIC\'s manufacturing and supply chain operations across our global network of facilities.',
       social: {
-        linkedin: '#'
+        linkedin: 'https://www.linkedin.com/company/99310100/'
       }
     },
     {
@@ -166,8 +166,8 @@ const LeadershipTeamPage = () => {
       title: 'Director of Marketing',
       bio: 'Sophia leads BAIC\'s global marketing strategy, brand development, and customer engagement initiatives.',
       social: {
-        linkedin: '#',
-        twitter: '#'
+        linkedin: 'https://www.linkedin.com/company/99310100/',
+        twitter: 'https://x.com/baic_sa'
       }
     },
     {
@@ -175,7 +175,7 @@ const LeadershipTeamPage = () => {
       title: 'Director of Design',
       bio: 'An award-winning automotive designer, David leads the team responsible for BAIC\'s distinctive and innovative vehicle designs.',
       social: {
-        linkedin: '#'
+        linkedin: 'https://www.linkedin.com/company/99310100/'
       }
     },
     {
@@ -183,8 +183,8 @@ const LeadershipTeamPage = () => {
       title: 'Director of Sustainability',
       bio: 'Elena drives BAIC\'s environmental initiatives and sustainable manufacturing practices across our global operations.',
       social: {
-        linkedin: '#',
-        twitter: '#'
+        linkedin: 'https://www.linkedin.com/company/99310100/',
+        twitter: 'https://x.com/baic_sa'
       }
     }
   ];
@@ -212,12 +212,12 @@ const LeadershipTeamPage = () => {
               <LeaderBio>{executive.bio}</LeaderBio>
               <SocialLinks>
                 {executive.social.linkedin && (
-                  <SocialLink href={executive.social.linkedin} aria-label="LinkedIn">
+                  <SocialLink href={executive.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                     <i className="fab fa-linkedin-in"></i>
                   </SocialLink>
                 )}
                 {executive.social.twitter && (
-                  <SocialLink href={executive.social.twitter} aria-label="Twitter">
+                  <SocialLink href={executive.social.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                     <i className="fab fa-twitter"></i>
                   </SocialLink>
                 )}
@@ -240,12 +240,12 @@ const LeadershipTeamPage = () => {
               <LeaderBio>{director.bio}</LeaderBio>
               <SocialLinks>
                 {director.social.linkedin && (
-                  <SocialLink href={director.social.linkedin} aria-label="LinkedIn">
+                  <SocialLink href={director.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                     <i className="fab fa-linkedin-in"></i>
                   </SocialLink>
                 )}
                 {director.social.twitter && (
-                  <SocialLink href={director.social.twitter} aria-label="Twitter">
+                  <SocialLink href={director.social.twitter} target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                     <i className="fab fa-twitter"></i>
                   </SocialLink>
                 )}

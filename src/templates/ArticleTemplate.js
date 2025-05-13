@@ -203,13 +203,13 @@ const ArticleTemplate = ({ articleData }) => {
           <SidebarSection>
             <SidebarTitle>Share</SidebarTitle>
             <ShareSection>
-              <ShareButton href="#" aria-label="Share on Facebook">
+              <ShareButton href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
                 <i className="fab fa-facebook-f"></i>
               </ShareButton>
-              <ShareButton href="#" aria-label="Share on Twitter">
+              <ShareButton href="https://twitter.com/intent/tweet?url=" target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter">
                 <i className="fab fa-twitter"></i>
               </ShareButton>
-              <ShareButton href="#" aria-label="Share on LinkedIn">
+              <ShareButton href="https://www.linkedin.com/sharing/share-offsite/?url=" target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
                 <i className="fab fa-linkedin-in"></i>
               </ShareButton>
               <ShareButton href="#" aria-label="Share via Email">

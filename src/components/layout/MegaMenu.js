@@ -222,10 +222,10 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
               <MenuTitle>Our Models</MenuTitle>
               <MenuList>
                 <ModelMenuItem className="menu-item">
-                  <ModelLink to="/vehicles/models/x55">
-                    <ModelImage src="/images/models/x55/x55-red.png" alt="X55" />
-                    <span>X55</span>
-                  </ModelLink>
+                  <div style={{ display: 'flex', alignItems: 'center', cursor: 'default' }}>
+                    <ModelImage src="/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png" alt="B30" />
+                    <span>B30 (Coming Soon)</span>
+                  </div>
                 </ModelMenuItem>
                 <ModelMenuItem className="menu-item">
                   <ModelLink to="/vehicles/models/x55-plus">

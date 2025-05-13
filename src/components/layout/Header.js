@@ -120,8 +120,8 @@ const NavLink = styled(Link)`
 `;
 
 const TestDriveButton = styled.button`
-  background-color: #e60012;
-  color: white;
+  background-color: transparent;
+  color: #e60012;
   text-decoration: none;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
@@ -131,9 +131,11 @@ const TestDriveButton = styled.button`
   font-size: 0.85rem;
   transition: all 0.3s ease;
   white-space: nowrap;
+  border: 2px solid #e60012;
   
   &:hover {
-    background-color: #c5000f;
+    background-color: #e60012;
+    color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -157,14 +159,11 @@ const SocialIcons = styled.div`
   right: 2rem;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 90;
   
   @media (max-width: 992px) {
     right: 1rem;
     gap: 1rem;
-  }
-  
-  @media (max-width: 768px) {
-    display: none; /* Hide on mobile */
   }
 `;
 
@@ -175,19 +174,28 @@ const SocialIcon = styled.a`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: rgba(100, 100, 100, 0.7);
+  background-color: rgba(100, 100, 100, 0.8);
   color: white;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   
   &:hover {
-    background-color: rgba(150, 150, 150, 0.9);
+    background-color: #e60012;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
   
   @media (max-width: 992px) {
     width: 35px;
     height: 35px;
     font-size: 0.9rem;
+  }
+  
+  @media (max-width: 768px) {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
   }
 `;
 
@@ -453,7 +461,7 @@ const Header = () => {
         
         <NavItem onMouseEnter={() => handleMouseEnter('vehicles')}>
           <NavLink 
-            to="/vehicles/models/x55" 
+            to="/vehicles" 
             className={`has-dropdown ${activeMenu === 'vehicles' && megaMenuOpen ? 'active' : ''}`}
           >
             Vehicles
@@ -499,7 +507,7 @@ const Header = () => {
           
           <MobileSubMenu $isOpen={expandedMobileMenus.vehicles}>
             <MobileSubNavItem>
-              <MobileSubNavLink to="/vehicles/models/x55" onClick={closeMobileMenu}>X55</MobileSubNavLink>
+              <span style={{ color: '#555', fontSize: '1.1rem', padding: '0.3rem 0', display: 'block' }}>B30 (Coming Soon)</span>
             </MobileSubNavItem>
             <MobileSubNavItem>
               <MobileSubNavLink to="/vehicles/models/x55-plus" onClick={closeMobileMenu}>X55 Plus</MobileSubNavLink>
@@ -520,33 +528,45 @@ const Header = () => {
         <MobileTestDriveButton onClick={() => { closeMobileMenu(); openTypeformModal(); }}>BOOK A TEST DRIVE</MobileTestDriveButton>
         
         <MobileSocialIcons>
-          <MobileSocialIcon href="#" aria-label="Instagram">
+          <MobileSocialIcon href="https://www.instagram.com/baic.southafrica/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <i className="fab fa-instagram"></i>
           </MobileSocialIcon>
-          <MobileSocialIcon href="#" aria-label="YouTube">
+          <MobileSocialIcon href="https://www.youtube.com/channel/UChPAuLblJuCt6k6rjua5lqg" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
             <i className="fab fa-youtube"></i>
           </MobileSocialIcon>
-          <MobileSocialIcon href="#" aria-label="Twitter">
+          <MobileSocialIcon href="https://x.com/baic_sa" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
             <i className="fab fa-twitter"></i>
           </MobileSocialIcon>
-          <MobileSocialIcon href="#" aria-label="Facebook">
+          <MobileSocialIcon href="https://www.facebook.com/BAICSouthAfrica1" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
             <i className="fab fa-facebook-f"></i>
+          </MobileSocialIcon>
+          <MobileSocialIcon href="https://www.linkedin.com/company/99310100/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <i className="fab fa-linkedin-in"></i>
+          </MobileSocialIcon>
+          <MobileSocialIcon href="https://www.tiktok.com/@baic_sa" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+            <i className="fab fa-tiktok"></i>
           </MobileSocialIcon>
         </MobileSocialIcons>
       </MobileMenu>
       
       <SocialIcons>
-        <SocialIcon href="#" aria-label="Instagram">
+        <SocialIcon href="https://www.instagram.com/baic.southafrica/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
           <i className="fab fa-instagram"></i>
         </SocialIcon>
-        <SocialIcon href="#" aria-label="YouTube">
+        <SocialIcon href="https://www.youtube.com/channel/UChPAuLblJuCt6k6rjua5lqg" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
           <i className="fab fa-youtube"></i>
         </SocialIcon>
-        <SocialIcon href="#" aria-label="Twitter">
+        <SocialIcon href="https://x.com/baic_sa" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
           <i className="fab fa-twitter"></i>
         </SocialIcon>
-        <SocialIcon href="#" aria-label="Facebook">
+        <SocialIcon href="https://www.facebook.com/BAICSouthAfrica1" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
           <i className="fab fa-facebook-f"></i>
+        </SocialIcon>
+        <SocialIcon href="https://www.linkedin.com/company/99310100/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i className="fab fa-linkedin-in"></i>
+        </SocialIcon>
+        <SocialIcon href="https://www.tiktok.com/@baic_sa" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <i className="fab fa-tiktok"></i>
         </SocialIcon>
       </SocialIcons>
     </HeaderContainer>
