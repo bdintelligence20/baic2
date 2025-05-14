@@ -170,7 +170,7 @@ const HeritageSection = () => {
             This is what fuels our commitment to creating vehicles for those who dare to Brave New Roads.
           </Paragraph>
           
-          <ExploreButton to="/vehicles">Explore Brave New Roads</ExploreButton>
+          <ExploreButton to="/about/company-overview">Explore Brave New Roads</ExploreButton>
         </SectionContent>
       </ContentWrapper>
     </SectionContainer>
