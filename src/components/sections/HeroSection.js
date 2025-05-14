@@ -51,7 +51,7 @@ const StyledSlider = styled.div`
     }
     
     li.slick-active button:before {
-      color: #e60012;
+      color: var(--primary-color);
       opacity: 1;
     }
   }
@@ -193,9 +193,9 @@ const CTAContainer = styled.div`
 
 const CTAButton = styled(Link)`
   padding: 1rem 2rem;
-  background-color: ${props => props.$primary ? '#e60012' : 'transparent'};
-  color: white;
-  border: 2px solid ${props => props.$primary ? '#e60012' : 'white'};
+  background-color: ${props => props.$primary ? 'var(--primary-color)' : 'transparent'};
+  color: var(--primary-color-text);
+  border: 2px solid ${props => props.$primary ? 'var(--primary-color)' : 'white'};
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -204,7 +204,8 @@ const CTAButton = styled(Link)`
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: ${props => props.$primary ? '#c5000f' : 'rgba(255, 255, 255, 0.1)'};
+    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(255, 255, 255, 0.1)'};
+    border-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'white'};
     transform: translateY(-3px);
   }
   
@@ -378,12 +379,12 @@ const Dot = styled.div`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: ${props => (props.$active ? '#e60012' : 'rgba(255, 255, 255, 0.7)')};
+  background-color: ${props => (props.$active ? 'var(--primary-color)' : 'rgba(255, 255, 255, 0.7)')};
   cursor: pointer;
   transition: background-color 0.3s ease;
   
   &:hover {
-    background-color: ${props => (props.$active ? '#e60012' : '#ffffff')};
+    background-color: ${props => (props.$active ? 'var(--primary-color-hover)' : '#ffffff')};
   }
   
   @media (max-width: 480px) {
