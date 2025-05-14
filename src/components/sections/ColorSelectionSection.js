@@ -88,7 +88,7 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
   }
 `;
 
@@ -281,17 +281,17 @@ const ModelSelectionContainer = styled.div`
 
 const ModelTab = styled.div`
   padding: 0.8rem 1.5rem;
-  background-color: ${props => props.$active ? '#e60012' : 'transparent'};
-  color: ${props => props.$active ? 'white' : '#333'};
-  border: 2px solid ${props => props.$active ? '#e60012' : '#ddd'};
+  background-color: ${props => props.$active ? 'var(--primary-color)' : 'transparent'};
+  color: ${props => props.$active ? 'var(--primary-color-text)' : 'var(--text-color)'};
+  border: 2px solid ${props => props.$active ? 'var(--primary-color)' : 'var(--border-color)'};
   border-radius: 4px;
   font-weight: ${props => props.$active ? '600' : '500'};
   cursor: pointer;
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: ${props => props.$active ? '#e60012' : 'rgba(0,0,0,0.05)'};
-    border-color: ${props => props.$active ? '#e60012' : '#999'};
+    background-color: ${props => props.$active ? 'var(--primary-color-hover)' : 'rgba(0,0,0,0.05)'};
+    border-color: ${props => props.$active ? 'var(--primary-color-hover)' : '#999'};
   }
   
   @media (max-width: 768px) {

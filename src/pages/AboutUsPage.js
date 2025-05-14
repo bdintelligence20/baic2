@@ -57,7 +57,7 @@ const SectionTitle = styled.h2`
     left: 0;
     width: 60px;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
   }
 `;
 
@@ -70,7 +70,7 @@ const SectionDescription = styled.p`
 
 const SectionLink = styled(Link)`
   display: inline-block;
-  color: #e60012;
+  color: var(--primary-color-light-text);
   font-weight: 600;
   text-decoration: none;
   position: relative;
@@ -82,7 +82,7 @@ const SectionLink = styled(Link)`
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.3s ease;

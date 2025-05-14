@@ -145,8 +145,8 @@ const CTAContainer = styled.div`
 `;
 
 const CTAButton = styled(Link)`
-  background-color: ${props => props.$primary ? '#e60012' : 'transparent'};
-  color: white;
+  background-color: ${props => props.$primary ? 'var(--primary-color)' : 'transparent'};
+  color: var(--primary-color-text);
   text-decoration: none;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
@@ -159,7 +159,7 @@ const CTAButton = styled(Link)`
   border: ${props => props.$primary ? 'none' : '2px solid white'};
   
   &:hover {
-    background-color: ${props => props.$primary ? '#c5000f' : 'rgba(255, 255, 255, 0.1)'};
+    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(255, 255, 255, 0.1)'};
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -256,8 +256,8 @@ const FeatureDescription = styled.p`
 `;
 
 const FeatureCTAButton = styled(Link)`
-  background-color: #e60012;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
   text-decoration: none;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
@@ -276,7 +276,7 @@ const FeatureCTAButton = styled(Link)`
   align-self: center;
   
   &:hover {
-    background-color: #c5000f;
+    background-color: var(--primary-color-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -381,7 +381,7 @@ const SpecCard = styled.div`
 const SpecIcon = styled.div`
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: #e60012;
+  color: var(--primary-color);
 `;
 
 const SpecTitle = styled.h3`
@@ -394,7 +394,7 @@ const SpecValue = styled.p`
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  color: #e60012;
+  color: var(--primary-color);
 `;
 
 const SpecUnit = styled.span`
@@ -460,7 +460,7 @@ const SafetyCard = styled.div`
 
 const SafetyIcon = styled.div`
   font-size: 3rem;
-  color: #e60012;
+  color: var(--primary-color);
   margin-bottom: 1.5rem;
   height: 60px;
   display: flex;
@@ -472,7 +472,7 @@ const SafetyCardTitle = styled.h3`
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #e60012;
+  color: var(--primary-color);
 `;
 
 const SafetyCardDescription = styled.p`
@@ -539,7 +539,7 @@ const OffRoadSpecCard = styled.div`
 const OffRoadSpecValue = styled.p`
   font-size: 2.5rem;
   font-weight: 700;
-  color: #e60012;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 `;
 
@@ -594,7 +594,7 @@ const CloseButton = styled.button`
   z-index: 10;
   
   &:hover {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
 `;
 
@@ -625,7 +625,7 @@ const GalleryCloseButton = styled.button`
   z-index: 1010;
   
   &:hover {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
 `;
 
@@ -647,8 +647,8 @@ const GalleryGrid = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
   
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
+  &:hover {
+    color: var(--primary-color-light-text);
   }
 `;
 
@@ -660,7 +660,7 @@ const GalleryItem = styled.div`
   transition: transform 0.3s ease;
   
   &:hover {
-    transform: scale(1.03);
+    color: var(--primary-color-light-text);
   }
   
   img {
@@ -710,7 +710,7 @@ const LightboxCloseButton = styled.button`
   color: white;
   
   &:hover {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
 `;
 
@@ -727,7 +727,7 @@ const LightboxNavButton = styled.button`
   z-index: 1110;
   
   &:hover {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
   
   @media (max-width: 768px) {
@@ -746,8 +746,8 @@ const ImageCounter = styled.div`
 `;
 
 const SpecsButton = styled.button`
-  background-color: #e60012;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
   text-decoration: none;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
@@ -763,7 +763,7 @@ const SpecsButton = styled.button`
   margin: 0 auto;
   
   &:hover {
-    background-color: #c5000f;
+    background-color: var(--primary-color-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -803,7 +803,7 @@ const TechSpecsTitle = styled.h2`
     display: block;
     width: 60px;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
     margin: 1rem auto 0;
   }
 `;

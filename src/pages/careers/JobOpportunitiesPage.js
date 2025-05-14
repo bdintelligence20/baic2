@@ -54,7 +54,7 @@ const FilterSelect = styled.select`
   
   &:focus {
     outline: none;
-    border-color: #e60012;
+    border-color: var(--primary-color);
   }
 `;
 
@@ -74,7 +74,7 @@ const SearchInput = styled.input`
   
   &:focus {
     outline: none;
-    border-color: #e60012;
+    border-color: var(--primary-color);
   }
 `;
 
@@ -170,8 +170,8 @@ const JobDate = styled.span`
 `;
 
 const ApplyButton = styled.button`
-  background-color: #e60012;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
   padding: 0.6rem 1.2rem;
   font-size: 0.9rem;
   font-weight: 600;
@@ -181,7 +181,7 @@ const ApplyButton = styled.button`
   transition: background-color 0.3s ease;
   
   &:hover {
-    background-color: #c5000f;
+    background-color: var(--primary-color-hover);
   }
 `;
 
@@ -198,16 +198,16 @@ const PageButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid ${props => props.$active ? '#e60012' : '#ddd'};
-  background-color: ${props => props.$active ? '#e60012' : 'white'};
-  color: ${props => props.$active ? 'white' : '#333'};
+  border: 1px solid ${props => props.$active ? 'var(--primary-color)' : 'var(--border-color)'};
+  background-color: ${props => props.$active ? 'var(--primary-color)' : 'var(--background-color)'};
+  color: ${props => props.$active ? 'var(--primary-color-text)' : 'var(--text-color)'};
   border-radius: 4px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: ${props => props.$active ? '#c5000f' : '#f5f5f5'};
+    background-color: ${props => props.$active ? 'var(--primary-color-hover)' : 'var(--light-background-color)'};
   }
 `;
 

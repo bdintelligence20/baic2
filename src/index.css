@@ -5,6 +5,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* BAIC Theme Variables */
+  --primary-color: #222222; /* Was #e60012 */
+  --primary-color-hover: #000000;
+  --primary-color-text: #ffffff;
+  --primary-color-light-text: #222222; /* For text on light backgrounds, was #e60012 */
+
+  --secondary-color: #6c757d; /* Example secondary color, adjust as needed */
+  --secondary-color-hover: #5a6268;
+  --secondary-color-text: #ffffff;
+
+  --text-color: #333333;
+  --light-text-color: #666666;
+  --background-color: #ffffff;
+  --light-background-color: #f8f8f8;
+  --border-color: #dddddd;
 }
 
 code {

@@ -69,7 +69,7 @@ const MenuTitle = styled.h3`
     left: 0;
     width: 40px;
     height: 2px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
   }
 `;
 
@@ -98,7 +98,7 @@ const MenuLink = styled(Link)`
   position: relative;
   
   &:hover {
-    color: #e60012;
+    color: var(--primary-color-light-text);
     transform: translateX(5px);
   }
   
@@ -111,7 +111,7 @@ const MenuLink = styled(Link)`
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: #e60012;
+    background-color: var(--primary-color);
     transition: transform 0.3s ease;
     opacity: 0;
   }
@@ -201,7 +201,7 @@ const FeaturedDescription = styled.p`
 
 const FeaturedLink = styled(Link)`
   font-size: 0.8rem;
-  color: #e60012;
+  color: var(--primary-color-light-text);
   text-decoration: none;
   font-weight: 500;
   display: inline-block;

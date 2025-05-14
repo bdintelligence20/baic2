@@ -57,7 +57,7 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
   }
 `;
 
@@ -149,7 +149,7 @@ const ModelTagline = styled.p`
 const ActiveIndicator = styled.div`
   width: 40px;
   height: 3px;
-  background-color: #e60012;
+  background-color: var(--primary-color);
   margin: 0.8rem auto 0;
   transition: all 0.3s ease;
   opacity: ${props => props.$active ? 1 : 0};
@@ -254,7 +254,7 @@ const FeaturedModelTitle = styled.h3`
 const FeaturedModelPrice = styled.div`
   font-size: 1.2rem;
   font-weight: 600;
-  color: #e60012;
+  color: var(--primary-color);
 `;
 
 const FeaturedModelImageContainer = styled.div`
@@ -349,8 +349,8 @@ const ActionButtons = styled.div`
 
 const PrimaryButton = styled(Link)`
   background-color: transparent;
-  color: #e60012;
-  border: 2px solid #e60012;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
   padding: 1rem 2.5rem;
   font-size: 1rem;
   text-transform: uppercase;
@@ -362,10 +362,10 @@ const PrimaryButton = styled(Link)`
   font-weight: 600;
   
   &:hover {
-    background-color: #e60012;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(230, 0, 18, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Adjusted shadow to be more neutral */
   }
   
   @media (max-width: 576px) {
@@ -376,8 +376,8 @@ const PrimaryButton = styled(Link)`
 
 const SecondaryButton = styled(Link)`
   background-color: transparent;
-  color: #222;
-  border: 2px solid #222;
+  color: var(--text-color);
+  border: 2px solid var(--text-color);
   padding: 1rem 2.5rem;
   font-size: 1rem;
   text-transform: uppercase;
@@ -389,8 +389,8 @@ const SecondaryButton = styled(Link)`
   font-weight: 600;
   
   &:hover {
-    background-color: #222;
-    color: white;
+    background-color: var(--text-color);
+    color: var(--background-color);
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   }
@@ -571,7 +571,7 @@ const ExploreModelsSection = () => {
       color: '#4a7a9b',
       image: '/images/models/x55/x55-turqoise.png',
       tagline: 'Premium Performance',
-      price: 'From R459,900',
+      price: 'From R429 900',
       specs: {
         engine: '1.5L Turbo',
         power: '138 kW',
@@ -750,12 +750,16 @@ const ExploreModelsSection = () => {
           </SpecsContainer>
           
           <ActionButtons>
-            <PrimaryButton to={`/vehicles/models/${activeModel.toLowerCase()}`}>
+            <PrimaryButton 
+              to={activeModelData.id === 'x55plus' ? '/vehicles/models/x55-plus' : `/vehicles/models/${activeModel.toLowerCase()}`}
+            >
               Explore {activeModelData.name}
             </PrimaryButton>
-            <SecondaryButton to="/vehicles/comparison">
-              Compare Models
-            </SecondaryButton>
+            {activeModelData.id !== 'x55plus' && activeModelData.id !== 'b40plus' && (
+              <SecondaryButton to="/vehicles/comparison">
+                Compare Models
+              </SecondaryButton>
+            )}
           </ActionButtons>
         </FeaturedModelContainer>
       </ContentWrapper>

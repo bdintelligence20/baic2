@@ -18,8 +18,8 @@ const TabsContainer = styled.div`
 
 const Tab = styled.button`
   padding: 1rem 1.5rem;
-  background-color: ${props => props.$active ? '#e60012' : 'transparent'};
-  color: ${props => props.$active ? 'white' : '#333'};
+  background-color: ${props => props.$active ? 'var(--primary-color)' : 'transparent'};
+  color: ${props => props.$active ? 'var(--primary-color-text)' : 'var(--text-color)'};
   border: none;
   cursor: pointer;
   font-size: 1rem;
@@ -27,7 +27,7 @@ const Tab = styled.button`
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: ${props => props.$active ? '#e60012' : '#f5f5f5'};
+    background-color: ${props => props.$active ? 'var(--primary-color-hover)' : 'var(--light-background-color)'};
   }
   
   @media (max-width: 768px) {
@@ -85,7 +85,7 @@ const SearchInput = styled.input`
   
   &:focus {
     outline: none;
-    border-color: #e60012;
+    border-color: var(--primary-color);
   }
 `;
 
@@ -96,13 +96,13 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.thead`
-  background-color: #e60012;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
   
   th {
     position: sticky;
     top: 0;
-    background-color: #e60012;
+    background-color: var(--primary-color);
     z-index: 10;
   }
 `;

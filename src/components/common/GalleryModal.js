@@ -28,7 +28,7 @@ const GalleryCloseButton = styled.button`
   z-index: 1010;
   
   &:hover {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
 `;
 
@@ -113,7 +113,7 @@ const LightboxCloseButton = styled.button`
   color: white;
   
   &:hover {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
 `;
 
@@ -133,9 +133,9 @@ const LightboxNavButton = styled.button`
     color: #e60012;
   }
   
-  @media (max-width: 768px) {
-    ${props => props.$direction === 'prev' ? 'left: 1rem;' : 'right: 1rem;'}
-    font-size: 1.5rem;
+  &:focus, &:hover {
+    outline: none;
+    color: var(--primary-color-light-text);
   }
 `;
 

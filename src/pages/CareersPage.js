@@ -48,14 +48,14 @@ const SectionTitle = styled.h2`
     left: 0;
     width: 60px;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
   }
 `;
 
 const CTAButton = styled(Link)`
   display: inline-block;
-  background-color: #e60012;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
   padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 600;
@@ -67,7 +67,7 @@ const CTAButton = styled(Link)`
   text-decoration: none;
   
   &:hover {
-    background-color: #c5000f;
+    background-color: var(--primary-color-hover);
   }
 `;
 

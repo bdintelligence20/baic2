@@ -79,7 +79,7 @@ const NavLink = styled(Link)`
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
     transition: width 0.3s ease;
   }
   
@@ -96,18 +96,18 @@ const NavLink = styled(Link)`
       height: 0;
       border-left: 5px solid transparent;
       border-right: 5px solid transparent;
-      border-top: 5px solid #333;
+      border-top: 5px solid var(--text-color); /* Use text-color */
       transition: transform 0.3s ease;
     }
     
     &:hover::before, &.active::before {
-      border-top-color: #e60012;
+      border-top-color: var(--primary-color-light-text); /* Use light text for active/hover */
       transform: translateY(-50%) rotate(180deg);
     }
   }
   
   &:hover, &.active {
-    color: #e60012;
+    color: var(--primary-color-light-text); /* Use light text for active/hover */
     
     &:after {
       width: 100%;
@@ -121,7 +121,7 @@ const NavLink = styled(Link)`
 
 const TestDriveButton = styled.button`
   background-color: transparent;
-  color: #e60012;
+  color: var(--primary-color-light-text);
   text-decoration: none;
   padding: 0.8rem 1.5rem;
   border-radius: 4px;
@@ -131,11 +131,11 @@ const TestDriveButton = styled.button`
   font-size: 0.85rem;
   transition: all 0.3s ease;
   white-space: nowrap;
-  border: 2px solid #e60012;
+  border: 2px solid var(--primary-color-light-text);
   
   &:hover {
-    background-color: #e60012;
-    color: white;
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
@@ -181,7 +181,7 @@ const SocialIcon = styled.a`
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   
   &:hover {
-    background-color: #e60012;
+    background-color: var(--primary-color);
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
@@ -309,7 +309,7 @@ const MobileNavLink = styled(Link)`
   border-bottom: 1px solid #eee;
   
   &:hover, &.active {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
 `;
 
@@ -330,7 +330,7 @@ const MobileNavButton = styled.button`
   text-align: left;
   
   &:hover, &.active {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
   
   span.arrow {
@@ -363,7 +363,7 @@ const MobileSubNavLink = styled(Link)`
   padding: 0.3rem 0;
   
   &:hover {
-    color: #e60012;
+    color: var(--primary-color-light-text);
   }
 `;
 

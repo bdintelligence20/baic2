@@ -31,7 +31,7 @@ const SectionTitle = styled.h2`
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color); /* Used CSS variable */
   }
 `;
 
@@ -72,6 +72,7 @@ const CardImage = styled.div`
 
 const CardContent = styled.div`
   padding: 2rem;
+  text-align: center; /* Center text content */
 `;
 
 const CardTitle = styled.h3`
@@ -90,19 +91,16 @@ const CardSubtitle = styled.p`
 
 const ButtonContainer = styled.div`
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: center; /* Center buttons horizontally */
+  gap: 0.8rem; /* Keep the gap for stacked buttons */
   margin-top: 1.5rem;
-  
-  @media (max-width: 1100px) {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
 `;
 
 const PrimaryButton = styled(Link)`
   display: inline-block;
-  background-color: #e60012;
-  color: white;
+  background-color: var(--primary-color); /* Used CSS variable */
+  color: var(--primary-color-text);
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -114,16 +112,16 @@ const PrimaryButton = styled(Link)`
   text-align: center;
   
   &:hover {
-    background-color: #ff1a2d;
+    background-color: var(--primary-color-hover); /* Used CSS variable */
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(230, 0, 18, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
 `;
 
 const SecondaryButton = styled(Link)`
   display: inline-block;
   background-color: transparent;
-  color: #222;
+  color: var(--text-color);
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -132,12 +130,12 @@ const SecondaryButton = styled(Link)`
   border-radius: 4px;
   text-decoration: none;
   transition: all 0.3s ease;
-  border: 2px solid #222;
+  border: 2px solid var(--text-color);
   text-align: center;
   
   &:hover {
-    background-color: #222;
-    color: white;
+    background-color: var(--text-color);
+    color: var(--background-color);
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }
@@ -149,10 +147,10 @@ const PromotionsSection = () => {
     {
       id: 1,
       image: '/images/promotions/x55promo.jpg',
-      title: 'BEIJING X55 PLUS',
+      title: 'X55 PLUS',
       subtitle: 'From R429 900',
       enquireLink: '/book-test-drive',
-      financeLink: '/finance-options',
+      financeLink: '/vehicles/models/x55-plus#finance-options',
       showFinanceOptions: true
     },
     {

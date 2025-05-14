@@ -27,7 +27,7 @@ const Title = styled.h1`
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
   }
 `;
 
@@ -67,7 +67,7 @@ const PromotionDetails = styled.div`
 const PromotionPrice = styled.div`
   font-size: 2.5rem;
   font-weight: 700;
-  color: #e60012;
+  color: var(--primary-color);
   margin-bottom: 1rem;
 `;
 
@@ -90,7 +90,7 @@ const PromotionFeatures = styled.ul`
       content: '✓';
       position: absolute;
       left: 0;
-      color: #e60012;
+      color: var(--primary-color);
       font-weight: bold;
     }
   }
@@ -108,9 +108,9 @@ const PromotionCTA = styled.div`
 const Button = styled.a`
   display: inline-block;
   padding: 1rem 2rem;
-  background-color: ${props => props.$primary ? '#e60012' : 'transparent'};
-  color: ${props => props.$primary ? 'white' : '#e60012'};
-  border: 2px solid #e60012;
+  background-color: ${props => props.$primary ? 'var(--primary-color)' : 'transparent'};
+  color: ${props => props.$primary ? 'var(--primary-color-text)' : 'var(--primary-color-light-text)'};
+  border: 2px solid var(--primary-color);
   border-radius: 4px;
   font-weight: 600;
   text-transform: uppercase;
@@ -120,7 +120,8 @@ const Button = styled.a`
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: ${props => props.$primary ? '#c5000f' : 'rgba(230, 0, 18, 0.1)'};
+    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(0, 0, 0, 0.05)'}; /* Adjusted non-primary hover */
+    color: ${props => props.$primary ? 'var(--primary-color-text)' : 'var(--primary-color-hover)'};
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   }

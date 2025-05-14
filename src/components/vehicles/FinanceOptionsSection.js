@@ -19,7 +19,7 @@ const SectionTitle = styled.h2`
     display: block;
     width: 60px;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
     margin: 1rem auto 0;
   }
 `;

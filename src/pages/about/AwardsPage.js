@@ -46,7 +46,7 @@ const YearTitle = styled.h2`
     left: 0;
     width: 100%;
     height: 3px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
   }
 `;
 
@@ -87,7 +87,7 @@ const AwardTitle = styled.h3`
 
 const AwardOrganization = styled.p`
   font-size: 0.9rem;
-  color: #e60012;
+  color: var(--primary-color-light-text);
   font-weight: 600;
   margin-bottom: 1rem;
 `;
@@ -136,7 +136,7 @@ const FeaturedTitle = styled.h2`
 
 const FeaturedOrganization = styled.p`
   font-size: 1rem;
-  color: #e60012;
+  color: var(--primary-color-light-text);
   font-weight: 600;
   margin-bottom: 1.5rem;
 `;
@@ -151,7 +151,7 @@ const FeaturedDescription = styled.p`
 const FeaturedQuote = styled.blockquote`
   font-style: italic;
   color: #333;
-  border-left: 3px solid #e60012;
+  border-left: 3px solid var(--primary-color);
   padding-left: 1.5rem;
   margin: 1.5rem 0;
 `;
