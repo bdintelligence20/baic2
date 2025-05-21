@@ -20,12 +20,14 @@ import X55Page from './pages/vehicles/models/X55Page';
 import X55PlusPage from './pages/vehicles/models/X55PlusPage';
 import X55DynamicPage from './pages/vehicles/models/X55DynamicPage';
 import B40PlusPage from './pages/vehicles/models/B40PlusPage';
+import B40HonorEditionPage from './pages/vehicles/models/B40HonorEditionPage';
 
 // Promotion Pages
 import X55PromotionPage from './pages/vehicles/promotions/X55PromotionPage';
 import X55PlusPromotionPage from './pages/vehicles/promotions/X55PlusPromotionPage';
 import X55DynamicPromotionPage from './pages/vehicles/promotions/X55DynamicPromotionPage';
 import B40PlusPromotionPage from './pages/vehicles/promotions/B40PlusPromotionPage';
+import B40HonorEditionPromotionPage from './pages/vehicles/promotions/B40HonorEditionPromotionPage';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -87,10 +89,12 @@ function App() {
           <Route path="/vehicles/models/x55-plus" element={<X55PlusPage />} />
           <Route path="/vehicles/models/x55-dynamic" element={<X55DynamicPage />} />
           <Route path="/vehicles/models/b40-plus" element={<B40PlusPage />} />
+          <Route path="/vehicles/models/b40-honor-edition" element={<B40HonorEditionPage />} />
           <Route path="/vehicles/promotions/x55" element={<X55PromotionPage />} />
           <Route path="/vehicles/promotions/x55-plus" element={<X55PlusPromotionPage />} />
           <Route path="/vehicles/promotions/x55-dynamic" element={<X55DynamicPromotionPage />} />
           <Route path="/vehicles/promotions/b40-plus" element={<B40PlusPromotionPage />} />
+          <Route path="/vehicles/promotions/b40-honor-edition" element={<B40HonorEditionPromotionPage />} />
           <Route path="/find-dealer" element={<FindDealerPage />} />
           <Route path="/book-test-drive" element={<BookTestDrivePage />} />
           <Route path="/contact" element={<ContactUsPage />} />

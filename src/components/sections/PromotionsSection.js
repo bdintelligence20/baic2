@@ -169,6 +169,14 @@ const PromotionsSection = () => {
       subtitle: 'From R574 500',
       enquireLink: '/book-test-drive',
       showFinanceOptions: false
+    },
+    {
+      id: 4,
+      image: '/images/promotions/b40honorpromo.jpg',
+      title: 'B40 HONOR EDITION',
+      subtitle: 'From R599 500',
+      enquireLink: '/vehicles/promotions/b40-honor-edition',
+      showFinanceOptions: false
     }
   ];
 

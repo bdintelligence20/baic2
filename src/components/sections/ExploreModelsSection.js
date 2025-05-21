@@ -561,6 +561,14 @@ const ExploreModelsSection = () => {
         hex: '#4b5320',
         image: '/images/models/b40-plus/b40-plus-camo-green.png',
       }
+    ],
+    b40honoredition: [
+      { 
+        id: 'black', 
+        name: 'Phantom Black', 
+        hex: '#111111',
+        image: '/images/models/b40-honor-edition/b40-honor-edition-black.png',
+      }
     ]
   };
 
@@ -591,6 +599,20 @@ const ExploreModelsSection = () => {
         power: '140 kW',
         acceleration: '9.5s',
         economy: '8.0L/100km'
+      }
+    },
+    { 
+      id: 'b40honoredition', 
+      name: 'B40 HONOR EDITION', 
+      color: '#333333',
+      image: '/images/models/b40-honor-edition/b40-honor-edition-black.png',
+      tagline: 'Next Level Bravery',
+      price: 'From R599,500',
+      specs: {
+        engine: '2.0L Petrol Turbo',
+        power: '165 kW',
+        acceleration: '8.5s',
+        economy: '8.5L/100km'
       }
     },
     { 
