@@ -257,6 +257,9 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
                 <MenuItem className="menu-item">
                   <MenuLink to="/find-dealer">Find a Dealer</MenuLink>
                 </MenuItem>
+                <MenuItem className="menu-item">
+                  <MenuLink to="/finance">Finance Options</MenuLink>
+                </MenuItem>
               </MenuList>
             </MenuColumn>
             

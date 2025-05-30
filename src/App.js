@@ -11,6 +11,7 @@ import HomePage from './pages/HomePage';
 import ContactUsPage from './pages/ContactUsPage';
 import FindDealerPage from './pages/FindDealerPage';
 import BookTestDrivePage from './pages/BookTestDrivePage';
+import FinancePage from './pages/FinancePage';
 
 // About Us Section Pages
 import CompanyOverviewPage from './pages/about/CompanyOverviewPage';
@@ -98,6 +99,7 @@ function App() {
           <Route path="/find-dealer" element={<FindDealerPage />} />
           <Route path="/book-test-drive" element={<BookTestDrivePage />} />
           <Route path="/contact" element={<ContactUsPage />} />
+          <Route path="/finance" element={<FinancePage />} />
           </Routes>
         </main>
         <Footer />

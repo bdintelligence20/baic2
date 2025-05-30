@@ -472,6 +472,10 @@ const Header = () => {
           <NavLink to="/find-dealer">Find a Dealer</NavLink>
         </NavItem>
         
+        <NavItem>
+          <NavLink to="/finance">Finance</NavLink>
+        </NavItem>
+        
         <MegaMenu isOpen={megaMenuOpen} activeMenu={activeMenu} />
       </Nav>
       
@@ -523,6 +527,10 @@ const Header = () => {
         
         <MobileNavItem>
           <MobileNavLink to="/find-dealer" onClick={closeMobileMenu}>Find a Dealer</MobileNavLink>
+        </MobileNavItem>
+        
+        <MobileNavItem>
+          <MobileNavLink to="/finance" onClick={closeMobileMenu}>Finance</MobileNavLink>
         </MobileNavItem>
         
         <MobileTestDriveButton onClick={() => { closeMobileMenu(); openTypeformModal(); }}>BOOK A TEST DRIVE</MobileTestDriveButton>
