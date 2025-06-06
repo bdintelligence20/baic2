@@ -105,118 +105,154 @@ const BannerImage = styled.img`
 `;
 
 const SlideContent = styled.div`
-  position: relative;
+  position: absolute;
   z-index: 2;
   text-align: left;
-  color: white;
-  padding: 0 2rem;
-  max-width: 600px;
-  margin-left: 6rem;
-  align-self: center;
+  color: #333;
+  padding: 1.5rem 2rem;
+  bottom: 3rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
   
   @media (max-width: 1200px) {
-    margin-left: 4rem;
+    left: 2rem;
+    bottom: 2.5rem;
   }
   
   @media (max-width: 992px) {
-    margin-left: 2rem;
-    padding: 0 1.5rem;
+    left: 1.5rem;
+    bottom: 2rem;
+    padding: 1.2rem 1.8rem;
   }
   
   @media (max-width: 768px) {
-    margin-left: 0;
-    padding: 0 2rem;
-    max-width: 100%;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 1.5rem;
+    flex-direction: column;
     text-align: center;
+    width: 90%;
+    max-width: 90%;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1.2rem;
+    bottom: 1.5rem;
   }
 `;
 
 const SlideTagline = styled.h2`
-  font-size: 3rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin: 0;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
+  color: #333;
+  margin-right: 1.5rem;
+  
+  @media (max-width: 1200px) {
+    font-size: 1.6rem;
+  }
   
   @media (max-width: 992px) {
-    font-size: 2.5rem;
+    font-size: 1.4rem;
+    margin-right: 1.2rem;
   }
   
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.8rem;
-    letter-spacing: 1px;
+    font-size: 1.5rem;
   }
 `;
 
 const SlideTitle = styled.h3`
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 400;
-  margin-bottom: 2rem;
+  margin: 0;
+  color: #555;
+  margin-right: 2rem;
+  
+  @media (max-width: 1200px) {
+    font-size: 1.3rem;
+    margin-right: 1.8rem;
+  }
   
   @media (max-width: 992px) {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    margin-right: 1.5rem;
   }
   
   @media (max-width: 768px) {
     font-size: 1.3rem;
-    margin-bottom: 1.5rem;
+    margin-right: 0;
+    margin-bottom: 1rem;
   }
   
   @media (max-width: 480px) {
     font-size: 1.1rem;
-    margin-bottom: 1rem;
   }
 `;
 
 const CTAContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
-  gap: 2rem;
-  margin-top: 2rem;
+  gap: 1rem;
+  
+  @media (max-width: 992px) {
+    gap: 0.8rem;
+  }
   
   @media (max-width: 768px) {
     justify-content: center;
-    gap: 1.5rem;
+    width: 100%;
   }
   
   @media (max-width: 480px) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.6rem;
     align-items: center;
   }
 `;
 
 const CTAButton = styled(Link)`
-  padding: 1rem 2rem;
+  padding: 0.7rem 1.2rem;
   background-color: ${props => props.$primary ? 'var(--primary-color)' : 'transparent'};
-  color: var(--primary-color-text);
-  border: 2px solid ${props => props.$primary ? 'var(--primary-color)' : 'white'};
-  font-size: 1rem;
+  color: ${props => props.$primary ? 'var(--primary-color-text)' : '#333'};
+  border: 2px solid ${props => props.$primary ? 'var(--primary-color)' : 'var(--primary-color)'};
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
   text-decoration: none;
   transition: all 0.3s ease;
+  white-space: nowrap;
   
   &:hover {
-    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(255, 255, 255, 0.1)'};
-    border-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'white'};
-    transform: translateY(-3px);
+    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(230, 0, 18, 0.1)'};
+    border-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'var(--primary-color)'};
+    transform: translateY(-2px);
   }
   
   @media (max-width: 992px) {
-    padding: 0.8rem 1.5rem;
-    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.7rem 1.2rem;
   }
   
   @media (max-width: 480px) {
-    padding: 0.8rem 1.2rem;
-    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
     width: 100%;
     text-align: center;
   }

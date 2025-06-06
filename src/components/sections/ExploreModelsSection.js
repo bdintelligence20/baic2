@@ -124,6 +124,9 @@ const ModelImage = styled.div`
   color: ${props => props.$color};
   font-weight: bold;
   font-size: 1.5rem;
+  margin: 0 auto;
+  /* Apply specific styling for B30 model */
+  transform: ${props => props.$isB30 ? 'scale(0.9)' : 'none'};
 `;
 
 const ModelInfo = styled.div`
@@ -564,10 +567,52 @@ const ExploreModelsSection = () => {
     ],
     b40honoredition: [
       { 
+        id: 'white', 
+        name: 'Crystal White', 
+        hex: '#ffffff',
+        image: '/images/models/b40-plus/b40plus-white.png', // Using B40 PLUS image as placeholder
+      },
+      { 
         id: 'black', 
         name: 'Phantom Black', 
         hex: '#111111',
         image: '/images/models/b40-honor-edition/b40-honor-edition-black.png',
+      },
+      { 
+        id: 'red', 
+        name: 'Racing Red', 
+        hex: '#a51c30',
+        image: '/images/models/b40-plus/BJ40-plus-RED.png', // Using B40 PLUS image as placeholder
+      },
+      { 
+        id: 'dark-blue', 
+        name: 'Deep Ocean Blue', 
+        hex: '#1a3a5f',
+        image: '/images/models/b40-plus/b40plus-dark-blue.png', // Using B40 PLUS image as placeholder
+      },
+      { 
+        id: 'light-blue', 
+        name: 'Sky Blue', 
+        hex: '#4a7a9b',
+        image: '/images/models/b40-plus/b40plus-light-blue.png', // Using B40 PLUS image as placeholder
+      },
+      { 
+        id: 'grey', 
+        name: 'Titanium Grey', 
+        hex: '#6e7275',
+        image: '/images/models/b40-plus/B40-plus-grey.png', // Using B40 PLUS image as placeholder
+      },
+      { 
+        id: 'green', 
+        name: 'Forest Green', 
+        hex: '#2d5f5d',
+        image: '/images/models/b40-plus/b40plus-green.png', // Using B40 PLUS image as placeholder
+      },
+      { 
+        id: 'camo-green', 
+        name: 'Camo Green', 
+        hex: '#4b5320',
+        image: '/images/models/b40-plus/b40-plus-camo-green.png', // Using B40 PLUS image as placeholder
       }
     ]
   };
@@ -575,7 +620,7 @@ const ExploreModelsSection = () => {
   const models = [
     { 
       id: 'x55plus', 
-      name: 'X55 Plus', 
+      name: 'X55 PLUS', 
       color: '#4a7a9b',
       image: '/images/models/x55/x55-turqoise.png',
       tagline: 'Premium Performance',
@@ -604,10 +649,10 @@ const ExploreModelsSection = () => {
     { 
       id: 'b40honoredition', 
       name: 'B40 HONOR EDITION', 
-      color: '#333333',
-      image: '/images/models/b40-honor-edition/b40-honor-edition-black.png',
+      color: '#c9a540',
+      image: '/images/models/b40-plus/BJ40-plus-RED.png',
       tagline: 'Next Level Bravery',
-      price: 'From R599,500',
+      price: 'From R699,500',
       specs: {
         engine: '2.0L Petrol Turbo',
         power: '165 kW',
@@ -686,7 +731,11 @@ const ExploreModelsSection = () => {
               onClick={() => handleModelChange(model.id)}
             >
               <ModelImageWrapper $color={model.color}>
-                <ModelImage $color={model.color} $image={model.image}>
+                <ModelImage 
+                  $color={model.color} 
+                  $image={model.image}
+                  $isB30={model.id === 'b30'}
+                >
                   {!model.image && model.name}
                 </ModelImage>
               </ModelImageWrapper>
@@ -773,11 +822,17 @@ const ExploreModelsSection = () => {
           
           <ActionButtons>
             <PrimaryButton 
-              to={activeModelData.id === 'x55plus' ? '/vehicles/models/x55-plus' : `/vehicles/models/${activeModel.toLowerCase()}`}
+              to={
+                activeModelData.id === 'x55plus' 
+                  ? '/vehicles/models/x55-plus' 
+                  : activeModelData.id === 'b40honoredition'
+                    ? '/vehicles/models/b40-honor-edition'
+                    : `/vehicles/models/${activeModel.toLowerCase()}`
+              }
             >
               Explore {activeModelData.name}
             </PrimaryButton>
-            {activeModelData.id !== 'x55plus' && activeModelData.id !== 'b40plus' && (
+            {activeModelData.id !== 'x55plus' && activeModelData.id !== 'b40plus' && activeModelData.id !== 'b40honoredition' && (
               <SecondaryButton to="/vehicles/comparison">
                 Compare Models
               </SecondaryButton>

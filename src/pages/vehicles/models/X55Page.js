@@ -43,45 +43,66 @@ const HeroBackground = styled.div`
 `;
 
 const HeroContent = styled.div`
-  position: relative;
+  position: absolute;
   z-index: 2;
   text-align: left;
-  color: white;
-  padding: 0 2rem;
-  max-width: 600px;
-  margin-left: 6rem;
-  align-self: center;
+  color: #333;
+  padding: 1.5rem 2rem;
+  bottom: 3rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
   
   @media (max-width: 1200px) {
-    margin-left: 4rem;
+    left: 2rem;
+    bottom: 2.5rem;
   }
   
   @media (max-width: 992px) {
-    margin-left: 2rem;
-    padding: 0 1.5rem;
+    left: 1.5rem;
+    bottom: 2rem;
+    padding: 1.2rem 1.8rem;
   }
   
   @media (max-width: 768px) {
-    margin-left: 0;
-    padding: 0 2rem;
-    max-width: 100%;
-    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 1.5rem;
+    flex-direction: column;
     text-align: center;
+    width: 90%;
+    max-width: 90%;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1.2rem;
+    bottom: 1.5rem;
   }
 `;
 
 const TaglineSmall = styled.p`
   font-size: 1.5rem;
   font-weight: 300;
-  margin-bottom: 1rem;
+  margin: 0;
   letter-spacing: 1px;
+  margin-right: 1.5rem;
+  
+  @media (max-width: 1200px) {
+    font-size: 1.3rem;
+  }
   
   @media (max-width: 992px) {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    margin-right: 1.2rem;
   }
   
   @media (max-width: 768px) {
     font-size: 1.2rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
   }
   
   @media (max-width: 480px) {
@@ -90,94 +111,114 @@ const TaglineSmall = styled.p`
 `;
 
 const ModelName = styled.h1`
-  font-size: 5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
-  letter-spacing: 2px;
+  margin: 0;
+  letter-spacing: 1px;
+  margin-right: 1.5rem;
+  
+  @media (max-width: 1200px) {
+    font-size: 1.6rem;
+  }
   
   @media (max-width: 992px) {
-    font-size: 4rem;
+    font-size: 1.4rem;
+    margin-right: 1.2rem;
   }
   
   @media (max-width: 768px) {
-    font-size: 3rem;
+    font-size: 1.8rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
     letter-spacing: 1px;
   }
 `;
 
 const TaglineLarge = styled.p`
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 500;
-  margin-bottom: 3rem;
+  margin: 0;
   letter-spacing: 1px;
+  margin-right: 1.5rem;
+  
+  @media (max-width: 1200px) {
+    font-size: 1.3rem;
+  }
   
   @media (max-width: 992px) {
-    font-size: 1.8rem;
+    font-size: 1.2rem;
+    margin-right: 1.2rem;
   }
   
   @media (max-width: 768px) {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: 1.3rem;
+    margin-right: 0;
+    margin-bottom: 1rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
   }
 `;
 
 const CTAContainer = styled.div`
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
+  
+  @media (max-width: 992px) {
+    gap: 0.8rem;
+  }
   
   @media (max-width: 768px) {
     justify-content: center;
+    width: 100%;
   }
   
   @media (max-width: 480px) {
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.6rem;
+    align-items: center;
   }
 `;
 
 const CTAButton = styled(Link)`
   background-color: ${props => props.$primary ? 'var(--primary-color)' : 'transparent'};
-  color: var(--primary-color-text);
+  color: ${props => props.$primary ? 'var(--primary-color-text)' : '#333'};
   text-decoration: none;
-  padding: 0.8rem 1.5rem;
+  padding: 0.7rem 1.2rem;
   border-radius: 4px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   transition: all 0.3s ease;
   white-space: nowrap;
-  border: ${props => props.$primary ? 'none' : '2px solid white'};
+  border: ${props => props.$primary ? 'none' : '2px solid var(--primary-color)'};
   
   &:hover {
-    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(255, 255, 255, 0.1)'};
+    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(230, 0, 18, 0.1)'};
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   @media (max-width: 992px) {
-    padding: 0.7rem 1.2rem;
-    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
   }
   
   @media (max-width: 768px) {
-    padding: 0.6rem 1rem;
+    padding: 0.7rem 1.2rem;
     font-size: 0.75rem;
   }
   
   @media (max-width: 480px) {
     width: 100%;
     padding: 0.6rem 1rem;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
   }
 `;
 

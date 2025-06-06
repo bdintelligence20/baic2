@@ -178,7 +178,7 @@ const FeaturedContent = styled.div`
 const FeaturedImage = styled.img`
   width: 80px;
   height: 80px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 4px;
 `;
 
@@ -223,7 +223,11 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
               <MenuList>
                 <ModelMenuItem className="menu-item">
                   <div style={{ display: 'flex', alignItems: 'center', cursor: 'default' }}>
-                    <ModelImage src="/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png" alt="B30" />
+                    <ModelImage 
+                      src="/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png" 
+                      alt="B30" 
+                      style={{ width: '72px', height: '54px' }} /* 10% smaller than standard 80px x 60px */
+                    />
                     <span>B30 (Coming Soon)</span>
                   </div>
                 </ModelMenuItem>

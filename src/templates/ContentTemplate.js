@@ -145,7 +145,7 @@ const CTADescription = styled.p`
 `;
 
 const CTAButton = styled.button`
-  background-color: #e60012;
+  background-color: var(--primary-color);
   color: white;
   padding: 1rem 2rem;
   font-size: 1rem;
@@ -153,10 +153,12 @@ const CTAButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   
   &:hover {
-    background-color: #c5000f;
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 `;
 

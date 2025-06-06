@@ -36,9 +36,9 @@ const FilterBar = styled.div`
 `;
 
 const FilterButton = styled.button`
-  background: ${props => props.$active ? '#e60012' : 'transparent'};
+  background: ${props => props.$active ? 'var(--primary-color)' : 'transparent'};
   color: ${props => props.$active ? 'white' : '#333'};
-  border: 1px solid ${props => props.$active ? '#e60012' : '#ddd'};
+  border: 1px solid ${props => props.$active ? 'var(--primary-color)' : '#ddd'};
   padding: 0.5rem 1.5rem;
   border-radius: 30px;
   font-size: 0.9rem;
@@ -46,7 +46,9 @@ const FilterButton = styled.button`
   transition: all 0.3s ease;
   
   &:hover {
-    background-color: ${props => props.$active ? '#c5000f' : '#f5f5f5'};
+    background-color: ${props => props.$active ? 'var(--primary-color-hover)' : 'rgba(230, 0, 18, 0.05)'};
+    transform: ${props => props.$active ? 'none' : 'translateY(-2px)'};
+    box-shadow: ${props => props.$active ? 'none' : '0 4px 8px rgba(0, 0, 0, 0.05)'};
   }
 `;
 
@@ -106,7 +108,7 @@ const ItemIcon = styled.div`
 const LoadMoreButton = styled.button`
   background-color: transparent;
   color: #333;
-  border: 2px solid #e60012;
+  border: 2px solid var(--primary-color);
   padding: 0.8rem 2rem;
   font-size: 1rem;
   font-weight: 600;
@@ -117,8 +119,9 @@ const LoadMoreButton = styled.button`
   margin: 0 auto;
   
   &:hover {
-    background-color: #e60012;
-    color: white;
+    background-color: rgba(230, 0, 18, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 `;
 

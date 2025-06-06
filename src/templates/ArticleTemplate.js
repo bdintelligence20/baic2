@@ -13,7 +13,7 @@ const ArticleHeader = styled.div`
 `;
 
 const ArticleCategory = styled.div`
-  color: #e60012;
+  color: var(--primary-color);
   font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -91,7 +91,7 @@ const SidebarTitle = styled.h3`
     left: 0;
     width: 40px;
     height: 2px;
-    background-color: #e60012;
+    background-color: var(--primary-color);
   }
 `;
 
@@ -152,10 +152,12 @@ const ShareButton = styled.a`
   background-color: #333;
   color: white;
   text-decoration: none;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   
   &:hover {
-    background-color: #e60012;
+    background-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 `;
 

@@ -32,10 +32,22 @@ const HeroContent = styled.div`
   position: relative;
   z-index: 2;
   text-align: center;
-  color: white;
-  padding: 0 2rem;
-  max-width: 1200px;
+  color: #333;
+  padding: 2rem 2.5rem;
+  max-width: 600px;
   margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem 2rem;
+    max-width: 90%;
+    width: 90%;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.2rem 1.5rem;
+  }
 `;
 
 const VehicleTitle = styled.h1`
@@ -51,19 +63,25 @@ const VehicleTagline = styled.p`
 `;
 
 const CTAButton = styled.button`
-  background-color: #e60012;
-  color: white;
+  background-color: ${props => props.$primary ? 'var(--primary-color)' : 'transparent'};
+  color: ${props => props.$primary ? 'white' : '#333'};
   padding: 1rem 2rem;
   font-size: 1rem;
   font-weight: 600;
-  border: none;
+  border: 2px solid ${props => props.$primary ? 'var(--primary-color)' : 'var(--primary-color)'};
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   margin: 0 0.5rem;
   
   &:hover {
-    background-color: #c5000f;
+    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(230, 0, 18, 0.1)'};
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 480px) {
+    margin: 0.5rem;
   }
 `;
 
@@ -146,7 +164,7 @@ const VehicleTemplate = ({ vehicleData }) => {
           <VehicleTitle>{vehicle.name}</VehicleTitle>
           <VehicleTagline>{vehicle.tagline}</VehicleTagline>
           <div>
-            <CTAButton>Build Your Own</CTAButton>
+            <CTAButton $primary>Build Your Own</CTAButton>
             <CTAButton>Book a Test Drive</CTAButton>
           </div>
         </HeroContent>

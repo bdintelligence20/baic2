@@ -8,7 +8,7 @@ const SectionContainer = styled.section`
   background-size: cover;
   background-position: center;
   position: relative;
-  overflow: hidden;
+  min-height: 600px; /* Ensure enough height for the content */
   
   &::before {
     content: '';
@@ -28,65 +28,131 @@ const ContentWrapper = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center align */
+  height: 100%;
+`;
+
+const SectionContent = styled.div`
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  max-width: 600px;
+  text-align: left;
+  background-color: white;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  border-radius: 8px;
+  
+  @media (max-width: 1200px) {
+    left: 2rem;
+    bottom: 2.5rem;
+  }
+  
+  @media (max-width: 992px) {
+    left: 1.5rem;
+    bottom: 2rem;
+    padding: 1.8rem;
+  }
+  
+  @media (max-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+    width: 90%;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 1.2rem;
+    bottom: 1.5rem;
+  }
 `;
 
 const SectionTitle = styled.h2`
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 2rem;
-  color: white; /* Changed to white */
+  margin-bottom: 1.5rem;
+  color: #333;
   font-weight: 700;
   position: relative;
   display: inline-block;
-  text-align: center; /* Center align */
+  text-align: left;
   
   &::after {
     content: '';
     position: absolute;
     bottom: -10px;
-    left: 50%; /* Center align */
-    transform: translateX(-50%); /* Center align */
+    left: 0;
     width: 80px;
     height: 3px;
     background-color: #e60012;
   }
-`;
-
-const SectionContent = styled.div`
-  max-width: 600px; /* Reduced width for content */
-  margin: 0 auto; /* Center align */
-  text-align: center; /* Center align */
+  
+  @media (max-width: 768px) {
+    text-align: center;
+    
+    &::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
 `;
 
 const Paragraph = styled.p`
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: white; /* Changed to white */
-  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 1rem;
+  
+  @media (max-width: 992px) {
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
 `;
 
 const ExploreButton = styled(Link)`
   display: inline-block;
-  background-color: #e60012;
+  background-color: var(--primary-color);
   color: white;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 1rem 2rem;
+  padding: 0.7rem 1.2rem;
   border-radius: 4px;
   text-decoration: none;
   transition: all 0.3s ease;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   
   &:hover {
-    background-color: #ff1a2d;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(230, 0, 18, 0.3);
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 992px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
   }
 `;
 
@@ -158,21 +224,21 @@ const HeritageSection = () => {
   return (
     <SectionContainer>
       <ContentWrapper>
-        <SectionTitle>A Heritage of Bravery</SectionTitle>
-        <SectionContent>
-          <Paragraph>
-            Since 1958, BAIC has been driven by a pioneering spirit, constantly pushing the boundaries of automotive innovation.
-          </Paragraph>
-          <Paragraph>
-            From the first Sino-foreign joint venture in China's automotive industry to ongoing collaborations with global motor giants, that boldness is embedded in our DNA.
-          </Paragraph>
-          <Paragraph>
-            This is what fuels our commitment to creating vehicles for those who dare to Brave New Roads.
-          </Paragraph>
-          
-          <ExploreButton to="/about/company-overview">Explore Brave New Roads</ExploreButton>
-        </SectionContent>
       </ContentWrapper>
+      <SectionContent>
+        <SectionTitle>A Heritage of Bravery</SectionTitle>
+        <Paragraph>
+          Since 1958, BAIC has been driven by a pioneering spirit, constantly pushing the boundaries of automotive innovation.
+        </Paragraph>
+        <Paragraph>
+          From the first Sino-foreign joint venture in China's automotive industry to ongoing collaborations with global motor giants, that boldness is embedded in our DNA.
+        </Paragraph>
+        <Paragraph>
+          This is what fuels our commitment to creating vehicles for those who dare to Brave New Roads.
+        </Paragraph>
+        
+        <ExploreButton to="/about/company-overview">Explore Brave New Roads</ExploreButton>
+      </SectionContent>
     </SectionContainer>
   );
 };

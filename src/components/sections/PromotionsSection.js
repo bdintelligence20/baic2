@@ -146,7 +146,7 @@ const PromotionsSection = () => {
   const promotions = [
     {
       id: 1,
-      image: '/images/promotions/x55promo.jpg',
+      image: '/images/promotions/x55pluspromosection.jpg',
       title: 'X55 PLUS',
       subtitle: 'From R429 900',
       enquireLink: '/book-test-drive',
@@ -155,27 +155,19 @@ const PromotionsSection = () => {
     },
     {
       id: 2,
-      image: '/images/promotions/x55pluspromo.jpg',
-      title: 'X55 PLUS',
+      image: '/images/promotions/b40pluspromosection.jpg',
+      title: 'B40 PLUS',
       subtitle: 'at PRIME MINUS 5.35%',
       enquireLink: '/book-test-drive',
-      financeLink: '/vehicles/models/x55-plus#finance-options',
+      financeLink: '/vehicles/models/b40-plus#finance-options',
       showFinanceOptions: true
     },
     {
       id: 3,
-      image: '/images/promotions/b40pluspromo.jpg',
-      title: 'B40 PLUS',
-      subtitle: 'From R574 500',
+      image: '/images/promotions/b40plushonoredition.jpg',
+      title: 'B40 PLUS - HONOR EDITION',
+      subtitle: 'From R699 500',
       enquireLink: '/book-test-drive',
-      showFinanceOptions: false
-    },
-    {
-      id: 4,
-      image: '/images/promotions/b40honorpromo.jpg',
-      title: 'B40 HONOR EDITION',
-      subtitle: 'From R599 500',
-      enquireLink: '/vehicles/promotions/b40-honor-edition',
       showFinanceOptions: false
     }
   ];

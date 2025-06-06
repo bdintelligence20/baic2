@@ -14,11 +14,7 @@ const HeroSection = styled.div`
   background-size: cover;
   background-position: center;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   color: white;
-  text-align: center;
   position: relative;
   
   &::after {
@@ -34,24 +30,97 @@ const HeroSection = styled.div`
 `;
 
 const HeroContent = styled.div`
-  position: relative;
+  position: absolute;
   z-index: 2;
-  max-width: 800px;
-  padding: 0 2rem;
+  text-align: left;
+  color: #333;
+  padding: 1.5rem 2rem;
+  bottom: 3rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  
+  @media (max-width: 1200px) {
+    left: 2rem;
+    bottom: 2.5rem;
+  }
+  
+  @media (max-width: 992px) {
+    left: 1.5rem;
+    bottom: 2rem;
+    padding: 1.2rem 1.8rem;
+  }
+  
+  @media (max-width: 768px) {
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    text-align: center;
+    width: 90%;
+    max-width: 90%;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1.2rem;
+    bottom: 1.5rem;
+  }
 `;
 
 const ModelName = styled.h1`
-  font-size: 3.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin-bottom: 1rem;
+  margin: 0;
+  letter-spacing: 1px;
+  margin-right: 1.5rem;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  
+  @media (max-width: 1200px) {
+    font-size: 1.6rem;
+  }
+  
+  @media (max-width: 992px) {
+    font-size: 1.4rem;
+    margin-right: 1.2rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
 `;
 
 const TagLine = styled.p`
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  font-size: 1.4rem;
   font-weight: 300;
+  margin: 0;
+  letter-spacing: 1px;
+  
+  @media (max-width: 1200px) {
+    font-size: 1.3rem;
+  }
+  
+  @media (max-width: 992px) {
+    font-size: 1.2rem;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const ContentSection = styled.div`
