@@ -157,10 +157,10 @@ const PromotionsSection = () => {
       id: 2,
       image: '/images/promotions/b40pluspromosection.jpg',
       title: 'B40 PLUS',
-      subtitle: 'at PRIME MINUS 5.35%',
+      subtitle: 'From R599 900',
       enquireLink: '/book-test-drive',
       financeLink: '/vehicles/models/b40-plus#finance-options',
-      showFinanceOptions: true
+      showFinanceOptions: false
     },
     {
       id: 3,

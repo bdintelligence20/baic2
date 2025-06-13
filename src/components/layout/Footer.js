@@ -154,6 +154,7 @@ const Footer = () => {
           <span style={{ color: '#999', fontSize: '0.85rem' }}>B30 (Coming Soon)</span>
           <FooterLink to="/vehicles/models/x55-plus">X55 Plus</FooterLink>
           <FooterLink to="/vehicles/models/b40-plus">B40 Plus</FooterLink>
+          <FooterLink to="/vehicles/models/b40-honor-edition">B40 Honor Edition</FooterLink>
         </FooterColumn>
         
         <FooterColumn>
