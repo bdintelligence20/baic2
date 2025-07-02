@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import X55PlusSpecificationsSection from '../../../components/vehicles/X55PlusSpecificationsSection';
-import FinanceOptionsSection from '../../../components/vehicles/FinanceOptionsSection';
+import X55PlusFinanceSection from '../../../components/vehicles/X55PlusFinanceSection';
 import HeritageSection from '../../../components/sections/HeritageSection';
 
 const PageContainer = styled.div`
@@ -1068,7 +1068,7 @@ const X55PlusPage = () => {
       </Modal>
       
       <div id="finance-options">
-        <FinanceOptionsSection />
+        <X55PlusFinanceSection />
       </div>
       
       <HeritageSection />

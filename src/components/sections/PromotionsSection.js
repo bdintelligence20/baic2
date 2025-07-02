@@ -35,86 +35,63 @@ const SectionTitle = styled.h2`
   }
 `;
 
-const CardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  
-  @media (max-width: 992px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const Card = styled.div`
-  background-color: white;
-  border-radius: 8px;
+const PromoContainer = styled.div`
+  width: 100%;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
   }
 `;
 
-const CardImage = styled.div`
+const PromoImage = styled.img`
   width: 100%;
-  aspect-ratio: 1 / 1;
-  background-image: url(${props => props.$image});
-  background-size: cover;
-  background-position: center;
-`;
-
-const CardContent = styled.div`
-  padding: 2rem;
-  text-align: center; /* Center text content */
-`;
-
-const CardTitle = styled.h3`
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 0.8rem;
-  color: #222;
-`;
-
-const CardSubtitle = styled.p`
-  font-size: 1.1rem;
-  color: #666;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+  height: auto;
+  object-fit: cover;
+  display: block;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center; /* Center buttons horizontally */
-  gap: 0.8rem; /* Keep the gap for stacked buttons */
-  margin-top: 1.5rem;
+  gap: 1rem;
+  margin-top: 2rem;
+  margin-left: 0;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
 `;
 
 const PrimaryButton = styled(Link)`
   display: inline-block;
-  background-color: var(--primary-color); /* Used CSS variable */
+  background-color: var(--primary-color);
   color: var(--primary-color-text);
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 0.8rem 1.5rem;
+  padding: 12px 24px;
   border-radius: 4px;
   text-decoration: none;
   transition: all 0.3s ease;
   text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   
   &:hover {
-    background-color: var(--primary-color-hover); /* Used CSS variable */
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 0, 18, 0.4);
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 `;
 
@@ -126,74 +103,49 @@ const SecondaryButton = styled(Link)`
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 0.8rem 1.5rem;
+  padding: 12px 24px;
   border-radius: 4px;
   text-decoration: none;
   transition: all 0.3s ease;
-  border: 2px solid var(--text-color);
   text-align: center;
+  border: 2px solid var(--text-color);
   
   &:hover {
     background-color: var(--text-color);
     color: var(--background-color);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 480px) {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 `;
 
 const PromotionsSection = () => {
-  // Sample promotion data - in a real app, this would come from an API or props
-  const promotions = [
-    {
-      id: 1,
-      image: '/images/promotions/x55pluspromosection.jpg',
-      title: 'X55 PLUS',
-      subtitle: 'From R429 900',
-      enquireLink: '/book-test-drive',
-      financeLink: '/vehicles/models/x55-plus#finance-options',
-      showFinanceOptions: true
-    },
-    {
-      id: 2,
-      image: '/images/promotions/b40pluspromosection.jpg',
-      title: 'B40 PLUS',
-      subtitle: 'From R599 900',
-      enquireLink: '/book-test-drive',
-      financeLink: '/vehicles/models/b40-plus#finance-options',
-      showFinanceOptions: false
-    },
-    {
-      id: 3,
-      image: '/images/promotions/b40plushonoredition.jpg',
-      title: 'B40 PLUS - HONOR EDITION',
-      subtitle: 'From R699 500',
-      enquireLink: '/book-test-drive',
-      showFinanceOptions: false
-    }
-  ];
+  // Single landscape promotion data
+  const promotion = {
+    image: '/images/promotions/X55 PLUS LANDSCAPE (1).jpg',
+    title: 'X55 PLUS',
+    subtitle: 'From R429 900',
+    enquireLink: '/book-test-drive',
+    financeLink: '/#finance-options'
+  };
 
   return (
     <SectionContainer>
       <ContentWrapper>
         <SectionTitle>Current Promotions</SectionTitle>
         
-        <CardsContainer>
-          {promotions.map(promo => (
-            <Card key={promo.id}>
-              <CardImage $image={promo.image} />
-              <CardContent>
-                <CardTitle>{promo.title}</CardTitle>
-                <CardSubtitle>{promo.subtitle}</CardSubtitle>
-                <ButtonContainer>
-                  <PrimaryButton to={promo.enquireLink}>Enquire Now</PrimaryButton>
-                  {promo.showFinanceOptions && (
-                    <SecondaryButton to={promo.financeLink}>Finance Options</SecondaryButton>
-                  )}
-                </ButtonContainer>
-              </CardContent>
-            </Card>
-          ))}
-        </CardsContainer>
+        <PromoContainer>
+          <PromoImage src={promotion.image} alt={promotion.title} />
+        </PromoContainer>
+        
+        <ButtonContainer>
+          <PrimaryButton to={promotion.enquireLink}>Enquire Now</PrimaryButton>
+          <SecondaryButton to={promotion.financeLink}>Finance Options</SecondaryButton>
+        </ButtonContainer>
       </ContentWrapper>
     </SectionContainer>
   );

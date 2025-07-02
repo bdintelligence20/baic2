@@ -1,325 +1,37 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import Slider from 'react-slick';
-import GalleryModal from '../common/GalleryModal';
-// Import the CSS files in the index.js file instead to avoid issues
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 
-// Carousel container that will size to the banner images
+// Carousel container that will size to fit the images
 const CarouselContainer = styled.section`
   position: relative;
   width: 100%;
   overflow: hidden;
   background-color: #000;
   margin-top: 62px; /* Add margin to account for fixed header height */
-  height: 80vh;
-  min-height: 600px;
-  
-  @media (max-width: 768px) {
-    height: 70vh;
-    min-height: 500px;
-  }
-  
-  @media (max-width: 480px) {
-    height: 60vh;
-    min-height: 400px;
-  }
-`;
-
-// Custom styling for the Slick slider
-const StyledSlider = styled.div`
-  height: 100%;
-  
-  .slick-slider, .slick-list, .slick-track {
-    height: 100%;
-  }
-  
-  .slick-slide > div {
-    height: 100%;
-  }
-  
-  .slick-dots {
-    bottom: 20px;
-    z-index: 10;
-    
-    li button:before {
-      color: white;
-      opacity: 0.7;
-      font-size: 12px;
-    }
-    
-    li.slick-active button:before {
-      color: var(--primary-color);
-      opacity: 1;
-    }
-  }
-  
-  .slick-prev, .slick-next {
-    width: 50px;
-    height: 50px;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 0;
-    transition: background-color 0.3s ease;
-    
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
-    
-    &:before {
-      font-size: 24px;
-    }
-  }
-  
-  .slick-prev {
-    left: 20px;
-  }
-  
-  .slick-next {
-    right: 20px;
-  }
+  height: auto; /* Let height be determined by image aspect ratio */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 // Carousel slide container
 const CarouselSlide = styled.div`
   width: 100%;
-  height: 100%;
+  height: auto;
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
 `;
 
-// Banner image that will maintain its aspect ratio
+// Banner image that will maintain its aspect ratio with contain
 const BannerImage = styled.img`
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  opacity: 0.7;
-`;
-
-const SlideContent = styled.div`
-  position: absolute;
-  z-index: 2;
-  text-align: left;
-  color: #333;
-  padding: 1.5rem 2rem;
-  bottom: 3rem;
-  left: 3rem;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  
-  @media (max-width: 1200px) {
-    left: 2rem;
-    bottom: 2.5rem;
-  }
-  
-  @media (max-width: 992px) {
-    left: 1.5rem;
-    bottom: 2rem;
-    padding: 1.2rem 1.8rem;
-  }
-  
-  @media (max-width: 768px) {
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 1rem 1.5rem;
-    flex-direction: column;
-    text-align: center;
-    width: 90%;
-    max-width: 90%;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 0.8rem 1.2rem;
-    bottom: 1.5rem;
-  }
-`;
-
-const SlideTagline = styled.h2`
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 0;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #333;
-  margin-right: 1.5rem;
-  
-  @media (max-width: 1200px) {
-    font-size: 1.6rem;
-  }
-  
-  @media (max-width: 992px) {
-    font-size: 1.4rem;
-    margin-right: 1.2rem;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 1.8rem;
-    margin-right: 0;
-    margin-bottom: 0.5rem;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 1.5rem;
-  }
-`;
-
-const SlideTitle = styled.h3`
-  font-size: 1.4rem;
-  font-weight: 400;
-  margin: 0;
-  color: #555;
-  margin-right: 2rem;
-  
-  @media (max-width: 1200px) {
-    font-size: 1.3rem;
-    margin-right: 1.8rem;
-  }
-  
-  @media (max-width: 992px) {
-    font-size: 1.2rem;
-    margin-right: 1.5rem;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 1.3rem;
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 1.1rem;
-  }
-`;
-
-const CTAContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  
-  @media (max-width: 992px) {
-    gap: 0.8rem;
-  }
-  
-  @media (max-width: 768px) {
-    justify-content: center;
-    width: 100%;
-  }
-  
-  @media (max-width: 480px) {
-    flex-direction: column;
-    gap: 0.6rem;
-    align-items: center;
-  }
-`;
-
-const CTAButton = styled(Link)`
-  padding: 0.7rem 1.2rem;
-  background-color: ${props => props.$primary ? 'var(--primary-color)' : 'transparent'};
-  color: ${props => props.$primary ? 'var(--primary-color-text)' : '#333'};
-  border: 2px solid ${props => props.$primary ? 'var(--primary-color)' : 'var(--primary-color)'};
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  white-space: nowrap;
-  
-  &:hover {
-    background-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'rgba(230, 0, 18, 0.1)'};
-    border-color: ${props => props.$primary ? 'var(--primary-color-hover)' : 'var(--primary-color)'};
-    transform: translateY(-2px);
-  }
-  
-  @media (max-width: 992px) {
-    padding: 0.6rem 1rem;
-    font-size: 0.8rem;
-  }
-  
-  @media (max-width: 768px) {
-    padding: 0.7rem 1.2rem;
-  }
-  
-  @media (max-width: 480px) {
-    padding: 0.6rem 1rem;
-    font-size: 0.75rem;
-    width: 100%;
-    text-align: center;
-  }
-`;
-
-// Scroll indicator at the bottom
-const ScrollIndicator = styled.div`
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  z-index: 10;
-  
-  @media (max-width: 768px) {
-    bottom: 50px;
-  }
-  
-  @media (max-width: 480px) {
-    bottom: 40px;
-    display: none; /* Hide on very small screens to avoid overlap with dots */
-  }
-`;
-
-const ScrollIcon = styled.div`
-  width: 30px;
-  height: 50px;
-  border: 2px solid white;
-  border-radius: 15px;
-  position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    width: 6px;
-    height: 6px;
-    background-color: white;
-    border-radius: 50%;
-    transform: translateX(-50%);
-    animation: scrollDown 2s infinite;
-  }
-  
-  @keyframes scrollDown {
-    0% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    100% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(20px);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    width: 25px;
-    height: 40px;
-    
-    &::before {
-      width: 5px;
-      height: 5px;
-    }
-  }
+  height: auto;
+  object-fit: contain;
+  display: block;
+  max-width: 100%;
 `;
 
 // Navigation arrows
@@ -429,116 +141,110 @@ const Dot = styled.div`
   }
 `;
 
+// Content Group Container (Logo + Button)
+const ContentGroup = styled.div`
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  z-index: 15;
+  
+  @media (max-width: 1200px) {
+    left: 7%;
+    gap: 18px;
+  }
+  
+  @media (max-width: 768px) {
+    left: 6%;
+    gap: 15px;
+  }
+  
+  @media (max-width: 480px) {
+    left: 5%;
+    gap: 12px;
+  }
+`;
+
+// Logo Image
+const LogoImage = styled.img`
+  max-width: 450px;
+  height: auto;
+  
+  @media (max-width: 1200px) {
+    max-width: 375px;
+  }
+  
+  @media (max-width: 768px) {
+    max-width: 300px;
+  }
+  
+  @media (max-width: 480px) {
+    max-width: 225px;
+  }
+`;
+
+// Explore Now Button
+const ExploreButton = styled(Link)`
+  padding: 12px 24px;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  
+  &:hover {
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 0, 18, 0.4);
+  }
+  
+  @media (max-width: 1200px) {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 6px 12px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+`;
+
 const HeroSection = () => {
-  // Carousel slides data
+  // Simple two-slide carousel data using homehero images
   const slides = [
     {
-      tagline: "Brave the City",
-      title: "The X55",
-      image: '/images/hero/web banners/WEBSITE_1920X1080PX_HOMEPAGE - x552 (1).jpg',
-      link: '/vehicles/models/x55',
-      model: 'x55'
+      image: '/images/homehero/WEBSITE LANDSCAPE X55 PLUS IMAGE.jpg',
+      logo: '/images/homehero/WEBSITE LANDSCAPE X55 PLUS LOGO (1).png',
+      alt: 'X55 Plus Landscape',
+      logoAlt: 'X55 Plus Logo',
+      link: '/vehicles/models/x55-plus'
     },
     {
-      tagline: "Intelligently Brave",
-      title: "The X55 Plus",
-      image: '/images/hero/web banners/WEBSITE_1920X1080PX_HOMEPAGE3 (2)x55plus.jpg',
-      link: '/vehicles/models/x55-plus',
-      model: 'x55-plus'
-    },
-    {
-      tagline: "Bravely Intrepid",
-      title: "The B40 Plus",
-      image: '/images/hero/web banners/WEBSITE_1920X1080PX_HOMEPAGE4 b40(2).jpg',
-      link: '/vehicles/models/b40-plus',
-      model: 'b40-plus'
+      image: '/images/homehero/WEBSITE LANDSCAPE B40 IMAGE.jpg',
+      logo: '/images/homehero/WEBSITE LANDSCAPE B40 LOGO (1).png',
+      alt: 'B40 Landscape',
+      logoAlt: 'B40 Logo',
+      link: '/vehicles/models/b40-honor-edition'
     }
   ];
   
-  // Gallery images for each model
-  const galleryImages = {
-    'x55': [
-      '/images/vehicles/x55/gallery/63f3351fb366b767f7580bbd_X55-exterior-gallery-1.jpg',
-      '/images/vehicles/x55/gallery/63f3351fb366b752b0580bc2_X55-exterior-gallery-2.jpg',
-      '/images/vehicles/x55/gallery/63f3351fb366b73c98580bc8_X55-exterior-gallery-3.jpg',
-      '/images/vehicles/x55/gallery/63f3351fb366b784fd580bd9_X55-exterior-gallery-5.jpg',
-      '/images/vehicles/x55/gallery/63f3351fb366b73c98580bc8_X55-exterior-gallery-6.jpg',
-      '/images/vehicles/x55/gallery/63f3351fb366b749a1580be3_X55-exterior-gallery-7.jpg',
-      '/images/vehicles/x55/gallery/63f3351fb366b7a7d2580bde_X55-exterior-gallery-8.jpg',
-      '/images/vehicles/x55/gallery/63f3351fb366b7a88d580be9_X55-exterior-gallery-9.jpg',
-      '/images/vehicles/x55/gallery/63f3351fb366b7ef3e580bee_X55-exterior-gallery-10.jpg',
-      '/images/vehicles/x55/gallery/X55-interior-gallery-1.jpg',
-      '/images/vehicles/x55/gallery/X55-interior-gallery-2.jpg',
-      '/images/vehicles/x55/gallery/X55-interior-gallery-3.jpg',
-      '/images/vehicles/x55/gallery/X55-interior-gallery-5.jpg',
-      '/images/vehicles/x55/gallery/X55-interior-gallery-6.jpg',
-      '/images/vehicles/x55/gallery/X55-interior-gallery-7.jpg',
-      '/images/vehicles/x55/gallery/X55-interior-gallery-8.jpg',
-      '/images/vehicles/x55/gallery/X55-interior-gallery-10.jpg'
-    ],
-    'x55-plus': [
-      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_1.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_2.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_3.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_4.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_5.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_6.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_7.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_8.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_1.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_2.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_3.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_4.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_5.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_6.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_7.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_interior_x55_plus_8.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new1.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new2.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new3.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new4.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new5.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new6.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new7.jpg',
-      '/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new8.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-b-image.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview1.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview2.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview3.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview4.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview5.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview6.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview7.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview8.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview9.jpg',
-      '/images/vehicles/x55-plus/gallery/baic-x55-plus-overview10.jpg'
-    ],
-    'b40-plus': [
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-1.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-2.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-3.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-4.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-6.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-7.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-8.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-9.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-10.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-11.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-13.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-exterior-gallery-14.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-interior-gallery-1.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-interior-gallery-2.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-interior-gallery-3.jpg',
-      '/images/vehicles/b40-plus/gallery/B40-interior-gallery-4.jpg'
-    ]
-  };
-  
   // State for current slide index
   const [currentSlide, setCurrentSlide] = useState(0);
-  
-  // State for gallery modal
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
-  const [currentGalleryModel, setCurrentGalleryModel] = useState('x55');
   
   // Function to go to the next slide
   const nextSlide = useCallback(() => {
@@ -564,14 +270,6 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, [nextSlide]);
   
-  // Function to scroll to content below the hero section
-  const scrollToContent = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth'
-    });
-  };
-  
   return (
     <CarouselContainer>
       {slides.map((slide, index) => (
@@ -583,18 +281,15 @@ const HeroSection = () => {
             transition: 'opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)'
           }}
         >
-          <BannerImage src={slide.image} alt={`BAIC - ${slide.tagline}`} />
-          <SlideContent>
-            <SlideTagline>{slide.tagline}</SlideTagline>
-            <SlideTitle>{slide.title}</SlideTitle>
-            <CTAContainer>
-              <CTAButton to="/book-test-drive" $primary>Test Drive</CTAButton>
-              <CTAButton as="button" onClick={() => {
-                setCurrentGalleryModel(slide.model);
-                setIsGalleryOpen(true);
-              }}>View Gallery</CTAButton>
-            </CTAContainer>
-          </SlideContent>
+          <BannerImage src={slide.image} alt={slide.alt} />
+          {index === currentSlide && (
+            <ContentGroup>
+              <LogoImage src={slide.logo} alt={slide.logoAlt} />
+              <ExploreButton to={slide.link}>
+                Explore Now
+              </ExploreButton>
+            </ContentGroup>
+          )}
         </CarouselSlide>
       ))}
       
@@ -610,18 +305,6 @@ const HeroSection = () => {
           />
         ))}
       </CarouselDots>
-      
-      <ScrollIndicator onClick={scrollToContent}>
-        <ScrollIcon />
-      </ScrollIndicator>
-      
-      {/* Gallery Modal */}
-      <GalleryModal 
-        isOpen={isGalleryOpen}
-        onClose={() => setIsGalleryOpen(false)}
-        images={galleryImages[currentGalleryModel] || []}
-        title={slides.find(slide => slide.model === currentGalleryModel)?.title || 'Gallery'}
-      />
     </CarouselContainer>
   );
 };

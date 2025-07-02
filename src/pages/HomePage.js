@@ -5,6 +5,7 @@ import ExploreModelsSection from '../components/sections/ExploreModelsSection';
 import HeritageSection from '../components/sections/HeritageSection';
 import PromotionsSection from '../components/sections/PromotionsSection';
 import VideoSection from '../components/sections/VideoSection';
+import X55PlusFinanceSection from '../components/vehicles/X55PlusFinanceSection';
 
 const HomeContainer = styled.div`
   width: 100%;
@@ -16,6 +17,7 @@ const HomePage = () => {
       <HeroSection />
       <PromotionsSection />
       <ExploreModelsSection />
+      <X55PlusFinanceSection />
       <VideoSection />
       <HeritageSection />
     </HomeContainer>
