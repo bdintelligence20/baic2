@@ -228,7 +228,7 @@ const HeroSection = () => {
   // Simple two-slide carousel data using homehero images
   const slides = [
     {
-      image: '/images/homehero/WEBSITE LANDSCAPE X55 PLUS IMAGE.jpg',
+      image: '/images/vehicles/x55-plus/x55new/WEBSITE LANDSCAPE22.jpg',
       logo: '/images/homehero/WEBSITE LANDSCAPE X55 PLUS LOGO (1).png',
       alt: 'X55 Plus Landscape',
       logoAlt: 'X55 Plus Logo',

@@ -36,9 +36,9 @@ const HeroBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/images/vehicles/x55-plus/hero/baic_x55_plus_ex_new5.jpg');
+  background-image: url('/images/vehicles/x55-plus/x55new/BAIC BEIJING X55 PLUS_043 ext NP NEW BADGE (2).jpg');
   background-size: cover;
-  background-position: center;
+  background-position: center 50%;
   opacity: 0.8;
 `;
 
@@ -807,6 +807,11 @@ const X55PlusPage = () => {
   
   // Gallery images
   const galleryImages = [
+    '/images/vehicles/x55-plus/x55new/BAIC BEIJING X55 PLUS_019 NP NEW BADGE.jpg',
+    '/images/vehicles/x55-plus/x55new/BAIC BEIJING X55 PLUS_043 ext NP NEW BADGE (2).jpg',
+    '/images/vehicles/x55-plus/x55new/BAIC BEIJING X55_037 EXT NEW BADGE.jpg',
+    '/images/vehicles/x55-plus/x55new/WEBSITE LANDSCAPE NEW BADGE.jpg',
+    '/images/vehicles/x55-plus/x55new/WEBSITE LANDSCAPE22.jpg',
     '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_1.jpg',
     '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_2.jpg',
     '/images/vehicles/x55-plus/gallery/baic_exterior_x55_plus_3.jpg',
@@ -944,7 +949,7 @@ const X55PlusPage = () => {
             <FeatureCTAButton to="/book-test-drive">Enquire Today</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55-plus/features/baic_x55_plus_ex_new4.jpg" alt="Crystal Star Design" />
+            <img src="/images/vehicles/x55-plus/x55new/BAIC BEIJING X55 PLUS_019 NP NEW BADGE.jpg" alt="Crystal Star Design" />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
