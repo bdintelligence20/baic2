@@ -230,7 +230,7 @@ const X55PlusFinanceSection = () => {
       interestRate: '5.65%',
       balloon: '40%',
       terms: '72 months',
-      image: '/images/financeoptions/X55%20PLUS%20DYNAMIC.png'
+      image: '/images/financeoptions/X55%20PLUS%20DYNAMIC%20(1).png'
     },
     {
       model: 'X55 PLUS ELITE',
@@ -240,27 +240,27 @@ const X55PlusFinanceSection = () => {
       interestRate: '8.56%',
       balloon: '40%',
       terms: '72 months',
-      image: '/images/financeoptions/X55%20PLUS%20ELITE.png'
+      image: '/images/financeoptions/X55%20PLUS%20ELITE%20(1).png'
     },
     {
-      model: 'X55 PLUS PRIME',
+      model: 'X55 PLUS PREMIUM',
       monthlyPayment: 'R6,079',
       retailPrice: 'R499,900',
       deposit: '10%',
       interestRate: '8.71%',
       balloon: '40%',
       terms: '72 months',
-      image: '/images/financeoptions/X55%20PLUS%20PREMUM.png'
+      image: '/images/financeoptions/X55%20PLUS%20PREMIUM%20(2).png'
     },
     {
-      model: 'X55 PLUS PRIME 2T',
+      model: 'X55 PLUS PREMIUM 2T',
       monthlyPayment: 'R6,999',
       retailPrice: 'R514,900',
       deposit: '10%',
       interestRate: '10.70%',
       balloon: '40%',
       terms: '72 months',
-      image: '/images/financeoptions/X55%20PLUS%20PREMUM%202T%20%281%29.png'
+      image: '/images/financeoptions/X55%20PLUS%20PREMIUM%202T%20(2).png'
     }
   ];
 
