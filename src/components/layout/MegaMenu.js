@@ -266,22 +266,6 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
                 </MenuItem>
               </MenuList>
             </MenuColumn>
-            
-            <MenuColumn>
-              <MenuTitle>Company Overview</MenuTitle>
-              <FeaturedSection className="featured-section">
-                <FeaturedContent>
-                  <FeaturedImage src="/images/logos/download.png" alt="BAIC Logo" />
-                  <FeaturedInfo>
-                    <FeaturedName>About BAIC</FeaturedName>
-                    <FeaturedDescription>
-                      Learn about our company, history, and global presence.
-                    </FeaturedDescription>
-                    <FeaturedLink to="/about/company-overview">Learn More</FeaturedLink>
-                  </FeaturedInfo>
-                </FeaturedContent>
-              </FeaturedSection>
-            </MenuColumn>
           </MegaMenuContent>
         );
         
