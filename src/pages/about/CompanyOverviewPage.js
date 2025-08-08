@@ -38,7 +38,7 @@ const HeroBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/images/vehicles/x55-plus/gallery/baic_x55_plus_ex_new6.jpg');
+  background-image: url('/images/hero/COMPANY OVERVIEW (1).jpg');
   background-size: cover;
   background-position: center;
   opacity: 0.8;

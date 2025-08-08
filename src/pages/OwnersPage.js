@@ -34,102 +34,110 @@ const HeroBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/images/vehicles/x55-plus/x55new/BAIC BEIJING X55 PLUS_043 ext NP NEW BADGE (2).jpg');
+  background-image: url('/images/hero/OWNERS BANNER (1).jpg');
   background-size: cover;
   background-position: center;
-  opacity: 0.8;
+`;
+
+const HeroOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.2) 50%, rgba(0, 0, 0, 0.05) 100%);
+  z-index: 1;
 `;
 
 const HeroContent = styled.div`
   position: absolute;
   z-index: 2;
-  text-align: left;
-  color: #333;
-  padding: 1.5rem 2rem;
-  bottom: 3rem;
-  left: 3rem;
-  display: flex;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  left: 4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: white;
+  max-width: 600px;
   
   @media (max-width: 1200px) {
-    left: 2rem;
-    bottom: 2.5rem;
+    left: 3rem;
+    max-width: 500px;
   }
   
   @media (max-width: 992px) {
-    left: 1.5rem;
-    bottom: 2rem;
-    padding: 1.2rem 1.8rem;
+    left: 2rem;
+    max-width: 450px;
   }
   
   @media (max-width: 768px) {
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 1rem 1.5rem;
-    flex-direction: column;
-    text-align: center;
-    width: 90%;
-    max-width: 90%;
+    left: 2rem;
+    right: 2rem;
+    max-width: none;
+    width: calc(100% - 4rem);
   }
   
   @media (max-width: 480px) {
-    padding: 0.8rem 1.2rem;
-    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    width: calc(100% - 3rem);
   }
 `;
 
 const HeroTitle = styled.h1`
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 0;
-  letter-spacing: 1px;
-  margin-right: 1.5rem;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0 0 1rem 0;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   
   @media (max-width: 1200px) {
-    font-size: 1.6rem;
+    font-size: 3rem;
   }
   
   @media (max-width: 992px) {
-    font-size: 1.4rem;
-    margin-right: 1.2rem;
+    font-size: 2.5rem;
+    letter-spacing: 1px;
   }
   
   @media (max-width: 768px) {
-    font-size: 1.8rem;
-    margin-right: 0;
-    margin-bottom: 0.5rem;
+    font-size: 2.2rem;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.5rem;
-    letter-spacing: 1px;
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
   }
 `;
 
 const HeroSubtitle = styled.p`
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin: 0;
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0 0 3rem 0;
+  line-height: 1.2;
+  text-transform: uppercase;
   letter-spacing: 1px;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   
   @media (max-width: 1200px) {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
   }
   
   @media (max-width: 992px) {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    margin-bottom: 2.5rem;
   }
   
   @media (max-width: 768px) {
     font-size: 1.3rem;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
   }
   
   @media (max-width: 480px) {
     font-size: 1.1rem;
+    margin-bottom: 1.5rem;
   }
 `;
 
@@ -355,10 +363,11 @@ const OwnersPage = () => {
     <PageContainer>
       <HeroSection>
         <HeroBackground />
+        <HeroOverlay />
         <HeroContent>
           <HeroTitle>BAIC OWNERS</HeroTitle>
           <HeroSubtitle>
-            Your journey with BAIC extends far beyond the moment you drive off the lot
+            SUPPORT BEYOND THE SALE
           </HeroSubtitle>
         </HeroContent>
       </HeroSection>
@@ -401,16 +410,9 @@ const OwnersPage = () => {
                   <TableCell>5 Yrs / 150 000 km</TableCell>
                   <TableCell>5 Yrs / 60 000 km</TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell><strong>B40 PLUS</strong></TableCell>
-                  <TableCell>5 Yrs / 120 000 km</TableCell>
-                  <TableCell>4 Yrs / 60 000 km*</TableCell>
-                </TableRow>
               </tbody>
             </Table>
           </WarrantyTable>
-          
-          <TableNote>*Service plan is optional for the B40.</TableNote>
         </WarrantySection>
         
         <ContactSection>

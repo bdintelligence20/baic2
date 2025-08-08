@@ -238,12 +238,6 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
                   </ModelLink>
                 </ModelMenuItem>
                 <ModelMenuItem className="menu-item">
-                  <ModelLink to="/vehicles/models/b40-plus">
-                    <ModelImage src="/images/models/b40-plus/b40plus-black.png" alt="B40 PLUS" />
-                    <span>B40 PLUS</span>
-                  </ModelLink>
-                </ModelMenuItem>
-                <ModelMenuItem className="menu-item">
                   <ModelLink to="/vehicles/models/b40-honor-edition">
                     <ModelImage src="/images/models/b40-honor-edition/b40-honor-edition-black.png" alt="B40 HONOR EDITION" />
                     <span>B40 HONOR EDITION</span>

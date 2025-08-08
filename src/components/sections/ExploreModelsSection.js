@@ -89,11 +89,9 @@ const ModelCard = styled.div`
   cursor: pointer;
   transition: all 0.4s ease;
   opacity: ${props => props.$active ? 1 : 0.7};
-  transform: ${props => props.$active ? 'scale(1.05)' : 'scale(1)'};
   
   &:hover {
     opacity: 1;
-    transform: ${props => props.$active ? 'scale(1.05)' : 'translateY(-8px)'};
   }
   
   @media (max-width: 768px) {
@@ -125,8 +123,8 @@ const ModelImage = styled.div`
   font-weight: bold;
   font-size: 1.5rem;
   margin: 0 auto;
-  /* Apply specific styling for B30 model */
-  transform: ${props => props.$isB30 ? 'scale(0.9)' : 'none'};
+  /* Apply specific scaling for B30 model */
+  transform: ${props => props.$isB30 ? 'scale(0.8)' : 'none'};
 `;
 
 const ModelInfo = styled.div`
@@ -630,20 +628,6 @@ const ExploreModelsSection = () => {
         power: '138 kW',
         acceleration: '7.9s',
         economy: '7.2L/100km'
-      }
-    },
-    { 
-      id: 'b40plus', 
-      name: 'B40 PLUS', 
-      color: '#4a5568',
-      image: '/images/models/b40-plus/b40plus-black.png',
-      tagline: 'Off-Road Champion',
-      price: 'From R529,900',
-      specs: {
-        engine: '2.0L Turbo Diesel',
-        power: '140 kW',
-        acceleration: '9.5s',
-        economy: '8.0L/100km'
       }
     },
     { 

@@ -126,7 +126,7 @@ const SecondaryButton = styled(Link)`
 const PromotionsSection = () => {
   // Single landscape promotion data
   const promotion = {
-    image: '/images/vehicles/x55-plus/x55new/WEBSITE LANDSCAPE NEW BADGE.jpg',
+    image: '/images/promotions/WEBSITE LANDSCAPE (1).jpg',
     title: 'X55 PLUS',
     subtitle: 'From R429 900',
     enquireLink: '/book-test-drive',
