@@ -134,6 +134,8 @@ const ModelImage = styled.img`
   object-fit: contain;
   margin-right: 15px;
   transition: transform 0.3s ease;
+  /* Apply specific scaling for B30 model */
+  transform: ${props => props.$isB30 ? 'scale(0.8)' : 'none'};
 `;
 
 const ModelLink = styled(MenuLink)`
@@ -226,7 +228,7 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
                     <ModelImage 
                       src="/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png" 
                       alt="B30" 
-                      style={{ width: '72px', height: '54px' }} /* 10% smaller than standard 80px x 60px */
+                      $isB30={true}
                     />
                     <span>B30 (Coming Soon)</span>
                   </div>
