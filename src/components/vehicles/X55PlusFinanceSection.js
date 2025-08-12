@@ -224,40 +224,40 @@ const X55PlusFinanceSection = () => {
   const financeOptions = [
     {
       model: <>X55 PLUS<br />DYNAMIC</>,
-      monthlyPayment: 'R4,499',
+      monthlyPayment: 'R4,399',
       retailPrice: 'R429,900',
       deposit: '10%',
-      interestRate: '5.65%',
+      interestRate: '5.15%',
       balloon: '40%',
       terms: '72 months',
       image: '/images/financeoptions/x55-plus-dynamic.png'
     },
     {
       model: <>X55 PLUS<br />ELITE</>,
-      monthlyPayment: 'R5,620',
-      retailPrice: 'R464,900',
+      monthlyPayment: 'R5,299',
+      retailPrice: 'R469,900',
       deposit: '10%',
-      interestRate: '8.56%',
+      interestRate: '7.00%',
       balloon: '40%',
       terms: '72 months',
       image: '/images/financeoptions/x55-plus-elite.png'
     },
     {
       model: <>X55 PLUS<br />PREMIUM</>,
-      monthlyPayment: 'R6,079',
-      retailPrice: 'R499,900',
+      monthlyPayment: 'R5,799',
+      retailPrice: 'R509,900',
       deposit: '10%',
-      interestRate: '8.71%',
+      interestRate: '7.25%',
       balloon: '40%',
       terms: '72 months',
       image: '/images/financeoptions/x55-plus-premium.png'
     },
     {
       model: <>X55 PLUS<br />PREMIUM 2T</>,
-      monthlyPayment: 'R6,999',
+      monthlyPayment: 'R5,899',
       retailPrice: 'R514,900',
       deposit: '10%',
-      interestRate: '10.70%',
+      interestRate: '7.25%',
       balloon: '40%',
       terms: '72 months',
       image: '/images/financeoptions/x55-plus-premium-2t.png'

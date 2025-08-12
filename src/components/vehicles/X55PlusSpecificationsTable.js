@@ -243,11 +243,11 @@ const X55PlusSpecificationsTable = () => {
         'premium-2t': '7DCT'
       },
       {
-        name: 'Power',
-        dynamic: '130 kW',
-        elite: '130 kW',
-        premium: '130 kW',
-        'premium-2t': '130 kW'
+        name: 'Max. power(kw)',
+        dynamic: '138',
+        elite: '138',
+        premium: '138',
+        'premium-2t': '138'
       },
       {
         name: 'Torque',
@@ -684,8 +684,8 @@ const X55PlusSpecificationsTable = () => {
       },
       {
         name: 'Engine room half cover',
-        dynamic: true,
-        elite: true,
+        dynamic: false,
+        elite: false,
         premium: true,
         'premium-2t': true
       },
@@ -719,9 +719,9 @@ const X55PlusSpecificationsTable = () => {
       },
       {
         name: 'Dual Quad Exhaust',
-        dynamic: false,
-        elite: false,
-        premium: false,
+        dynamic: true,
+        elite: true,
+        premium: true,
         'premium-2t': true
       }
     ],

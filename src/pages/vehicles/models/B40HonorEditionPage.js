@@ -53,92 +53,44 @@ const HeroOverlay = styled.div`
 const HeroContent = styled.div`
   position: absolute;
   z-index: 2;
-  left: 4rem;
+  left: 8%;
   top: 50%;
   transform: translateY(-50%);
-  color: white;
-  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
   
   @media (max-width: 1200px) {
-    left: 3rem;
-    max-width: 500px;
-  }
-  
-  @media (max-width: 992px) {
-    left: 2rem;
-    max-width: 450px;
+    left: 7%;
+    gap: 18px;
   }
   
   @media (max-width: 768px) {
-    left: 2rem;
-    right: 2rem;
-    max-width: none;
-    width: calc(100% - 4rem);
+    left: 6%;
+    gap: 15px;
   }
   
   @media (max-width: 480px) {
-    left: 1.5rem;
-    right: 1.5rem;
-    width: calc(100% - 3rem);
+    left: 5%;
+    gap: 12px;
   }
 `;
 
-const ModelName = styled.h1`
-  font-size: 3.5rem;
-  font-weight: 800;
-  margin: 0 0 1rem 0;
-  line-height: 1.1;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+const LogoImage = styled.img`
+  max-width: 450px;
+  height: auto;
   
   @media (max-width: 1200px) {
-    font-size: 3rem;
-  }
-  
-  @media (max-width: 992px) {
-    font-size: 2.5rem;
-    letter-spacing: 1px;
+    max-width: 375px;
   }
   
   @media (max-width: 768px) {
-    font-size: 2.2rem;
+    max-width: 300px;
   }
   
   @media (max-width: 480px) {
-    font-size: 1.8rem;
-    margin-bottom: 0.8rem;
-  }
-`;
-
-const TaglineLarge = styled.p`
-  font-size: 2rem;
-  font-weight: 400;
-  margin: 0 0 3rem 0;
-  line-height: 1.2;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: white;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  
-  @media (max-width: 1200px) {
-    font-size: 1.8rem;
-  }
-  
-  @media (max-width: 992px) {
-    font-size: 1.5rem;
-    margin-bottom: 2.5rem;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 1.3rem;
-    margin-bottom: 2rem;
-  }
-  
-  @media (max-width: 480px) {
-    font-size: 1.1rem;
-    margin-bottom: 1.5rem;
+    max-width: 225px;
   }
 `;
 
@@ -965,8 +917,7 @@ const B40HonorEditionPage = () => {
         <HeroBackground />
         <HeroOverlay />
         <HeroContent>
-          <ModelName>B40 HONOR EDITION</ModelName>
-          <TaglineLarge>NEXT LEVEL BRAVERY</TaglineLarge>
+          <LogoImage src="/images/homehero/WEBSITE LANDSCAPE B40 LOGO (1).png" alt="B40 Honor Edition Logo" />
           
           <CTAContainer>
             <CTAButton as="a" href="/documents/brochures/B40-HONOR-EDITION-Brochure.pdf" target="_blank" rel="noopener noreferrer">Download Brochure</CTAButton>
