@@ -252,11 +252,6 @@ const FeaturedModelTitle = styled.h3`
   color: #222;
 `;
 
-const FeaturedModelPrice = styled.div`
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--primary-color);
-`;
 
 const FeaturedModelImageContainer = styled.div`
   width: 100%;
@@ -622,7 +617,6 @@ const ExploreModelsSection = () => {
       color: '#4a7a9b',
       image: '/images/models/x55/x55-turqoise.png',
       tagline: 'Premium Performance',
-      price: 'From R429 900',
       specs: {
         engine: '1.5L Turbo',
         power: '138 kW',
@@ -636,7 +630,6 @@ const ExploreModelsSection = () => {
       color: '#c9a540',
       image: '/images/models/b40-plus/BJ40-plus-RED.png',
       tagline: 'Next Level Bravery',
-      price: 'From R699,500',
       specs: {
         engine: '2.0L Petrol Turbo',
         power: '165 kW',
@@ -650,7 +643,6 @@ const ExploreModelsSection = () => {
       color: '#4a7a9b',
       image: '/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png',
       tagline: 'Coming Soon',
-      price: 'TBA',
       specs: {
         engine: 'Coming Soon',
         power: 'Coming Soon',
@@ -739,7 +731,6 @@ const ExploreModelsSection = () => {
         <FeaturedModelContainer key={activeModel}>
           <FeaturedModelHeader>
             <FeaturedModelTitle>{activeModelData.name}</FeaturedModelTitle>
-            <FeaturedModelPrice>{activeModelData.price}</FeaturedModelPrice>
           </FeaturedModelHeader>
           
           <FeaturedModelImageContainer>

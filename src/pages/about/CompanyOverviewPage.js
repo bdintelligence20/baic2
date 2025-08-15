@@ -139,7 +139,8 @@ const TimelineItem = styled.div`
 const TimelineContent = styled.div`
   width: 45%;
   padding: 1.5rem;
-  background-color: ${props => props.$active ? '#fff' : '#f8f8f8'};
+  background-color: ${props => props.$active ? '#e60012' : '#f8f8f8'};
+  color: ${props => props.$active ? '#fff' : '#333'};
   border-radius: 8px;
   box-shadow: ${props => props.$active ? '0 5px 20px rgba(0, 0, 0, 0.1)' : '0 2px 10px rgba(0, 0, 0, 0.05)'};
   position: relative;
@@ -152,7 +153,7 @@ const TimelineContent = styled.div`
     ${props => props.$position === 'left' ? 'right: -10px; transform: rotate(45deg);' : 'left: -10px; transform: rotate(-135deg);'}
     width: 20px;
     height: 20px;
-    background-color: ${props => props.$active ? '#fff' : '#f8f8f8'};
+    background-color: ${props => props.$active ? '#e60012' : '#f8f8f8'};
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   }
   
@@ -188,16 +189,24 @@ const TimelineYear = styled.div`
   }
 `;
 
+const TimelineImage = styled.img`
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+`;
+
 const TimelineTitle = styled.h3`
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #333;
+  color: ${props => props.$active ? '#fff' : '#333'};
 `;
 
 const TimelineText = styled.p`
   font-size: 1rem;
   line-height: 1.6;
-  color: #666;
+  color: ${props => props.$active ? 'rgba(255, 255, 255, 0.9)' : '#666'};
   margin-bottom: 1rem;
 `;
 
@@ -232,64 +241,132 @@ const CompanyOverviewPage = () => {
   // Create refs for each timeline item
   const timelineEvents = [
     {
-      year: '1958',
-      title: 'First Sedan',
-      text: 'BAIC produces China\'s first sedan, the \'Jinggangshan\' Sedan, a bold step that launched our journey of automotive innovation.',
-      position: 'right'
-    },
-    {
-      year: '1966',
-      title: 'Off-road Innovation',
-      text: 'BAIC independently develops the BJ212 off-road vehicle and successfully trial-produces the BJ130, demonstrating our early commitment to engineering for diverse terrains.',
+      year: '2016',
+      date: 'April 24, 2016',
+      title: 'BAIC Group and IDC Joint Development Agreement',
+      text: 'On April 24, 2016, BAIC Group signed a joint development agreement with IDC.',
+      image: '/images/History/april-24-2016.jpg',
       position: 'left'
     },
     {
-      year: '1983',
-      title: 'First Joint Venture',
-      text: 'BAIC establishes Beijing Jeep Joint Venture, China\'s first Sino-foreign joint venture for complete vehicle manufacturing, showcasing our courage to collaborate and embrace new ideas.',
+      year: '2016',
+      date: 'August 30, 2016',
+      title: 'Foundation Ceremony',
+      text: 'On August 30, 2016, BAIC SA officially laid the foundation.',
+      image: '/images/History/AUG-30-2016.jpg',
       position: 'right'
     },
     {
-      year: '2002',
-      title: 'Hyundai Partnership',
-      text: 'BAIC Group and Hyundai Motor Company sign a comprehensive strategic cooperation, further expanding our global partnerships.',
+      year: '2017',
+      date: 'July 1, 2017',
+      title: 'First Steel Column',
+      text: 'On July 1, 2017, the first steel column of SA factory was successfully fitted.',
+      image: '/images/History/july-1-2017.jpg',
       position: 'left'
-    },
-    {
-      year: '2009',
-      title: 'Saab Acquisition',
-      text: 'BAIC Group successfully acquires the intellectual property rights of Sweden\'s Saab, demonstrating our ambition to acquire cutting-edge technology.',
-      position: 'right'
     },
     {
       year: '2018',
-      title: 'MAGNA Partnership',
-      text: 'BAIC GROUP and MAGNA sign a strategic cooperation agreement to establish a joint venture and build a high-end BEV R&D and manufacturing base, showcasing our commitment to the future of electric mobility.',
+      date: 'July 24, 2018',
+      title: 'First Car Launch',
+      text: 'On July 24, 2018, the first car launch ceremony of BAIC SA.',
+      image: '/images/History/july-24-2018.jpg',
+      position: 'right'
+    },
+    {
+      year: '2019',
+      date: 'June 21, 2019',
+      title: 'Deepening Cooperation',
+      text: 'On June 21, 2019, BAIC Group and IDC signed the Deepening Cooperation Agreement.',
+      image: '/images/History/june-21-2019.jpg',
       position: 'left'
     },
     {
-      year: '2020',
-      title: 'Daimler Cooperation',
-      text: 'Foton deepens cooperation with Daimler, achieving the localization of Mercedes-Benz heavy trucks.',
+      year: '2019',
+      date: 'July 25, 2019',
+      title: 'Minister Visit',
+      text: 'On July 25, 2019, Dr Lin Jiangguo, the then Chinese Minister of Trade and Industry visited BAIC SA.',
+      image: '/images/History/july-25-2019.jpg',
       position: 'right'
     },
     {
       year: '2021',
-      title: 'Technology Licensing',
-      text: 'BAIC licenses the technology of the BE21 platform to Steyr USA LLC, expanding our technological influence.',
+      date: 'October 23, 2021',
+      title: 'Johannesburg Listing',
+      text: 'On October 23, 2021, BAIC SA BJD was listed in Johannesburg.',
+      image: '/images/History/ocotber-23-2021.jpg',
       position: 'left'
     },
     {
       year: '2022',
-      title: 'Fortune 500',
-      text: 'BAIC selected in Fortune Global 500 for ten consecutive years, a testament to our sustained success and global impact.',
+      date: 'October 25, 2022',
+      title: 'Paint Shop Installation',
+      text: 'On October 25, 2022, paint shop equipment installation of the BAIC SA officially began.',
+      image: '/images/History/october-25-2022.jpg',
+      position: 'right'
+    },
+    {
+      year: '2022',
+      date: 'November 15, 2022',
+      title: 'X55 Launch',
+      text: 'On November 15, 2022, BAIC SA X55 was successfully launched in South Africa market.',
+      image: '/images/History/novemberl-15-2022.jpg',
+      position: 'left'
+    },
+    {
+      year: '2022',
+      date: 'November 21, 2022',
+      title: '8 Year Anniversary',
+      text: 'On November 21, 2022, all employees celebrated the 6 year anniversary of BAIC SA.',
+      image: '/images/History/november-21-2022.jpg',
+      position: 'right'
+    },
+    {
+      year: '2022',
+      date: 'December 7, 2022',
+      title: 'IDC Executive Visit',
+      text: 'On December 7, 2022, IDC executive Ms Lucretia Jooste visited the BAIC SA factory.',
+      image: '/images/History/december-7-2022.jpg',
+      position: 'left'
+    },
+    {
+      year: '2023',
+      date: 'February 8, 2023',
+      title: 'X55 Trial Assembly',
+      text: 'On February 8, 2023, BAIC SA X55 trial assembly vehicle off production line completed & product off line.',
+      image: '/images/History/feb-8-2023.jpg',
       position: 'right'
     },
     {
       year: '2023',
-      title: 'Top Gear Award',
-      text: 'The BAIC X55 receives the Top Gear award, recognising its excellence and further solidifying BAIC\'s position as a leader in automotive innovation.',
+      date: 'June 1, 2023',
+      title: 'E-coat Commissioning',
+      text: 'On June 1, 2023, E-coat first fit & equipment commissioning launched.',
+      image: '/images/History/june-1-2023.jpg',
       position: 'left'
+    },
+    {
+      year: '2023',
+      date: 'June 23, 2023',
+      title: 'Factory Construction Completed',
+      text: 'On June 23, 2023, BAIC SA factory construction fully completed & product off line.',
+      image: '/images/History/june-23-2023.jpg',
+      position: 'right'
+    },
+    {
+      year: '2024',
+      date: 'August 30, 2024',
+      title: 'X55 PLUS Launch',
+      text: 'On August 30, 2024, BAIC SA officially launched the BEIJING X55 PLUS in South Africa, showcasing its advanced technology, modern design and strengthening our presence in the South African market.',
+      image: '/images/History/August-30-2024-820.jpg',
+      position: 'left'
+    },
+    {
+      year: '2024',
+      date: 'November 16, 2024',
+      title: '8th Anniversary',
+      text: 'On November 16, 2024, BAIC SA celebrated its 8th anniversary with nearly a decade of presence & innovation at the BAIC SA factory, highlighting nearly a decade of commitment, growth and contribution to the South African market.',
+      image: '/images/History/November-16-2024-820.jpg',
+      position: 'right'
     }
   ];
 
@@ -374,8 +451,9 @@ const CompanyOverviewPage = () => {
                 {event.year}
               </TimelineYear>
               <TimelineContent $position={event.position} $active={activeEvent === index}>
-                <TimelineTitle>{event.title}</TimelineTitle>
-                <TimelineText>{event.text}</TimelineText>
+                <TimelineImage src={event.image} alt={event.title} />
+                <TimelineTitle $active={activeEvent === index}>{event.title}</TimelineTitle>
+                <TimelineText $active={activeEvent === index}>{event.text}</TimelineText>
               </TimelineContent>
             </TimelineItem>
           ))}
