@@ -491,6 +491,25 @@ const TechSpecsDescription = styled.p`
   color: #666;
 `;
 
+const TechSpecsImageContainer = styled.div`
+  margin: 0 auto 3rem;
+  text-align: center;
+`;
+
+const TechSpecsImage = styled.img`
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+`;
+
 // Modal components
 // Modal components for specifications
 const Modal = styled.div`
@@ -879,7 +898,7 @@ const X55PlusPage = () => {
             <FeatureCTAButton to="/book-test-drive">Enquire Today</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55-plus/x55new/BAIC BEIJING X55 PLUS_019 NP NEW BADGE.jpg" alt="Crystal Star Design" />
+            <img src="/images/models/x55-plus-new/1.jpg" alt="Crystal Star Design" />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -897,7 +916,7 @@ const X55PlusPage = () => {
             <FeatureCTAButton to="/find-dealer">Find a dealer</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55-plus/features/baic_interior_x55_plus_8.jpg" alt="Star Trails Ambient Light" />
+            <img src="/images/models/x55-plus-new/5.jpg" alt="Star Trails Ambient Light" />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -915,7 +934,7 @@ const X55PlusPage = () => {
             <FeatureCTAButton to="/book-test-drive">Book a test drive</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55-plus/features/baic_interior_x55_plus_5.jpg" alt="Panoramic Sunroof" />
+            <img src="/images/models/x55-plus-new/4.jpg" alt="Panoramic Sunroof" />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -934,7 +953,7 @@ const X55PlusPage = () => {
             <FeatureCTAButton to="/about/company-overview">About BAIC</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55-plus/features/baic_interior_x55_plus_4.jpg" alt="First-class Comfort" />
+            <img src="/images/models/x55-plus-new/6.jpg" alt="First-class Comfort" />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -991,6 +1010,12 @@ const X55PlusPage = () => {
           <TechSpecsDescription>
             Compare specifications across different X55 Plus variants to find the perfect match for your needs.
           </TechSpecsDescription>
+          <TechSpecsImageContainer>
+            <TechSpecsImage 
+              src="/images/models/x55-plus-new/8.jpg" 
+              alt="X55 Plus Technical Specifications" 
+            />
+          </TechSpecsImageContainer>
           <SpecsButton onClick={openModal}>View Specifications</SpecsButton>
         </TechSpecsContainer>
       </TechSpecsSection>
