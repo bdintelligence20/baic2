@@ -485,10 +485,11 @@ const TechSpecsTitle = styled.h2`
 const TechSpecsDescription = styled.p`
   font-size: 1.2rem;
   line-height: 1.6;
-  max-width: 800px;
+  max-width: none;
   margin: 0 auto 3rem;
   text-align: center;
   color: #666;
+  white-space: nowrap;
 `;
 
 const TechSpecsImageContainer = styled.div`

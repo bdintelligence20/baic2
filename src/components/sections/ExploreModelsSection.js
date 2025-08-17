@@ -767,7 +767,7 @@ const ExploreModelsSection = () => {
           <SpecsContainer>
             <SpecItem>
               <SpecIcon>
-                <i className="fas fa-engine"></i>
+                <i className="fas fa-cog"></i>
               </SpecIcon>
               <SpecValue>{activeModelData.specs.engine}</SpecValue>
               <SpecLabel>Engine</SpecLabel>

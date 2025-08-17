@@ -316,7 +316,7 @@ const CompanyOverviewPage = () => {
     {
       year: '2022',
       date: 'November 21, 2022',
-      title: '8 Year Anniversary',
+      title: '6 Year Anniversary',
       text: 'On November 21, 2022, all employees celebrated the 6 year anniversary of BAIC SA.',
       image: '/images/History/november-21-2022.jpg',
       position: 'right'

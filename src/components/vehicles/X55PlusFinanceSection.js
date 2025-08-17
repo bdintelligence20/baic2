@@ -28,9 +28,10 @@ const FinanceSubtitle = styled.p`
   color: #666;
   text-align: center;
   margin-bottom: 4rem;
-  max-width: 600px;
+  max-width: none;
   margin-left: auto;
   margin-right: auto;
+  white-space: nowrap;
 `;
 
 const FinanceGrid = styled.div`
