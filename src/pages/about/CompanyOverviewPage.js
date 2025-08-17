@@ -191,8 +191,10 @@ const TimelineYear = styled.div`
 
 const TimelineImage = styled.img`
   width: 100%;
-  height: 200px;
-  object-fit: contain;
+  height: auto;
+  min-height: 180px;
+  max-height: 300px;
+  object-fit: cover;
   border-radius: 4px;
   margin-bottom: 1rem;
   background-color: #f8f8f8;
@@ -293,7 +295,7 @@ const CompanyOverviewPage = () => {
       year: '2021',
       date: 'October 23, 2021',
       title: 'Johannesburg Listing',
-      text: 'On October 23, 2021, BAIC SA BJD was listed in Johannesburg.',
+      text: 'On October 23, 2021, BAIC SA B40 was listed in Johannesburg.',
       image: '/images/History/ocotber-23-2021.jpg',
       position: 'left'
     },
