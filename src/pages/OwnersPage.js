@@ -34,7 +34,7 @@ const HeroBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/images/hero/OWNERS BANNER (1).jpg');
+  background-image: url('/images/owners/WEBSITE LANDSCAPE11.jpg');
   background-size: cover;
   background-position: center;
 `;
@@ -402,18 +402,18 @@ const OwnersPage = () => {
               <tbody>
                 <TableRow>
                   <TableCell><strong>X55</strong></TableCell>
-                  <TableCell>5 Yrs / 150 000 km<br /><small>(Standard)</small></TableCell>
-                  <TableCell>5 Yrs / 60 000 km<br /><small>(Standard)</small></TableCell>
+                  <TableCell>5 Yrs / 150 000 km</TableCell>
+                  <TableCell>5 Yrs / 60 000 km</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell><strong>X55 PLUS</strong></TableCell>
-                  <TableCell>5 Yrs / 150 000 km<br /><small>(Standard)</small></TableCell>
-                  <TableCell>5 Yrs / 60 000 km<br /><small>(Standard)</small></TableCell>
+                  <TableCell>5 Yrs / 150 000 km</TableCell>
+                  <TableCell>5 Yrs / 60 000 km</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell><strong>B40 HONOR EDITION</strong></TableCell>
-                  <TableCell>5 Yrs / 120 000 km<br /><small>(Standard)</small></TableCell>
-                  <TableCell>4 Yrs / 60 000 km<br /><small>(Optional)</small></TableCell>
+                  <TableCell>5 Yrs / 120 000 km</TableCell>
+                  <TableCell>4 Yrs / 60 000 km</TableCell>
                 </TableRow>
               </tbody>
             </Table>

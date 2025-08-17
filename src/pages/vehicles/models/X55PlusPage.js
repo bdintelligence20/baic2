@@ -35,7 +35,7 @@ const HeroBackground = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/images/vehicles/x55-plus/x55new/BAIC BEIJING X55 PLUS_043 ext NP NEW BADGE (2).jpg');
+  background-image: url('/images/models/x55-plus-new/WEBSITE LANDSCAPE10.jpg');
   background-size: cover;
   background-position: center 50%;
 `;
@@ -965,7 +965,7 @@ const X55PlusPage = () => {
             {engineSpecs.map((spec, index) => (
               <SpecCard key={index}>
                 <SpecIcon>
-                  <i className={`fas fa-${index === 0 ? 'engine' : index === 1 ? 'tachometer-alt' : index === 2 ? 'bolt' : 'stopwatch'}`}></i>
+                  <i className={`fas fa-${index === 0 ? 'cog' : index === 1 ? 'tachometer-alt' : index === 2 ? 'bolt' : 'stopwatch'}`}></i>
                 </SpecIcon>
                 <SpecTitle>{spec.title}</SpecTitle>
                 <SpecValue>

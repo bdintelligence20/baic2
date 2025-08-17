@@ -130,7 +130,7 @@ const PromotionsSection = () => {
     title: 'X55 PLUS',
     subtitle: 'From R429 900',
     enquireLink: '/book-test-drive',
-    financeLink: '/#finance-options'
+    financeLink: '/finance'
   };
 
   return (

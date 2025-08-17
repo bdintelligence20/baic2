@@ -191,10 +191,11 @@ const TimelineYear = styled.div`
 
 const TimelineImage = styled.img`
   width: 100%;
-  height: 150px;
-  object-fit: cover;
+  height: 200px;
+  object-fit: contain;
   border-radius: 4px;
   margin-bottom: 1rem;
+  background-color: #f8f8f8;
 `;
 
 const TimelineTitle = styled.h3`
@@ -370,32 +371,43 @@ const CompanyOverviewPage = () => {
     }
   ];
 
+  // Get unique years from timeline events
+  const uniqueYears = [...new Set(timelineEvents.map(event => event.year))];
+
   // Initialize refs when component mounts
   useEffect(() => {
     timelineItemRefs.current = timelineEvents.map((_, i) => timelineItemRefs.current[i] || createRef());
-  }, [timelineEvents]);
+  }, []);
 
   const handleEventClick = (index) => {
     setActiveEvent(index);
-    
+    scrollToEvent(index);
+  };
+
+  const handleYearClick = (year) => {
+    // Find the first event for the selected year
+    const firstEventIndex = timelineEvents.findIndex(event => event.year === year);
+    if (firstEventIndex !== -1) {
+      setActiveEvent(firstEventIndex);
+      scrollToEvent(firstEventIndex);
+    }
+  };
+
+  const scrollToEvent = (index) => {
     // Scroll to the selected timeline item
     if (timelineItemRefs.current[index] && timelineItemRefs.current[index].current) {
       const element = timelineItemRefs.current[index].current;
-      const container = timelineContainerRef.current;
       
-      if (element && container) {
-        // Calculate position to scroll to (centered in the container)
-        const elementRect = element.getBoundingClientRect();
-        const containerRect = container.getBoundingClientRect();
-        const scrollTop = element.offsetTop - (containerRect.height / 2) + (elementRect.height / 2);
-        
-        // Smooth scroll to the element
-        container.scrollTo({
-          top: scrollTop,
-          behavior: 'smooth'
-        });
-      }
+      // Scroll the element into view
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
     }
+  };
+
+  const isYearActive = (year) => {
+    return timelineEvents[activeEvent]?.year === year;
   };
 
   return (
@@ -427,13 +439,13 @@ const CompanyOverviewPage = () => {
         </Paragraph>
         
         <TimelineNavigation>
-          {timelineEvents.map((event, index) => (
+          {uniqueYears.map((year) => (
             <TimelineNavButton 
-              key={index} 
-              $active={activeEvent === index}
-              onClick={() => handleEventClick(index)}
+              key={year} 
+              $active={isYearActive(year)}
+              onClick={() => handleYearClick(year)}
             >
-              {event.year}
+              {year}
             </TimelineNavButton>
           ))}
         </TimelineNavigation>

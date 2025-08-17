@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import SpecificationsSection from '../../../components/vehicles/SpecificationsSection';
+import B40HonorEditionSpecificationsSection from '../../../components/vehicles/B40HonorEditionSpecificationsSection';
 import HeritageSection from '../../../components/sections/HeritageSection';
+import { useModal } from '../../../context/ModalContext';
 
 const PageContainer = styled.div`
   overflow-x: hidden;
@@ -260,6 +261,54 @@ const FeatureCTAButton = styled(Link)`
   text-align: center;
   margin: 0 auto;
   align-self: center;
+  
+  &:hover {
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 992px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+    width: fit-content;
+    max-width: 180px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    width: fit-content;
+    max-width: 160px;
+    display: block;
+  }
+  
+  @media (max-width: 480px) {
+    width: fit-content;
+    max-width: 150px;
+  }
+`;
+
+const FeatureCTAButtonModal = styled.button`
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border: none;
+  display: inline-block;
+  width: fit-content;
+  max-width: 200px;
+  text-align: center;
+  margin: 0 auto;
+  align-self: center;
+  cursor: pointer;
   
   &:hover {
     background-color: var(--primary-color-hover);
@@ -816,6 +865,7 @@ const IntroText = styled.p`
 `;
 
 const B40HonorEditionPage = () => {
+  const { openTypeformModal } = useModal();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -931,7 +981,7 @@ const B40HonorEditionPage = () => {
           <IntroText>
             Bravery starts where the road ends. The new BAIC B40 HONOR EDITION is built for drivers who refuse to follow. It's designed for those who challenge boundaries, conquer terrain, and define their own journeys. Whether you're navigating the city skyline or forging trails into the wild, the B40 HONOR EDITION delivers the power, design, and technology to fuel your boldest adventures. The greatest journeys begin with courage. This is where yours starts.
           </IntroText>
-          <FeatureCTAButton to="/contact">Enquire Today</FeatureCTAButton>
+          <FeatureCTAButtonModal onClick={openTypeformModal}>Enquire Today</FeatureCTAButtonModal>
         </IntroContainer>
       </IntroSection>
       
@@ -1039,7 +1089,7 @@ const B40HonorEditionPage = () => {
       <Modal $isOpen={isModalOpen}>
         <ModalContent>
           <CloseButton onClick={closeModal}>×</CloseButton>
-          <SpecificationsSection />
+          <B40HonorEditionSpecificationsSection />
         </ModalContent>
       </Modal>
       
