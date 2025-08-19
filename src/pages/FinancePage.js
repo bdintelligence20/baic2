@@ -319,7 +319,7 @@ const FinancePage = () => {
               <ApplyOnlineText>
                 Take your first step towards owning a BAIC.
               </ApplyOnlineText>
-              <ApplyButton href="https://efinancinguat.co.za/vehiclefin/applyonline/getting-started?origin=baic" target="_blank" rel="noopener noreferrer">
+              <ApplyButton href="https://efinancing.co.za/vehiclefin/applyonline/getting-started?origin=baic" target="_blank" rel="noopener noreferrer">
                 Apply Online
               </ApplyButton>
               <FooterContainer>

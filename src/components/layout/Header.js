@@ -367,6 +367,19 @@ const MobileSubNavLink = styled(Link)`
   }
 `;
 
+const MobileSubNavExternalLink = styled.a`
+  color: #555;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 400;
+  display: block;
+  padding: 0.3rem 0;
+  
+  &:hover {
+    color: var(--primary-color-light-text);
+  }
+`;
+
 const MobileSocialIcons = styled.div`
   display: flex;
   gap: 1rem;
@@ -385,13 +398,43 @@ const MobileTestDriveButton = styled(TestDriveButton)`
   width: 100%;
 `;
 
+// Simple dropdown component for Company Overview
+const SimpleDropdown = styled.div`
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  min-width: 180px;
+  display: ${props => props.$isOpen ? 'block' : 'none'};
+  z-index: 100;
+  padding: 0.5rem 0;
+`;
+
+const SimpleDropdownLink = styled.a`
+  display: block;
+  padding: 0.7rem 1.5rem;
+  color: #555;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #f8f8f8;
+    color: var(--primary-color-light-text);
+  }
+`;
+
 const Header = () => {
   const { openTypeformModal } = useModal();
   const [activeMenu, setActiveMenu] = useState(null);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [expandedMobileMenus, setExpandedMobileMenus] = useState({
+    company: false,
     vehicles: false
   });
   
@@ -455,8 +498,25 @@ const Header = () => {
           <NavLink to="/">Home</NavLink>
         </NavItem>
         
-        <NavItem>
-          <NavLink to="/about/company-overview">Company Overview</NavLink>
+        <NavItem 
+          onMouseEnter={() => setCompanyDropdownOpen(true)}
+          onMouseLeave={() => setCompanyDropdownOpen(false)}
+        >
+          <NavLink 
+            to="/about/company-overview" 
+            className={`has-dropdown ${companyDropdownOpen ? 'active' : ''}`}
+          >
+            Company Overview
+          </NavLink>
+          <SimpleDropdown $isOpen={companyDropdownOpen}>
+            <SimpleDropdownLink 
+              href="https://www.baicglobal.com/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              BAIC Global
+            </SimpleDropdownLink>
+          </SimpleDropdown>
         </NavItem>
         
         <NavItem onMouseEnter={() => handleMouseEnter('vehicles')}>
@@ -501,7 +561,29 @@ const Header = () => {
         </MobileNavItem>
         
         <MobileNavItem>
-          <MobileNavLink to="/about/company-overview" onClick={closeMobileMenu}>Company Overview</MobileNavLink>
+          <MobileNavButton 
+            onClick={() => toggleMobileSubMenu('company')}
+            className={expandedMobileMenus.company ? 'active' : ''}
+          >
+            Company Overview
+            <span className={`arrow ${expandedMobileMenus.company ? 'open' : ''}`}>▼</span>
+          </MobileNavButton>
+          
+          <MobileSubMenu $isOpen={expandedMobileMenus.company}>
+            <MobileSubNavItem>
+              <MobileSubNavLink to="/about/company-overview" onClick={closeMobileMenu}>Company Overview</MobileSubNavLink>
+            </MobileSubNavItem>
+            <MobileSubNavItem>
+              <MobileSubNavExternalLink 
+                href="https://www.baicglobal.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={closeMobileMenu}
+              >
+                BAIC Global
+              </MobileSubNavExternalLink>
+            </MobileSubNavItem>
+          </MobileSubMenu>
         </MobileNavItem>
         
         <MobileNavItem>
@@ -518,13 +600,10 @@ const Header = () => {
               <span style={{ color: '#555', fontSize: '1.1rem', padding: '0.3rem 0', display: 'block' }}>B30 (Coming Soon)</span>
             </MobileSubNavItem>
             <MobileSubNavItem>
-              <MobileSubNavLink to="/vehicles/models/x55-plus" onClick={closeMobileMenu}>X55 Plus</MobileSubNavLink>
+              <MobileSubNavLink to="/vehicles/models/x55-plus" onClick={closeMobileMenu}>X55 PLUS</MobileSubNavLink>
             </MobileSubNavItem>
             <MobileSubNavItem>
-              <MobileSubNavLink to="/vehicles/models/x55-dynamic" onClick={closeMobileMenu}>X55 Dynamic</MobileSubNavLink>
-            </MobileSubNavItem>
-            <MobileSubNavItem>
-              <MobileSubNavLink to="/vehicles/models/b40-plus" onClick={closeMobileMenu}>B40 Plus</MobileSubNavLink>
+              <MobileSubNavLink to="/vehicles/models/b40-honor-edition" onClick={closeMobileMenu}>B40 HONOR EDITION</MobileSubNavLink>
             </MobileSubNavItem>
           </MobileSubMenu>
         </MobileNavItem>

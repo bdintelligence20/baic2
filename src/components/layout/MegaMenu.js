@@ -213,6 +213,39 @@ const FeaturedLink = styled(Link)`
   }
 `;
 
+const ExternalLink = styled.a`
+  color: #555;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+  position: relative;
+  
+  &:hover {
+    color: var(--primary-color-light-text);
+    transform: translateX(5px);
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    transition: transform 0.3s ease;
+    opacity: 0;
+  }
+  
+  &:hover::before {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+`;
+
 const MegaMenu = ({ isOpen, activeMenu }) => {
   // Define menu content based on active menu
   const renderMenuContent = () => {
