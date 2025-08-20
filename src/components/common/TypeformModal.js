@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useModal } from '../../context/ModalContext';
+import { getStoredUTMParams, getUTMData } from '../../utils/utmTracking';
 
 // Global styles to ensure Typeform takes up full height
 const TypeformStyles = createGlobalStyle`
@@ -76,8 +77,40 @@ const TypeformContainer = styled.div`
 
 const TypeformModal = () => {
   const { isTypeformModalOpen: isOpen, closeTypeformModal: onClose } = useModal();
+  const [utmData, setUtmData] = useState({});
+
   useEffect(() => {
     if (isOpen) {
+      // Get UTM data when modal opens
+      const currentUTMData = getUTMData();
+      setUtmData(currentUTMData);
+      
+      // Send conversion event to Google Analytics/GTM
+      if (window.gtag) {
+        window.gtag('event', 'lead_form_opened', {
+          event_category: 'Form',
+          event_label: 'Test Drive Form',
+          utm_source: currentUTMData.utm_source || 'direct',
+          utm_medium: currentUTMData.utm_medium || 'none',
+          utm_campaign: currentUTMData.utm_campaign || 'none',
+          utm_content: currentUTMData.utm_content || 'none'
+        });
+      }
+
+      // Send to GTM dataLayer
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'lead_form_opened',
+          form_name: 'Test Drive Form',
+          utm_source: currentUTMData.utm_source || 'direct',
+          utm_medium: currentUTMData.utm_medium || 'none', 
+          utm_campaign: currentUTMData.utm_campaign || 'none',
+          utm_content: currentUTMData.utm_content || 'none'
+        });
+      }
+
+      console.log('TypeformModal: UTM data for form submission:', currentUTMData);
+
       // Create and append the Typeform script when modal is opened
       const script = document.createElement('script');
       script.src = 'https://embed.typeform.com/next/embed.js';
@@ -112,6 +145,20 @@ const TypeformModal = () => {
       };
     }
   }, [isOpen]);
+
+  // Create hidden fields for UTM data to pass to Typeform
+  const getHiddenFields = () => {
+    if (!utmData.hasUTMData) return '';
+    
+    const hiddenFields = [];
+    if (utmData.utm_source) hiddenFields.push(`utm_source=${encodeURIComponent(utmData.utm_source)}`);
+    if (utmData.utm_medium) hiddenFields.push(`utm_medium=${encodeURIComponent(utmData.utm_medium)}`);
+    if (utmData.utm_campaign) hiddenFields.push(`utm_campaign=${encodeURIComponent(utmData.utm_campaign)}`);
+    if (utmData.utm_content) hiddenFields.push(`utm_content=${encodeURIComponent(utmData.utm_content)}`);
+    if (utmData.utm_term) hiddenFields.push(`utm_term=${encodeURIComponent(utmData.utm_term)}`);
+    
+    return hiddenFields.length > 0 ? `#${hiddenFields.join('&')}` : '';
+  };
   
   if (!isOpen) return null;
   
@@ -131,6 +178,7 @@ const TypeformModal = () => {
               data-tf-auto-focus
               data-tf-medium="embed-fullpage"
               data-tf-full-screen
+              data-tf-hidden={getHiddenFields()}
             ></div>
           </TypeformContainer>
         </ModalContent>

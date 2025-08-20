@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import TypeformModal from './components/common/TypeformModal';
 import { ModalProvider } from './context/ModalContext';
+import { initializeUTMTracking, sendUTMToDataLayer } from './utils/utmTracking';
+
+// Load testing utilities in development
+if (process.env.NODE_ENV === 'development') {
+  import('./utils/utmTestingUtils');
+}
 
 // Pages
 import HomePage from './pages/HomePage';
@@ -77,11 +83,44 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// UTM Tracking component that monitors route changes
+function UTMTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    // Initialize UTM tracking on component mount and route changes
+    initializeUTMTracking();
+    
+    // Send UTM data to dataLayer after tracking is initialized
+    setTimeout(() => {
+      sendUTMToDataLayer();
+    }, 100);
+    
+    // Send page view event with UTM data to Google Analytics
+    if (window.gtag) {
+      const utmData = require('./utils/utmTracking').getUTMData();
+      window.gtag('config', 'AW-16850199888', {
+        page_title: document.title,
+        page_location: window.location.href,
+        custom_map: {
+          utm_source: 'source',
+          utm_medium: 'medium', 
+          utm_campaign: 'campaign',
+          utm_content: 'content'
+        }
+      });
+    }
+  }, [location]);
+
+  return null; // This component doesn't render anything
+}
+
 function App() {
   return (
     <Router>
       <ModalProvider>
         <GlobalStyle />
+        <UTMTracker />
         <Header />
         <main>
           <Routes>
