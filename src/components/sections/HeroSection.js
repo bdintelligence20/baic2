@@ -32,6 +32,7 @@ const BannerImage = styled.img`
   object-fit: contain;
   display: block;
   max-width: 100%;
+  transition: opacity 0.3s ease;
 `;
 
 // Navigation arrows
@@ -281,10 +282,20 @@ const HeroSection = () => {
             transition: 'opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)'
           }}
         >
-          <BannerImage src={slide.image} alt={slide.alt} />
+          <BannerImage 
+            src={slide.image} 
+            alt={slide.alt}
+            loading={index === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
           {index === currentSlide && (
             <ContentGroup>
-              <LogoImage src={slide.logo} alt={slide.logoAlt} />
+              <LogoImage 
+                src={slide.logo} 
+                alt={slide.logoAlt}
+                loading="lazy"
+                decoding="async"
+              />
               <ExploreButton to={slide.link}>
                 Explore Now
               </ExploreButton>

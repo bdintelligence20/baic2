@@ -7,11 +7,6 @@ import TypeformModal from './components/common/TypeformModal';
 import { ModalProvider } from './context/ModalContext';
 import { initializeUTMTracking, sendUTMToDataLayer } from './utils/utmTracking';
 
-// Load testing utilities in development
-if (process.env.NODE_ENV === 'development') {
-  import('./utils/utmTestingUtils');
-}
-
 // Pages
 import HomePage from './pages/HomePage';
 import ContactUsPage from './pages/ContactUsPage';
@@ -36,6 +31,11 @@ import X55PlusPromotionPage from './pages/vehicles/promotions/X55PlusPromotionPa
 import X55DynamicPromotionPage from './pages/vehicles/promotions/X55DynamicPromotionPage';
 import B40PlusPromotionPage from './pages/vehicles/promotions/B40PlusPromotionPage';
 import B40HonorEditionPromotionPage from './pages/vehicles/promotions/B40HonorEditionPromotionPage';
+
+// Load testing utilities in development
+if (process.env.NODE_ENV === 'development') {
+  import('./utils/utmTestingUtils');
+}
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -98,7 +98,6 @@ function UTMTracker() {
     
     // Send page view event with UTM data to Google Analytics
     if (window.gtag) {
-      const utmData = require('./utils/utmTracking').getUTMData();
       window.gtag('config', 'AW-16850199888', {
         page_title: document.title,
         page_location: window.location.href,

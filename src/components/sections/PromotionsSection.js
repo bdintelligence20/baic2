@@ -53,6 +53,7 @@ const PromoImage = styled.img`
   height: auto;
   object-fit: cover;
   display: block;
+  transition: opacity 0.3s ease;
 `;
 
 const ButtonContainer = styled.div`
@@ -139,7 +140,12 @@ const PromotionsSection = () => {
         <SectionTitle>Current Promotions</SectionTitle>
         
         <PromoContainer>
-          <PromoImage src={promotion.image} alt={promotion.title} />
+          <PromoImage 
+            src={promotion.image} 
+            alt={promotion.title}
+            loading="lazy"
+            decoding="async"
+          />
         </PromoContainer>
         
         <ButtonContainer>

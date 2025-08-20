@@ -109,13 +109,21 @@ const ModelImageWrapper = styled.div`
   align-items: center;
 `;
 
-const ModelImage = styled.div`
+const ModelImage = styled.img`
   width: 100%;
   height: 100%;
-  background-image: ${props => props.$image ? `url(${props.$image})` : 'none'};
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  margin: 0 auto;
+  /* Apply specific scaling for B30 model */
+  transform: ${props => props.$isB30 ? 'scale(0.8)' : 'none'};
+  transition: opacity 0.3s ease;
+`;
+
+const ModelImageFallback = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -266,13 +274,19 @@ const FeaturedModelImageContainer = styled.div`
   }
 `;
 
-const FeaturedModelImage = styled.div`
+const FeaturedModelImage = styled.img`
   width: 100%;
   height: 100%;
-  background-image: ${props => props.$image ? `url(${props.$image})` : 'none'};
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  position: relative;
+  transition: opacity 0.3s ease;
+`;
+
+const FeaturedModelImageFallback = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -707,13 +721,22 @@ const ExploreModelsSection = () => {
               onClick={() => handleModelChange(model.id)}
             >
               <ModelImageWrapper $color={model.color}>
-                <ModelImage 
-                  $color={model.color} 
-                  $image={model.image}
-                  $isB30={model.id === 'b30'}
-                >
-                  {!model.image && model.name}
-                </ModelImage>
+                {model.image ? (
+                  <ModelImage 
+                    src={model.image}
+                    alt={model.name}
+                    $isB30={model.id === 'b30'}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <ModelImageFallback 
+                    $color={model.color}
+                    $isB30={model.id === 'b30'}
+                  >
+                    {model.name}
+                  </ModelImageFallback>
+                )}
               </ModelImageWrapper>
               <ModelInfo>
                 <ModelName $active={activeModel === model.id}>
@@ -734,12 +757,18 @@ const ExploreModelsSection = () => {
           </FeaturedModelHeader>
           
           <FeaturedModelImageContainer>
-            <FeaturedModelImage 
-              $color={activeColor?.hex || activeModelData.color} 
-              $image={activeColor?.image || activeModelData.image}
-            >
-              {!activeModelData.image && !activeColor?.image && activeModelData.name}
-            </FeaturedModelImage>
+            {(activeColor?.image || activeModelData.image) ? (
+              <FeaturedModelImage 
+                src={activeColor?.image || activeModelData.image}
+                alt={`${activeModelData.name} ${activeColor ? `in ${activeColor.name}` : ''}`}
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <FeaturedModelImageFallback $color={activeColor?.hex || activeModelData.color}>
+                {activeModelData.name}
+              </FeaturedModelImageFallback>
+            )}
           </FeaturedModelImageContainer>
           
           <ColorSelectionContainer>
