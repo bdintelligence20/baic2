@@ -14,6 +14,7 @@ import FindDealerPage from './pages/FindDealerPage';
 import BookTestDrivePage from './pages/BookTestDrivePage';
 import FinancePage from './pages/FinancePage';
 import OwnersPage from './pages/OwnersPage';
+import ThankYouPage from './pages/ThankYouPage';
 
 // About Us Section Pages
 import CompanyOverviewPage from './pages/about/CompanyOverviewPage';
@@ -137,6 +138,7 @@ function App() {
           <Route path="/vehicles/promotions/b40-honor-edition" element={<B40HonorEditionPromotionPage />} />
           <Route path="/find-dealer" element={<FindDealerPage />} />
           <Route path="/book-test-drive" element={<BookTestDrivePage />} />
+          <Route path="/thank-you-test-drive" element={<ThankYouPage />} />
           <Route path="/contact" element={<ContactUsPage />} />
           <Route path="/finance" element={<FinancePage />} />
           <Route path="/owners" element={<OwnersPage />} />
