@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import B40HonorEditionSpecificationsSection from '../../../components/vehicles/B40HonorEditionSpecificationsSection';
 import HeritageSection from '../../../components/sections/HeritageSection';
 import { useModal } from '../../../context/ModalContext';
+import TypeformEmbed from '../../../components/common/TypeformEmbed';
 
 const PageContainer = styled.div`
   overflow-x: hidden;
@@ -129,6 +130,48 @@ const CTAButton = styled(Link)`
   border: ${props => props.$primary ? '2px solid rgba(230, 0, 18, 0.9)' : '2px solid rgba(255, 255, 255, 0.3)'};
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  
+  &:hover {
+    background-color: ${props => props.$primary ? 'rgba(230, 0, 18, 1)' : 'rgba(255, 255, 255, 0.25)'};
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    border-color: ${props => props.$primary ? 'rgba(230, 0, 18, 1)' : 'rgba(255, 255, 255, 0.5)'};
+  }
+  
+  @media (max-width: 992px) {
+    padding: 0.9rem 1.8rem;
+    font-size: 0.85rem;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.8rem;
+  }
+  
+  @media (max-width: 480px) {
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+`;
+
+const CTAButtonScroll = styled.button`
+  background-color: ${props => props.$primary ? 'rgba(230, 0, 18, 0.9)' : 'rgba(255, 255, 255, 0.15)'};
+  color: white;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border: ${props => props.$primary ? '2px solid rgba(230, 0, 18, 0.9)' : '2px solid rgba(255, 255, 255, 0.3)'};
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
   
   &:hover {
     background-color: ${props => props.$primary ? 'rgba(230, 0, 18, 1)' : 'rgba(255, 255, 255, 0.25)'};
@@ -290,6 +333,54 @@ const FeatureCTAButton = styled(Link)`
 `;
 
 const FeatureCTAButtonModal = styled.button`
+  background-color: var(--primary-color);
+  color: var(--primary-color-text);
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  border: none;
+  display: inline-block;
+  width: fit-content;
+  max-width: 200px;
+  text-align: center;
+  margin: 0 auto;
+  align-self: center;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: var(--primary-color-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  @media (max-width: 992px) {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.8rem;
+    width: fit-content;
+    max-width: 180px;
+  }
+  
+  @media (max-width: 768px) {
+    padding: 0.6rem 1rem;
+    font-size: 0.75rem;
+    width: fit-content;
+    max-width: 160px;
+    display: block;
+  }
+  
+  @media (max-width: 480px) {
+    width: fit-content;
+    max-width: 150px;
+  }
+`;
+
+const FeatureCTAButtonScroll = styled.button`
   background-color: var(--primary-color);
   color: var(--primary-color-text);
   text-decoration: none;
@@ -871,6 +962,21 @@ const B40HonorEditionPage = () => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
+  // Scroll to form function
+  const scrollToForm = () => {
+    const element = document.getElementById('typeform-section');
+    if (element) {
+      const headerHeight = 80; // Account for fixed header
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+  
   // Gallery images
   const galleryImages = [
     '/images/vehicles/b40-plus-honor-edition/gallery/77543829 ext np.jpg',
@@ -971,7 +1077,7 @@ const B40HonorEditionPage = () => {
           
           <CTAContainer>
             <CTAButton as="a" href="/documents/brochures/B40-HONOR-EDITION-Brochure.pdf" target="_blank" rel="noopener noreferrer">Download Brochure</CTAButton>
-            <CTAButton to="/book-test-drive" $primary>Test Drive</CTAButton>
+            <CTAButtonScroll onClick={scrollToForm} $primary>Test Drive</CTAButtonScroll>
           </CTAContainer>
         </HeroContent>
       </HeroSection>
@@ -1009,7 +1115,7 @@ const B40HonorEditionPage = () => {
             <FeatureDescription>
               The B40 HONOR EDITION makes an impression before it even moves. Bold lines and an aggressive stance are framed by the unmistakable 5-slot grille. Striking LED headlamps illuminate the road ahead, while robust 17" alloy wheels wrapped in all-terrain tires stand ready for any challenge. The optional factory-fitted side-step plate adds convenience and rugged appeal.
             </FeatureDescription>
-            <FeatureCTAButton to="/book-test-drive">Book a Test Drive</FeatureCTAButton>
+            <FeatureCTAButtonScroll onClick={scrollToForm}>Book a Test Drive</FeatureCTAButtonScroll>
           </FeatureContent>
           <FeatureImage>
             <img src="/images/vehicles/b40-plus-honor-edition/features/78317802 ext np.jpg" alt="Design That Demands Respect" />
@@ -1112,6 +1218,11 @@ const B40HonorEditionPage = () => {
       </OffRoadSection>
       
       <HeritageSection />
+      
+      <TypeformEmbed 
+        title="Experience the B40 Honor Edition"
+        subtitle="Conquer new terrain with confidence. Book your test drive and discover where bravery takes you."
+      />
       
       {/* Gallery Modal */}
       <GalleryModal $isOpen={isGalleryOpen}>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
 import { useModal } from '../../context/ModalContext';
 
@@ -428,6 +428,8 @@ const SimpleDropdownLink = styled.a`
 
 const Header = () => {
   const { openTypeformModal } = useModal();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(null);
   const [megaMenuOpen, setMegaMenuOpen] = useState(false);
   const [companyDropdownOpen, setCompanyDropdownOpen] = useState(false);
@@ -480,6 +482,41 @@ const Header = () => {
       ...prev,
       [menu]: !prev[menu]
     }));
+  };
+  
+  // Handle test drive button click
+  const handleTestDriveClick = () => {
+    if (location.pathname === '/') {
+      // Already on home page, just scroll to form
+      const element = document.getElementById('typeform-section');
+      if (element) {
+        const headerHeight = 80; // Account for fixed header
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = elementPosition - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    } else {
+      // Navigate to home page, then scroll to form
+      navigate('/');
+      // Use setTimeout to ensure navigation completes before scrolling
+      setTimeout(() => {
+        const element = document.getElementById('typeform-section');
+        if (element) {
+          const headerHeight = 80; // Account for fixed header
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - headerHeight;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
   };
   
   return (
@@ -543,7 +580,7 @@ const Header = () => {
         <MegaMenu isOpen={megaMenuOpen} activeMenu={activeMenu} />
       </Nav>
       
-      <TestDriveButton onClick={openTypeformModal}>BOOK A TEST DRIVE</TestDriveButton>
+      <TestDriveButton onClick={handleTestDriveClick}>BOOK A TEST DRIVE</TestDriveButton>
       
       <MobileMenuButton onClick={toggleMobileMenu} aria-label="Toggle mobile menu">
         <HamburgerIcon className={mobileMenuOpen ? 'open' : ''}>
@@ -620,7 +657,7 @@ const Header = () => {
           <MobileNavLink to="/owners" onClick={closeMobileMenu}>Owners</MobileNavLink>
         </MobileNavItem>
         
-        <MobileTestDriveButton onClick={() => { closeMobileMenu(); openTypeformModal(); }}>BOOK A TEST DRIVE</MobileTestDriveButton>
+        <MobileTestDriveButton onClick={() => { closeMobileMenu(); handleTestDriveClick(); }}>BOOK A TEST DRIVE</MobileTestDriveButton>
         
         <MobileSocialIcons>
           <MobileSocialIcon href="https://www.instagram.com/baic.southafrica/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
