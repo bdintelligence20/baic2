@@ -20,16 +20,41 @@ const COOKIE_CONFIG = {
   sameSite: 'Lax'
 };
 
+// Campaign buckets for South African marketing analysis
+const CAMPAIGN_BUCKETS = {
+  // Paid Search
+  'brand_search_x55': { bucket: 'paid_search', model: 'x55', type: 'brand' },
+  'brand_search_b40': { bucket: 'paid_search', model: 'b40', type: 'brand' },
+  'brand_search': { bucket: 'paid_search', model: 'general', type: 'brand' },
+  'comp_search_x55': { bucket: 'paid_search', model: 'x55', type: 'competitive' },
+  'comp_search_b40': { bucket: 'paid_search', model: 'b40', type: 'competitive' },
+  
+  // Social Media
+  'meta_x55': { bucket: 'social_media', model: 'x55', type: 'awareness' },
+  'meta_b40': { bucket: 'social_media', model: 'b40', type: 'awareness' },
+  
+  // Performance Max & Display
+  'pmax_b40': { bucket: 'display_network', model: 'b40', type: 'performance' },
+  'demand_x55': { bucket: 'display_network', model: 'x55', type: 'demand_gen' },
+  
+  // Site Links
+  'google_account_link': { bucket: 'site_extensions', model: 'general', type: 'sitelink' }
+};
+
 /**
  * Check if cookies are allowed by Cookiebot
+ * For South Africa (no GDPR), UTM tracking is essential for business operations
  */
 function areCookiesAllowed() {
   // Check if Cookiebot is loaded
   if (typeof window.Cookiebot !== 'undefined') {
-    // Check if marketing/statistics cookies are allowed (UTM tracking falls under marketing)
-    return window.Cookiebot.consent.marketing || window.Cookiebot.consent.statistics;
+    // UTM tracking is necessary for campaign attribution and business analytics
+    // Treat as necessary/functional cookies rather than marketing cookies
+    return window.Cookiebot.consent.necessary || window.Cookiebot.consent.functional || 
+           window.Cookiebot.consent.marketing || window.Cookiebot.consent.statistics || 
+           true; // Always allow UTM tracking in South Africa
   }
-  // If Cookiebot is not loaded, assume cookies are allowed (fallback)
+  // Always allow UTM tracking - no GDPR restrictions
   return true;
 }
 
@@ -214,15 +239,20 @@ function initializeUTMTracking() {
     
     if (Object.keys(currentUTMs).length > 0) {
       console.log('UTM Tracking: Found UTM parameters:', currentUTMs);
-      storeUTMParams(currentUTMs);
+      // Use enhanced storage for better reliability in South Africa
+      storeEnhancedUTMParams(currentUTMs);
+      
+      // Also log campaign bucket information
+      const campaignBucket = getCampaignBucket(currentUTMs.utm_campaign);
+      console.log('UTM Tracking: Campaign bucket analysis:', campaignBucket);
     } else {
       console.log('UTM Tracking: No UTM parameters found in URL');
     }
     
-    // Log current stored UTMs
-    const storedUTMs = getStoredUTMParams();
-    if (Object.keys(storedUTMs).length > 0) {
-      console.log('UTM Tracking: Current stored UTMs:', storedUTMs);
+    // Log current stored UTMs with enhanced data
+    const enhancedUTMs = getEnhancedUTMData();
+    if (enhancedUTMs.hasUTMData) {
+      console.log('UTM Tracking: Current enhanced UTM data:', enhancedUTMs);
     }
     
     // Set up Cookiebot event listener for when consent changes
@@ -270,10 +300,110 @@ function clearUTMCookies() {
 }
 
 /**
- * Send UTM data to Google Analytics/GTM dataLayer
+ * Enhanced storage - store in both cookies and localStorage for redundancy
+ */
+function setEnhancedStorage(name, value, days = COOKIE_CONFIG.expires) {
+  // Always try to store in cookies first
+  setCookie(name, value, days);
+  
+  // Also store in localStorage as backup (never expires, survives browser restarts)
+  try {
+    const storageData = {
+      value: value,
+      timestamp: new Date().toISOString(),
+      expires: new Date(Date.now() + (days * 24 * 60 * 60 * 1000)).toISOString()
+    };
+    localStorage.setItem(name, JSON.stringify(storageData));
+    console.log(`UTM Tracking: Enhanced storage set for ${name} in both cookies and localStorage`);
+  } catch (error) {
+    console.warn('UTM Tracking: localStorage not available:', error);
+  }
+}
+
+/**
+ * Get value from enhanced storage (cookies, sessionStorage, localStorage)
+ */
+function getEnhancedStorage(name) {
+  // First try cookies
+  let value = getCookie(name);
+  if (value) return value;
+  
+  // Then try localStorage
+  try {
+    const localData = localStorage.getItem(name);
+    if (localData) {
+      const parsed = JSON.parse(localData);
+      // Check if localStorage data hasn't expired
+      if (new Date() < new Date(parsed.expires)) {
+        console.log(`UTM Tracking: Retrieved ${name} from localStorage backup`);
+        return parsed.value;
+      } else {
+        // Clean up expired localStorage data
+        localStorage.removeItem(name);
+      }
+    }
+  } catch (error) {
+    console.warn('UTM Tracking: localStorage access error:', error);
+  }
+  
+  return null;
+}
+
+/**
+ * Get campaign bucket information
+ */
+function getCampaignBucket(campaignName) {
+  return CAMPAIGN_BUCKETS[campaignName] || {
+    bucket: 'other',
+    model: 'unknown',
+    type: 'other'
+  };
+}
+
+/**
+ * Get enhanced UTM data with campaign buckets
+ */
+function getEnhancedUTMData() {
+  const utmParams = getStoredUTMParams();
+  const timestamp = getCookie('baic_utm_timestamp') || getEnhancedStorage('baic_utm_timestamp');
+  const campaignBucket = getCampaignBucket(utmParams.utm_campaign);
+  
+  return {
+    ...utmParams,
+    timestamp,
+    hasUTMData: Object.keys(utmParams).length > 0,
+    campaignBucket: campaignBucket.bucket,
+    targetModel: campaignBucket.model,
+    campaignType: campaignBucket.type,
+    isKnownCampaign: CAMPAIGN_BUCKETS.hasOwnProperty(utmParams.utm_campaign)
+  };
+}
+
+/**
+ * Store UTM parameters with enhanced storage
+ */
+function storeEnhancedUTMParams(utmParams) {
+  Object.entries(utmParams).forEach(([key, value]) => {
+    const cookieName = `baic_${key}`;
+    
+    // Only set if cookie doesn't already exist (first-touch attribution)
+    if (!getEnhancedStorage(cookieName)) {
+      setEnhancedStorage(cookieName, value);
+      console.log(`UTM Tracking: Enhanced storage set ${cookieName} = ${value}`);
+    } else {
+      console.log(`UTM Tracking: Preserved existing ${cookieName} = ${getEnhancedStorage(cookieName)}`);
+    }
+  });
+  
+  // Always update the timestamp
+  setEnhancedStorage('baic_utm_timestamp', new Date().toISOString());
+}
+
+/**
+ * Send UTM data to Google Analytics/GTM dataLayer with campaign buckets
  */
 function sendUTMToDataLayer() {
-  const utmData = getUTMData();
+  const utmData = getEnhancedUTMData();
   
   if (utmData.hasUTMData && window.dataLayer) {
     window.dataLayer.push({
@@ -283,20 +413,27 @@ function sendUTMToDataLayer() {
       utm_campaign: utmData.utm_campaign || '',
       utm_content: utmData.utm_content || '',
       utm_term: utmData.utm_term || '',
-      utm_timestamp: utmData.timestamp || ''
+      utm_timestamp: utmData.timestamp || '',
+      campaign_bucket: utmData.campaignBucket || '',
+      target_model: utmData.targetModel || '',
+      campaign_type: utmData.campaignType || '',
+      is_known_campaign: utmData.isKnownCampaign || false
     });
-    console.log('UTM Tracking: Sent UTM data to dataLayer:', utmData);
+    console.log('UTM Tracking: Sent enhanced UTM data to dataLayer:', utmData);
   }
 }
 
 export {
   initializeUTMTracking,
   getUTMData,
+  getEnhancedUTMData,
   getStoredUTMParams,
   getUTMQueryString,
   clearUTMCookies,
   sendUTMToDataLayer,
   migrateSessionDataToCookies,
   areCookiesAllowed,
+  getCampaignBucket,
+  CAMPAIGN_BUCKETS,
   UTM_PARAMS
 };

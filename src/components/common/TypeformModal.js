@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useModal } from '../../context/ModalContext';
-import { getStoredUTMParams, getUTMData } from '../../utils/utmTracking';
+import { getEnhancedUTMData } from '../../utils/utmTracking';
 
 // Global styles to ensure Typeform takes up full height with mobile viewport support
 const TypeformStyles = createGlobalStyle`
@@ -145,11 +145,11 @@ const TypeformModal = () => {
 
   useEffect(() => {
     if (isOpen) {
-      // Get UTM data when modal opens
-      const currentUTMData = getUTMData();
+      // Get enhanced UTM data when modal opens (includes campaign buckets)
+      const currentUTMData = getEnhancedUTMData();
       setUtmData(currentUTMData);
       
-      // Send conversion event to Google Analytics/GTM
+      // Send conversion event to Google Analytics/GTM with enhanced data
       if (window.gtag) {
         window.gtag('event', 'lead_form_opened', {
           event_category: 'Form',
@@ -157,11 +157,14 @@ const TypeformModal = () => {
           utm_source: currentUTMData.utm_source || 'direct',
           utm_medium: currentUTMData.utm_medium || 'none',
           utm_campaign: currentUTMData.utm_campaign || 'none',
-          utm_content: currentUTMData.utm_content || 'none'
+          utm_content: currentUTMData.utm_content || 'none',
+          campaign_bucket: currentUTMData.campaignBucket || 'other',
+          target_model: currentUTMData.targetModel || 'unknown',
+          campaign_type: currentUTMData.campaignType || 'other'
         });
       }
 
-      // Send to GTM dataLayer
+      // Send to GTM dataLayer with enhanced campaign data
       if (window.dataLayer) {
         window.dataLayer.push({
           event: 'lead_form_opened',
@@ -169,11 +172,29 @@ const TypeformModal = () => {
           utm_source: currentUTMData.utm_source || 'direct',
           utm_medium: currentUTMData.utm_medium || 'none', 
           utm_campaign: currentUTMData.utm_campaign || 'none',
-          utm_content: currentUTMData.utm_content || 'none'
+          utm_content: currentUTMData.utm_content || 'none',
+          campaign_bucket: currentUTMData.campaignBucket || 'other',
+          target_model: currentUTMData.targetModel || 'unknown',
+          campaign_type: currentUTMData.campaignType || 'other',
+          is_known_campaign: currentUTMData.isKnownCampaign || false
         });
       }
 
-      console.log('TypeformModal: UTM data for form submission:', currentUTMData);
+      console.log('TypeformModal: Enhanced UTM data for form submission:', currentUTMData);
+      console.log('TypeformModal: Has UTM Data?', currentUTMData.hasUTMData);
+      console.log('TypeformModal: Campaign Analysis:', {
+        campaign_bucket: currentUTMData.campaignBucket,
+        target_model: currentUTMData.targetModel,
+        campaign_type: currentUTMData.campaignType,
+        is_known_campaign: currentUTMData.isKnownCampaign
+      });
+      console.log('TypeformModal: Individual UTM values:', {
+        utm_source: currentUTMData.utm_source,
+        utm_medium: currentUTMData.utm_medium,
+        utm_campaign: currentUTMData.utm_campaign,
+        utm_content: currentUTMData.utm_content,
+        utm_term: currentUTMData.utm_term
+      });
 
       // Create and append the Typeform script when modal is opened
       const script = document.createElement('script');
@@ -212,7 +233,13 @@ const TypeformModal = () => {
 
   // Create hidden fields for UTM data to pass to Typeform
   const getHiddenFields = () => {
-    if (!utmData.hasUTMData) return '';
+    console.log('TypeformModal: getHiddenFields called with utmData:', utmData);
+    console.log('TypeformModal: utmData.hasUTMData =', utmData.hasUTMData);
+    
+    if (!utmData.hasUTMData) {
+      console.log('TypeformModal: No UTM data available, returning empty string');
+      return '';
+    }
     
     const hiddenFields = [];
     if (utmData.utm_source) hiddenFields.push(`utm_source=${encodeURIComponent(utmData.utm_source)}`);
@@ -221,7 +248,11 @@ const TypeformModal = () => {
     if (utmData.utm_content) hiddenFields.push(`utm_content=${encodeURIComponent(utmData.utm_content)}`);
     if (utmData.utm_term) hiddenFields.push(`utm_term=${encodeURIComponent(utmData.utm_term)}`);
     
-    return hiddenFields.length > 0 ? `#${hiddenFields.join('&')}` : '';
+    const result = hiddenFields.length > 0 ? `#${hiddenFields.join('&')}` : '';
+    console.log('TypeformModal: Generated hidden fields string:', result);
+    console.log('TypeformModal: Final Typeform URL would be: https://form.typeform.com/to/01JPEYYA5810GD51WEN8QMQAEJ' + result);
+    
+    return result;
   };
   
   if (!isOpen) return null;
