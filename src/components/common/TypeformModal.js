@@ -3,13 +3,14 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { useModal } from '../../context/ModalContext';
 import { getStoredUTMParams, getUTMData } from '../../utils/utmTracking';
 
-// Global styles to ensure Typeform takes up full height
+// Global styles to ensure Typeform takes up full height with mobile viewport support
 const TypeformStyles = createGlobalStyle`
   .tf-v1-popup, 
   .tf-v1-popup-wrapper, 
   .tf-v1-iframe-wrapper, 
   .tf-v1-iframe {
     height: 100vh !important;
+    height: 100dvh !important; /* Dynamic viewport height for mobile */
     width: 100vw !important;
     max-height: none !important;
     max-width: none !important;
@@ -22,6 +23,30 @@ const TypeformStyles = createGlobalStyle`
     padding: 0 !important;
     overflow: hidden !important;
   }
+  
+  /* Mobile specific adjustments */
+  @media (max-width: 768px) {
+    .tf-v1-popup, 
+    .tf-v1-popup-wrapper, 
+    .tf-v1-iframe-wrapper, 
+    .tf-v1-iframe {
+      height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+      height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+      min-height: calc(100vh - 120px) !important; /* Fallback for older browsers */
+      padding-top: env(safe-area-inset-top) !important;
+      padding-bottom: env(safe-area-inset-bottom) !important;
+    }
+  }
+  
+  /* iOS specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    .tf-v1-popup, 
+    .tf-v1-popup-wrapper, 
+    .tf-v1-iframe-wrapper, 
+    .tf-v1-iframe {
+      height: -webkit-fill-available !important;
+    }
+  }
 `;
 
 const ModalOverlay = styled.div`
@@ -30,8 +55,21 @@ const ModalOverlay = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 9999;
+  
+  /* Mobile specific adjustments */
+  @media (max-width: 768px) {
+    height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    min-height: calc(100vh - 120px); /* Fallback for older browsers */
+  }
+  
+  /* iOS specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 const ModalContent = styled.div`
@@ -40,8 +78,21 @@ const ModalContent = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   background-color: transparent;
   overflow: hidden;
+  
+  /* Mobile specific adjustments */
+  @media (max-width: 768px) {
+    height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    min-height: calc(100vh - 120px); /* Fallback for older browsers */
+  }
+  
+  /* iOS specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 const CloseButton = styled.button`
@@ -70,9 +121,22 @@ const CloseButton = styled.button`
 const TypeformContainer = styled.div`
   width: 100vw;
   height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for mobile */
   position: fixed;
   top: 0;
   left: 0;
+  
+  /* Mobile specific adjustments */
+  @media (max-width: 768px) {
+    height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    min-height: calc(100vh - 120px); /* Fallback for older browsers */
+  }
+  
+  /* iOS specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
 `;
 
 const TypeformModal = () => {
