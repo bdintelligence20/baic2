@@ -86,8 +86,8 @@ steps:
         echo "✅ Deployment completed"
         
         echo "🌐 Getting service URL..."
-        SERVICE_URL=$(gcloud run services describe ${_SERVICE_NAME} --region=${_REGION} --format='value(status.url)')
-        echo "🎉 Performance-optimized website deployed at: $SERVICE_URL"
+        DEPLOYED_URL=$(gcloud run services describe ${_SERVICE_NAME} --region=${_REGION} --format='value(status.url)')
+        echo "🎉 Performance-optimized website deployed at: $$DEPLOYED_URL"
         
         echo "⚡ Performance optimizations included:"
         echo "• 159 images optimized with WebP + responsive"
