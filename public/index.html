@@ -15,14 +15,65 @@
       content="BAIC Automotive South Africa - Official Website"
     />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!-- Font Awesome for icons - preload for performance -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"></noscript>
-    
-    <!-- Google Fonts - optimized loading -->
+    <!-- Preconnect to external domains for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="preconnect" href="https://consent.cookiebot.com">
+    <link rel="preconnect" href="https://connect.facebook.net">
+    
+    <!-- Critical CSS inline to prevent render blocking -->
+    <style>
+      /* Critical above-the-fold styles */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { 
+        font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.6; 
+        color: #333; 
+        background: #fff; 
+        overflow-x: hidden;
+      }
+      #root { min-height: 100vh; }
+      
+      /* Header critical styles */
+      header { 
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        right: 0; 
+        background: #fff; 
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+      
+      /* Hero section critical styles */
+      .hero-section {
+        margin-top: 62px;
+        background: #000;
+        min-height: 60vh;
+      }
+      
+      /* Loading states */
+      .loading-spinner {
+        width: 40px; height: 40px;
+        border: 3px solid #f3f3f3;
+        border-top: 3px solid #e60012;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+    
+    <!-- Google Fonts - optimized with font-display swap -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome - loaded asynchronously -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <title>BAIC Automotive</title>
     <style>
       * {
@@ -45,24 +96,54 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     
-    <!-- Deferred Scripts for Performance -->
-    <!-- Cookiebot -->
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="887403b9-b471-4475-9806-9a9406e35b2f" data-blockingmode="auto" type="text/javascript" async></script>
-    
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PQLSHBTB');</script>
-    
-    <!-- Google tag (gtag.js) - Conversion Tracking -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16850199888"></script>
+    <!-- Critical scripts loaded immediately -->
     <script>
+      // Performance timing
+      window.performance.mark('app-start');
+      
+      // Initialize data layer early
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-16850199888');
+    </script>
+    
+    <!-- Deferred non-critical scripts -->
+    <script>
+      // Load third-party scripts after main content
+      window.addEventListener('load', function() {
+        // Cookiebot
+        var cookiebot = document.createElement('script');
+        cookiebot.id = 'Cookiebot';
+        cookiebot.src = 'https://consent.cookiebot.com/uc.js';
+        cookiebot.setAttribute('data-cbid', '887403b9-b471-4475-9806-9a9406e35b2f');
+        cookiebot.setAttribute('data-blockingmode', 'auto');
+        cookiebot.async = true;
+        document.head.appendChild(cookiebot);
+        
+        // Google Analytics
+        var gtag = document.createElement('script');
+        gtag.async = true;
+        gtag.src = 'https://www.googletagmanager.com/gtag/js?id=AW-16850199888';
+        document.head.appendChild(gtag);
+        
+        gtag.onload = function() {
+          gtag('js', new Date());
+          gtag('config', 'AW-16850199888', {
+            send_page_view: false // We'll handle page views manually
+          });
+        };
+      });
+    </script>
+    
+    <!-- Google Tag Manager - loaded with delay -->
+    <script>
+      // Delay GTM to improve initial page load
+      setTimeout(function() {
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-PQLSHBTB');
+      }, 3000); // Load after 3 seconds
     </script>
   </body>
 </html>

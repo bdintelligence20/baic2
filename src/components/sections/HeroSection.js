@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ResponsiveImage from '../common/ResponsiveImage';
 
 // Carousel container that will size to fit the images
 const CarouselContainer = styled.section`
@@ -26,7 +27,7 @@ const CarouselSlide = styled.div`
 `;
 
 // Banner image that will maintain its aspect ratio with contain
-const BannerImage = styled.img`
+const BannerImage = styled(ResponsiveImage)`
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -171,7 +172,7 @@ const ContentGroup = styled.div`
 `;
 
 // Logo Image
-const LogoImage = styled.img`
+const LogoImage = styled(ResponsiveImage)`
   max-width: 450px;
   height: auto;
   
@@ -285,16 +286,18 @@ const HeroSection = () => {
           <BannerImage 
             src={slide.image} 
             alt={slide.alt}
-            loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
+            priority={index === 0}
+            lazy={index !== 0}
+            sizes="100vw"
           />
           {index === currentSlide && (
             <ContentGroup>
               <LogoImage 
                 src={slide.logo} 
                 alt={slide.logoAlt}
-                loading="lazy"
-                decoding="async"
+                priority={index === 0}
+                lazy={index !== 0}
+                sizes="(max-width: 480px) 225px, (max-width: 768px) 300px, (max-width: 1200px) 375px, 450px"
               />
               <ExploreButton to={slide.link}>
                 Explore Now
@@ -320,4 +323,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default memo(HeroSection);
