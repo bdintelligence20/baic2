@@ -38,28 +38,18 @@ RUN apk add --no-cache \
 # Copy optimized build from previous stage
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Copy optimized nginx configuration
-COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
-
 # Copy cache headers files for static serving
 COPY --from=build /app/build/_headers /usr/share/nginx/html/_headers
 COPY --from=build /app/build/.htaccess /usr/share/nginx/html/.htaccess
+
+# Remove default nginx config and copy optimized configuration
+RUN rm -f /etc/nginx/conf.d/default.conf
+COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 # Set proper permissions (nginx user already exists in base image)
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chown -R nginx:nginx /var/cache/nginx && \
     chmod -R 755 /usr/share/nginx/html
-
-# Create custom nginx.conf for Cloud Run
-RUN echo 'user nginx;' > /etc/nginx/nginx.conf && \
-    echo 'worker_processes auto;' >> /etc/nginx/nginx.conf && \
-    echo 'error_log /var/log/nginx/error.log warn;' >> /etc/nginx/nginx.conf && \
-    echo 'pid /var/run/nginx.pid;' >> /etc/nginx/nginx.conf && \
-    echo 'events { worker_connections 1024; use epoll; multi_accept on; }' >> /etc/nginx/nginx.conf && \
-    echo 'http {' >> /etc/nginx/nginx.conf && \
-    echo '  include /etc/nginx/mime.types;' >> /etc/nginx/nginx.conf && \
-    echo '  include /etc/nginx/conf.d/*.conf;' >> /etc/nginx/nginx.conf && \
-    echo '}' >> /etc/nginx/nginx.conf
 
 # Health check script for Cloud Run
 RUN echo '#!/bin/sh' > /healthcheck.sh && \
