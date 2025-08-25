@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getEnhancedUTMData } from '../../utils/utmTracking';
 
@@ -82,98 +82,18 @@ const LoadingSpinner = styled.div`
   }
 `;
 
-const LazyLoadTrigger = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  cursor: pointer;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background: rgba(255, 255, 255, 1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
-`;
-
-const TriggerButton = styled.button`
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  
-  &:hover {
-    background: var(--primary-color-hover);
-  }
-`;
-
-const TriggerText = styled.p`
-  margin-bottom: 1rem;
-  color: #333;
-  font-size: 1.1rem;
-`;
-
 const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience the power and comfort of our vehicles. Schedule your test drive today." }) => {
   const [utmData, setUtmData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [inView, setInView] = useState(false);
-  const containerRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // Intersection Observer for lazy loading
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setInView(true);
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { 
-        rootMargin: '100px 0px', // Load when 100px away from viewport
-        threshold: 0.1
-      }
-    );
-
-    if (containerRef.current) {
-      observer.observe(containerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  // Load UTM data when in view
-  useEffect(() => {
-    if (inView && !utmData.hasUTMData) {
-      const currentUTMData = getEnhancedUTMData();
-      setUtmData(currentUTMData);
-      console.log('TypeformEmbed: Enhanced UTM data for form embed:', currentUTMData);
-    }
-  }, [inView, utmData.hasUTMData]);
-
-  // Load Typeform scripts only when user interacts or form is in view
-  const loadTypeform = () => {
-    if (isLoaded) return;
+    // Get enhanced UTM data when component mounts
+    const currentUTMData = getEnhancedUTMData();
+    setUtmData(currentUTMData);
     
-    setIsLoading(true);
-    
-    // Send analytics event
-    const currentUTMData = utmData.hasUTMData ? utmData : getEnhancedUTMData();
-    
+    // Send conversion event to Google Analytics/GTM with enhanced data
     if (window.gtag) {
-      window.gtag('event', 'lead_form_loaded', {
+      window.gtag('event', 'lead_form_displayed', {
         event_category: 'Form',
         event_label: 'Test Drive Form Embed',
         utm_source: currentUTMData.utm_source || 'direct',
@@ -186,9 +106,10 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
       });
     }
 
+    // Send to GTM dataLayer with enhanced campaign data
     if (window.dataLayer) {
       window.dataLayer.push({
-        event: 'lead_form_loaded',
+        event: 'lead_form_displayed',
         form_name: 'Test Drive Form Embed',
         utm_source: currentUTMData.utm_source || 'direct',
         utm_medium: currentUTMData.utm_medium || 'none', 
@@ -201,34 +122,26 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
       });
     }
 
-    // Load Typeform script
+    console.log('TypeformEmbed: Enhanced UTM data for form embed:', currentUTMData);
+
+    // Create and append the Typeform script when component mounts
     const script = document.createElement('script');
     script.src = 'https://embed.typeform.com/next/embed.js';
     script.async = true;
     
     script.onload = () => {
       setIsLoading(false);
-      setIsLoaded(true);
-    };
-    
-    script.onerror = () => {
-      setIsLoading(false);
-      console.error('Failed to load Typeform script');
     };
     
     document.body.appendChild(script);
-  };
-
-  // Auto-load when in view (with delay to prioritize above-the-fold content)
-  useEffect(() => {
-    if (inView && !isLoaded) {
-      const timer = setTimeout(() => {
-        loadTypeform();
-      }, 1000); // 1 second delay to let critical content load first
-      
-      return () => clearTimeout(timer);
-    }
-  }, [inView, isLoaded]);
+    
+    // Clean up function
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
 
   // Create hidden fields for UTM data to pass to Typeform
   const getHiddenFields = () => {
@@ -255,32 +168,22 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
   };
   
   return (
-    <EmbedSection id="typeform-section" ref={containerRef}>
+    <EmbedSection id="typeform-section">
       <EmbedContainer>
         <EmbedTitle>{title}</EmbedTitle>
         <EmbedSubtitle>{subtitle}</EmbedSubtitle>
         
         <TypeformContainer>
-          {!isLoaded && !isLoading && (
-            <LazyLoadTrigger onClick={loadTypeform}>
-              <TriggerText>Ready to schedule your test drive?</TriggerText>
-              <TriggerButton>Load Form</TriggerButton>
-            </LazyLoadTrigger>
-          )}
-          
           {isLoading && <LoadingSpinner />}
-          
-          {isLoaded && (
-            <div 
-              data-tf-live="01JPEYYA5810GD51WEN8QMQAEJ"
-              data-tf-width="100%"
-              data-tf-height="100%"
-              data-tf-opacity="100"
-              data-tf-iframe-props="title=BAIC Test Drive Form"
-              data-tf-medium="embed-widget"
-              data-tf-hidden={getHiddenFields()}
-            ></div>
-          )}
+          <div 
+            data-tf-live="01JPEYYA5810GD51WEN8QMQAEJ"
+            data-tf-width="100%"
+            data-tf-height="100%"
+            data-tf-opacity="100"
+            data-tf-iframe-props="title=BAIC Test Drive Form"
+            data-tf-medium="embed-widget"
+            data-tf-hidden={getHiddenFields()}
+          ></div>
         </TypeformContainer>
       </EmbedContainer>
     </EmbedSection>

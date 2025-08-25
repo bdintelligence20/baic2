@@ -1,75 +1,14 @@
-# Multi-stage build optimized for Google Cloud Run
 # Build stage
 FROM node:19-alpine as build
-
-# Set build-time environment variables for optimization
-ENV NODE_ENV=production
-ENV GENERATE_SOURCEMAP=false
-ENV INLINE_RUNTIME_CHUNK=false
-
-# Create app directory
 WORKDIR /app
-
-# Copy package files for better Docker layer caching
 COPY package*.json ./
-
-# Install dependencies with cache optimization
-RUN npm ci --only=production --silent && \
-    npm cache clean --force
-
-# Install sharp for image optimization
-RUN npm install sharp --silent
-
-# Copy source code
+RUN npm install
 COPY . .
+RUN npm run build
 
-# Run our optimized build script
-RUN node scripts/build-production.js
-
-# Production stage - optimized nginx
-FROM nginx:1.25-alpine as production
-
-# Install additional tools for Cloud Run optimization
-RUN apk add --no-cache \
-    curl \
-    tzdata && \
-    rm -rf /var/cache/apk/*
-
-# Copy optimized build from previous stage
+# Production stage
+FROM nginx:stable-alpine
 COPY --from=build /app/build /usr/share/nginx/html
-
-# Copy cache headers files for static serving
-COPY --from=build /app/build/_headers /usr/share/nginx/html/_headers
-COPY --from=build /app/build/.htaccess /usr/share/nginx/html/.htaccess
-
-# Remove default nginx config and copy optimized configuration
-RUN rm -f /etc/nginx/conf.d/default.conf
-COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
-
-# Set proper permissions (nginx user already exists in base image)
-RUN chown -R nginx:nginx /usr/share/nginx/html && \
-    chown -R nginx:nginx /var/cache/nginx && \
-    chmod -R 755 /usr/share/nginx/html
-
-# Health check script for Cloud Run
-RUN echo '#!/bin/sh' > /healthcheck.sh && \
-    echo 'curl -f http://localhost:8080/health || exit 1' >> /healthcheck.sh && \
-    chmod +x /healthcheck.sh
-
-# Add health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD /healthcheck.sh
-
-# Switch to nginx user for security
-USER nginx
-
-# Expose port 8080 (Cloud Run requirement)
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 8080
-
-# Add metadata labels for Cloud Run
-LABEL org.opencontainers.image.title="BAIC Website - Performance Optimized"
-LABEL org.opencontainers.image.description="Performance optimized BAIC automotive website"
-LABEL org.opencontainers.image.version="1.0.0"
-
-# Start nginx with daemon off for containerized deployment
 CMD ["nginx", "-g", "daemon off;"]

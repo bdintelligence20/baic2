@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -848,4 +848,4 @@ const ExploreModelsSection = () => {
   );
 };
 
-export default memo(ExploreModelsSection);
+export default ExploreModelsSection;
