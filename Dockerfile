@@ -45,11 +45,7 @@ COPY --from=build /app/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/build/_headers /usr/share/nginx/html/_headers
 COPY --from=build /app/build/.htaccess /usr/share/nginx/html/.htaccess
 
-# Create nginx user for security
-RUN addgroup -g 101 -S nginx && \
-    adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx
-
-# Set proper permissions
+# Set proper permissions (nginx user already exists in base image)
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
     chown -R nginx:nginx /var/cache/nginx && \
     chmod -R 755 /usr/share/nginx/html
