@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
 import { getEnhancedUTMData } from '../../utils/utmTracking';
+import { loadTypeform } from '../../utils/scriptLoader';
 
 const EmbedSection = styled.section`
   padding: 4rem 0;
@@ -72,7 +73,7 @@ const LoadingSpinner = styled.div`
   width: 40px;
   height: 40px;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid var(--primary-color);
+  border-top: 4px solid #e60012;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   
@@ -82,66 +83,146 @@ const LoadingSpinner = styled.div`
   }
 `;
 
+const PlaceholderContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
+  }
+`;
+
+const PlaceholderIcon = styled.div`
+  width: 64px;
+  height: 64px;
+  margin-bottom: 1rem;
+  background: #e60012;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+`;
+
+const PlaceholderText = styled.p`
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+`;
+
+const PlaceholderSubtext = styled.p`
+  font-size: 0.9rem;
+  color: #999;
+  text-align: center;
+`;
+
 const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience the power and comfort of our vehicles. Schedule your test drive today." }) => {
   const [utmData, setUtmData] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [typeformLoaded, setTypeformLoaded] = useState(false);
+  const containerRef = useRef(null);
+  const observerRef = useRef(null);
 
   useEffect(() => {
     // Get enhanced UTM data when component mounts
     const currentUTMData = getEnhancedUTMData();
     setUtmData(currentUTMData);
-    
-    // Send conversion event to Google Analytics/GTM with enhanced data
-    if (window.gtag) {
-      window.gtag('event', 'lead_form_displayed', {
-        event_category: 'Form',
-        event_label: 'Test Drive Form Embed',
-        utm_source: currentUTMData.utm_source || 'direct',
-        utm_medium: currentUTMData.utm_medium || 'none',
-        utm_campaign: currentUTMData.utm_campaign || 'none',
-        utm_content: currentUTMData.utm_content || 'none',
-        campaign_bucket: currentUTMData.campaignBucket || 'other',
-        target_model: currentUTMData.targetModel || 'unknown',
-        campaign_type: currentUTMData.campaignType || 'other'
-      });
+
+    // Set up intersection observer for lazy loading
+    if (containerRef.current) {
+      observerRef.current = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            // Stop observing once in view
+            if (observerRef.current) {
+              observerRef.current.disconnect();
+            }
+          }
+        },
+        {
+          rootMargin: '100px', // Start loading 100px before it comes into view
+          threshold: 0.1
+        }
+      );
+
+      observerRef.current.observe(containerRef.current);
     }
 
-    // Send to GTM dataLayer with enhanced campaign data
-    if (window.dataLayer) {
-      window.dataLayer.push({
-        event: 'lead_form_displayed',
-        form_name: 'Test Drive Form Embed',
-        utm_source: currentUTMData.utm_source || 'direct',
-        utm_medium: currentUTMData.utm_medium || 'none', 
-        utm_campaign: currentUTMData.utm_campaign || 'none',
-        utm_content: currentUTMData.utm_content || 'none',
-        campaign_bucket: currentUTMData.campaignBucket || 'other',
-        target_model: currentUTMData.targetModel || 'unknown',
-        campaign_type: currentUTMData.campaignType || 'other',
-        is_known_campaign: currentUTMData.isKnownCampaign || false
-      });
-    }
-
-    console.log('TypeformEmbed: Enhanced UTM data for form embed:', currentUTMData);
-
-    // Create and append the Typeform script when component mounts
-    const script = document.createElement('script');
-    script.src = 'https://embed.typeform.com/next/embed.js';
-    script.async = true;
-    
-    script.onload = () => {
-      setIsLoading(false);
-    };
-    
-    document.body.appendChild(script);
-    
-    // Clean up function
     return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
+      if (observerRef.current) {
+        observerRef.current.disconnect();
       }
     };
   }, []);
+
+  // Load Typeform when in view or when user clicks
+  const handleLoadTypeform = async () => {
+    if (typeformLoaded || isLoading) return;
+    
+    setIsLoading(true);
+    
+    try {
+      await loadTypeform();
+      setTypeformLoaded(true);
+      
+      // Send analytics event after Typeform loads
+      const currentUTMData = utmData;
+      if (window.gtag) {
+        window.gtag('event', 'lead_form_displayed', {
+          event_category: 'Form',
+          event_label: 'Test Drive Form Embed',
+          utm_source: currentUTMData.utm_source || 'direct',
+          utm_medium: currentUTMData.utm_medium || 'none',
+          utm_campaign: currentUTMData.utm_campaign || 'none',
+          utm_content: currentUTMData.utm_content || 'none',
+          campaign_bucket: currentUTMData.campaignBucket || 'other',
+          target_model: currentUTMData.targetModel || 'unknown',
+          campaign_type: currentUTMData.campaignType || 'other'
+        });
+      }
+
+      // Send to GTM dataLayer
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'lead_form_displayed',
+          form_name: 'Test Drive Form Embed',
+          utm_source: currentUTMData.utm_source || 'direct',
+          utm_medium: currentUTMData.utm_medium || 'none', 
+          utm_campaign: currentUTMData.utm_campaign || 'none',
+          utm_content: currentUTMData.utm_content || 'none',
+          campaign_bucket: currentUTMData.campaignBucket || 'other',
+          target_model: currentUTMData.targetModel || 'unknown',
+          campaign_type: currentUTMData.campaignType || 'other',
+          is_known_campaign: currentUTMData.isKnownCampaign || false
+        });
+      }
+    } catch (error) {
+      console.error('Failed to load Typeform:', error);
+      setIsLoading(false);
+    }
+  };
+
+  // Auto-load when in view
+  useEffect(() => {
+    if (isInView && !typeformLoaded && !isLoading) {
+      handleLoadTypeform();
+    }
+  }, [isInView, typeformLoaded, isLoading]);
 
   // Create hidden fields for UTM data to pass to Typeform
   const getHiddenFields = () => {
@@ -173,17 +254,28 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
         <EmbedTitle>{title}</EmbedTitle>
         <EmbedSubtitle>{subtitle}</EmbedSubtitle>
         
-        <TypeformContainer>
+        <TypeformContainer ref={containerRef}>
+          {!typeformLoaded && !isLoading && (
+            <PlaceholderContainer onClick={handleLoadTypeform}>
+              <PlaceholderIcon>📋</PlaceholderIcon>
+              <PlaceholderText>Load Test Drive Form</PlaceholderText>
+              <PlaceholderSubtext>Click to load the booking form</PlaceholderSubtext>
+            </PlaceholderContainer>
+          )}
+          
           {isLoading && <LoadingSpinner />}
-          <div 
-            data-tf-live="01JPEYYA5810GD51WEN8QMQAEJ"
-            data-tf-width="100%"
-            data-tf-height="100%"
-            data-tf-opacity="100"
-            data-tf-iframe-props="title=BAIC Test Drive Form"
-            data-tf-medium="embed-widget"
-            data-tf-hidden={getHiddenFields()}
-          ></div>
+          
+          {typeformLoaded && (
+            <div 
+              data-tf-live="01JPEYYA5810GD51WEN8QMQAEJ"
+              data-tf-width="100%"
+              data-tf-height="100%"
+              data-tf-opacity="100"
+              data-tf-iframe-props="title=BAIC Test Drive Form"
+              data-tf-medium="embed-widget"
+              data-tf-hidden={getHiddenFields()}
+            ></div>
+          )}
         </TypeformContainer>
       </EmbedContainer>
     </EmbedSection>

@@ -7,6 +7,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import * as serviceWorker from './utils/serviceWorker';
+import { loadAnalyticsOnInteraction } from './utils/scriptLoader';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -41,3 +42,22 @@ serviceWorker.register({
     // Optionally show update notification to user
   }
 });
+
+// Initialize deferred analytics loading
+loadAnalyticsOnInteraction();
+
+// Load Cookiebot when needed (on first form interaction or after 10 seconds)
+setTimeout(() => {
+  if (window.loadCookiebot) {
+    window.loadCookiebot();
+  }
+}, 10000);
+
+// Also load on form focus
+document.addEventListener('focusin', function(e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    if (window.loadCookiebot) {
+      window.loadCookiebot();
+    }
+  }
+}, { once: true });

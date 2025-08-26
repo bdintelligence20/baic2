@@ -50,24 +50,19 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
     
-    <!-- Deferred Scripts for Performance -->
-    <!-- Cookiebot -->
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="887403b9-b471-4475-9806-9a9406e35b2f" data-blockingmode="auto" type="text/javascript" async></script>
-    
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PQLSHBTB');</script>
-    
-    <!-- Google tag (gtag.js) - Conversion Tracking -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16850199888"></script>
+    <!-- Scripts now load on demand via scriptLoader for performance -->
+    <!-- Cookiebot - deferred until consent needed -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-16850199888');
+      window.loadCookiebot = function() {
+        if (document.getElementById('Cookiebot')) return;
+        const script = document.createElement('script');
+        script.id = 'Cookiebot';
+        script.src = 'https://consent.cookiebot.com/uc.js';
+        script.setAttribute('data-cbid', '887403b9-b471-4475-9806-9a9406e35b2f');
+        script.setAttribute('data-blockingmode', 'auto');
+        script.async = true;
+        document.head.appendChild(script);
+      };
     </script>
   </body>
 </html>
