@@ -136,6 +136,9 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
   const [typeformLoaded, setTypeformLoaded] = useState(false);
   const containerRef = useRef(null);
   const observerRef = useRef(null);
+  
+  // Generate unique ID for this instance to avoid conflicts
+  const instanceId = useRef(`typeform-${Math.random().toString(36).substr(2, 9)}`).current;
 
   useEffect(() => {
     // Get enhanced UTM data when component mounts
@@ -170,7 +173,29 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
     };
   }, []);
 
-  // Define sendAnalyticsEvents first to avoid hoisting issues
+  // Create hidden fields object for UTM data to pass to Typeform programmatically
+  const getHiddenFields = useCallback(() => {
+    console.log('TypeformEmbed: getHiddenFields called with utmData:', utmData);
+    console.log('TypeformEmbed: utmData.hasUTMData =', utmData.hasUTMData);
+    
+    if (!utmData.hasUTMData) {
+      console.log('TypeformEmbed: No UTM data available, returning empty object');
+      return {};
+    }
+    
+    const hiddenFields = {};
+    if (utmData.utm_source) hiddenFields.utm_source = utmData.utm_source;
+    if (utmData.utm_medium) hiddenFields.utm_medium = utmData.utm_medium;
+    if (utmData.utm_campaign) hiddenFields.utm_campaign = utmData.utm_campaign;
+    if (utmData.utm_content) hiddenFields.utm_content = utmData.utm_content;
+    if (utmData.utm_term) hiddenFields.utm_term = utmData.utm_term;
+    
+    console.log('TypeformEmbed: Generated hidden fields object:', hiddenFields);
+    
+    return hiddenFields;
+  }, [utmData]);
+
+  // Define sendAnalyticsEvents 
   const sendAnalyticsEvents = useCallback(() => {
     if (window.gtag) {
       window.gtag('event', 'lead_form_displayed', {
@@ -200,7 +225,6 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
         is_known_campaign: utmData.isKnownCampaign || false
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [utmData]);
 
   // Load Typeform when in view or when user clicks
@@ -208,52 +232,57 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
     if (typeformLoaded || isLoading) return;
     
     setIsLoading(true);
+    console.log(`Loading Typeform for instance: ${instanceId}`);
     
     try {
       await loadTypeform();
       
-      // Add a small delay to ensure DOM is updated before initialization
+      // Use programmatic widget creation to avoid conflicts
       setTimeout(() => {
-        // Verify the form actually initialized by checking for iframe
-        const checkInitialization = () => {
-          const container = containerRef.current;
-          if (container) {
-            const iframe = container.querySelector('iframe[src*="typeform.com"]');
-            if (iframe) {
-              console.log('✅ Typeform iframe found, form successfully initialized');
-              setTypeformLoaded(true);
-              setIsLoading(false);
+        try {
+          if (window.tf && window.tf.createWidget) {
+            const container = containerRef.current;
+            if (container) {
+              // Clear any existing content
+              container.innerHTML = '';
               
-              // Send analytics event after successful initialization
-              sendAnalyticsEvents();
-            } else {
-              // Retry initialization or fall back after timeout
-              setTimeout(checkInitialization, 1000);
+              // Create unique widget programmatically  
+              const widget = window.tf.createWidget('01JPEYYA5810GD51WEN8QMQAEJ', {
+                container: container,
+                width: '100%',
+                height: '100%',
+                opacity: 100,
+                medium: 'embed-widget',
+                hideHeaders: true,
+                hideFooter: true,
+                hidden: getHiddenFields()
+              });
+              
+              if (widget) {
+                console.log(`✅ Typeform widget created successfully for instance: ${instanceId}`);
+                setTypeformLoaded(true);
+                setIsLoading(false);
+                sendAnalyticsEvents();
+              } else {
+                throw new Error('Widget creation failed');
+              }
             }
+          } else {
+            throw new Error('Typeform API not available');
           }
-        };
-        
-        checkInitialization();
-        
-        // Fallback timeout to clear loading state
-        setTimeout(() => {
-          if (isLoading) {
-            console.warn('⚠️ Typeform initialization timeout, clearing loading state');
-            setIsLoading(false);
-            // Still set as loaded to show the div, user might need to refresh
-            setTypeformLoaded(true);
-          }
-        }, 8000);
-        
-      }, 500);
+        } catch (error) {
+          console.error(`❌ Failed to create Typeform widget for ${instanceId}:`, error);
+          setIsLoading(false);
+          setTypeformLoaded(true); // Show fallback
+        }
+      }, 1000);
       
     } catch (error) {
-      console.error('❌ Failed to load Typeform:', error);
+      console.error(`❌ Failed to load Typeform script for ${instanceId}:`, error);
       setIsLoading(false);
-      // Show error state or fallback
-      setTypeformLoaded(true); // Still show the div as fallback
+      setTypeformLoaded(true);
     }
-  }, [utmData, isLoading, typeformLoaded, sendAnalyticsEvents]);
+  }, [instanceId, isLoading, typeformLoaded, sendAnalyticsEvents, getHiddenFields]);
 
   // Auto-load when in view
   useEffect(() => {
@@ -261,30 +290,6 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
       handleLoadTypeform();
     }
   }, [isInView, typeformLoaded, isLoading, handleLoadTypeform]);
-
-  // Create hidden fields for UTM data to pass to Typeform
-  const getHiddenFields = () => {
-    console.log('TypeformEmbed: getHiddenFields called with utmData:', utmData);
-    console.log('TypeformEmbed: utmData.hasUTMData =', utmData.hasUTMData);
-    
-    if (!utmData.hasUTMData) {
-      console.log('TypeformEmbed: No UTM data available, returning empty string');
-      return '';
-    }
-    
-    const hiddenFields = [];
-    if (utmData.utm_source) hiddenFields.push(`utm_source=${encodeURIComponent(utmData.utm_source)}`);
-    if (utmData.utm_medium) hiddenFields.push(`utm_medium=${encodeURIComponent(utmData.utm_medium)}`);
-    if (utmData.utm_campaign) hiddenFields.push(`utm_campaign=${encodeURIComponent(utmData.utm_campaign)}`);
-    if (utmData.utm_content) hiddenFields.push(`utm_content=${encodeURIComponent(utmData.utm_content)}`);
-    if (utmData.utm_term) hiddenFields.push(`utm_term=${encodeURIComponent(utmData.utm_term)}`);
-    
-    const result = hiddenFields.length > 0 ? `#${hiddenFields.join('&')}` : '';
-    console.log('TypeformEmbed: Generated hidden fields string:', result);
-    console.log('TypeformEmbed: Final Typeform URL would be: https://form.typeform.com/to/01JPEYYA5810GD51WEN8QMQAEJ' + result);
-    
-    return result;
-  };
   
   return (
     <EmbedSection id="typeform-section">
@@ -305,13 +310,9 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
           
           {typeformLoaded && (
             <div 
-              data-tf-live="01JPEYYA5810GD51WEN8QMQAEJ"
-              data-tf-width="100%"
-              data-tf-height="100%"
-              data-tf-opacity="100"
-              data-tf-iframe-props="title=BAIC Test Drive Form"
-              data-tf-medium="embed-widget"
-              data-tf-hidden={getHiddenFields()}
+              id={instanceId}
+              style={{ width: '100%', height: '100%' }}
+              data-instance-id={instanceId}
             ></div>
           )}
         </TypeformContainer>
