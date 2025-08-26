@@ -146,19 +146,24 @@ class ScriptLoader {
     // Wait for Typeform to be available - NO AUTO-INITIALIZATION
     return new Promise((resolve, reject) => {
       let attempts = 0;
-      const maxAttempts = 100; // 10 seconds max wait
+      const maxAttempts = 200; // 20 seconds max wait (increased from 10s)
       
       const checkTypeform = () => {
         attempts++;
         
-        // Just check if API is available, don't initialize anything
-        if (window.tf && window.tf.live) {
-          console.log('✅ Typeform API is ready - no auto-initialization');
+        // Check if createWidget API is available (this is what we actually need)
+        if (window.tf && typeof window.tf.createWidget === 'function') {
+          console.log('✅ Typeform createWidget API is ready');
           resolve();
         } else if (attempts >= maxAttempts) {
-          console.error('❌ Typeform API failed to load after 10 seconds');
-          reject(new Error('Typeform API timeout'));
+          console.error('❌ Typeform createWidget API failed to load after 20 seconds');
+          console.log('Available window.tf methods:', window.tf ? Object.keys(window.tf) : 'window.tf not available');
+          reject(new Error('Typeform createWidget API timeout'));
         } else {
+          // Log progress every 50 attempts (5 seconds)
+          if (attempts % 50 === 0) {
+            console.log(`⏳ Still waiting for Typeform API... (${attempts/10}s) - tf available:`, !!window.tf, 'createWidget available:', !!(window.tf && window.tf.createWidget));
+          }
           setTimeout(checkTypeform, 100);
         }
       };
