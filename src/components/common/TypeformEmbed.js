@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import styled from 'styled-components';
 import { getEnhancedUTMData } from '../../utils/utmTracking';
 import { loadTypeform } from '../../utils/scriptLoader';
@@ -171,58 +171,96 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
   }, []);
 
   // Load Typeform when in view or when user clicks
-  const handleLoadTypeform = async () => {
+  const handleLoadTypeform = useCallback(async () => {
     if (typeformLoaded || isLoading) return;
     
     setIsLoading(true);
     
     try {
       await loadTypeform();
-      setTypeformLoaded(true);
       
-      // Send analytics event after Typeform loads
-      const currentUTMData = utmData;
-      if (window.gtag) {
-        window.gtag('event', 'lead_form_displayed', {
-          event_category: 'Form',
-          event_label: 'Test Drive Form Embed',
-          utm_source: currentUTMData.utm_source || 'direct',
-          utm_medium: currentUTMData.utm_medium || 'none',
-          utm_campaign: currentUTMData.utm_campaign || 'none',
-          utm_content: currentUTMData.utm_content || 'none',
-          campaign_bucket: currentUTMData.campaignBucket || 'other',
-          target_model: currentUTMData.targetModel || 'unknown',
-          campaign_type: currentUTMData.campaignType || 'other'
-        });
-      }
-
-      // Send to GTM dataLayer
-      if (window.dataLayer) {
-        window.dataLayer.push({
-          event: 'lead_form_displayed',
-          form_name: 'Test Drive Form Embed',
-          utm_source: currentUTMData.utm_source || 'direct',
-          utm_medium: currentUTMData.utm_medium || 'none', 
-          utm_campaign: currentUTMData.utm_campaign || 'none',
-          utm_content: currentUTMData.utm_content || 'none',
-          campaign_bucket: currentUTMData.campaignBucket || 'other',
-          target_model: currentUTMData.targetModel || 'unknown',
-          campaign_type: currentUTMData.campaignType || 'other',
-          is_known_campaign: currentUTMData.isKnownCampaign || false
-        });
-      }
+      // Add a small delay to ensure DOM is updated before initialization
+      setTimeout(() => {
+        // Verify the form actually initialized by checking for iframe
+        const checkInitialization = () => {
+          const container = containerRef.current;
+          if (container) {
+            const iframe = container.querySelector('iframe[src*="typeform.com"]');
+            if (iframe) {
+              console.log('✅ Typeform iframe found, form successfully initialized');
+              setTypeformLoaded(true);
+              setIsLoading(false);
+              
+              // Send analytics event after successful initialization
+              sendAnalyticsEvents();
+            } else {
+              // Retry initialization or fall back after timeout
+              setTimeout(checkInitialization, 1000);
+            }
+          }
+        };
+        
+        checkInitialization();
+        
+        // Fallback timeout to clear loading state
+        setTimeout(() => {
+          if (isLoading) {
+            console.warn('⚠️ Typeform initialization timeout, clearing loading state');
+            setIsLoading(false);
+            // Still set as loaded to show the div, user might need to refresh
+            setTypeformLoaded(true);
+          }
+        }, 8000);
+        
+      }, 500);
+      
     } catch (error) {
-      console.error('Failed to load Typeform:', error);
+      console.error('❌ Failed to load Typeform:', error);
       setIsLoading(false);
+      // Show error state or fallback
+      setTypeformLoaded(true); // Still show the div as fallback
     }
-  };
+  }, [utmData, isLoading, typeformLoaded, sendAnalyticsEvents]);
+
+  const sendAnalyticsEvents = useCallback(() => {
+    const currentUTMData = utmData;
+    
+    if (window.gtag) {
+      window.gtag('event', 'lead_form_displayed', {
+        event_category: 'Form',
+        event_label: 'Test Drive Form Embed',
+        utm_source: currentUTMData.utm_source || 'direct',
+        utm_medium: currentUTMData.utm_medium || 'none',
+        utm_campaign: currentUTMData.utm_campaign || 'none',
+        utm_content: currentUTMData.utm_content || 'none',
+        campaign_bucket: currentUTMData.campaignBucket || 'other',
+        target_model: currentUTMData.targetModel || 'unknown',
+        campaign_type: currentUTMData.campaignType || 'other'
+      });
+    }
+
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'lead_form_displayed',
+        form_name: 'Test Drive Form Embed',
+        utm_source: currentUTMData.utm_source || 'direct',
+        utm_medium: currentUTMData.utm_medium || 'none', 
+        utm_campaign: currentUTMData.utm_campaign || 'none',
+        utm_content: currentUTMData.utm_content || 'none',
+        campaign_bucket: currentUTMData.campaignBucket || 'other',
+        target_model: currentUTMData.targetModel || 'unknown',
+        campaign_type: currentUTMData.campaignType || 'other',
+        is_known_campaign: currentUTMData.isKnownCampaign || false
+      });
+    }
+  }, [utmData]);
 
   // Auto-load when in view
   useEffect(() => {
     if (isInView && !typeformLoaded && !isLoading) {
       handleLoadTypeform();
     }
-  }, [isInView, typeformLoaded, isLoading]);
+  }, [isInView, typeformLoaded, isLoading, handleLoadTypeform]);
 
   // Create hidden fields for UTM data to pass to Typeform
   const getHiddenFields = () => {

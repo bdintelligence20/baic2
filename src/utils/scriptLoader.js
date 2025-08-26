@@ -143,15 +143,43 @@ class ScriptLoader {
       async: true
     });
     
-    // Wait for Typeform to be available
-    return new Promise((resolve) => {
+    // Wait for Typeform to be available and initialize
+    return new Promise((resolve, reject) => {
+      let attempts = 0;
+      const maxAttempts = 100; // 10 seconds max wait
+      
       const checkTypeform = () => {
-        if (window.tf && window.tf.live) {
+        attempts++;
+        
+        // Check for various Typeform API availability patterns
+        if (window.tf && (window.tf.live || window.tf.createWidget)) {
+          console.log('✅ Typeform API is ready');
+          
+          // Try to initialize any existing typeform elements
+          try {
+            // Scan for existing data-tf-live elements and initialize them
+            const elements = document.querySelectorAll('[data-tf-live]');
+            elements.forEach(element => {
+              if (window.tf.live && window.tf.live.initialize) {
+                window.tf.live.initialize();
+              } else if (window.tf.live) {
+                // Some versions auto-initialize, trigger a re-scan
+                setTimeout(() => window.tf.live.initialize(), 100);
+              }
+            });
+          } catch (error) {
+            console.warn('⚠️ Typeform initialization warning:', error);
+          }
+          
           resolve();
+        } else if (attempts >= maxAttempts) {
+          console.error('❌ Typeform failed to initialize after 10 seconds');
+          reject(new Error('Typeform initialization timeout'));
         } else {
           setTimeout(checkTypeform, 100);
         }
       };
+      
       checkTypeform();
     });
   }
