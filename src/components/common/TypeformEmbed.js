@@ -170,6 +170,39 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
     };
   }, []);
 
+  // Define sendAnalyticsEvents first to avoid hoisting issues
+  const sendAnalyticsEvents = useCallback(() => {
+    if (window.gtag) {
+      window.gtag('event', 'lead_form_displayed', {
+        event_category: 'Form',
+        event_label: 'Test Drive Form Embed',
+        utm_source: utmData.utm_source || 'direct',
+        utm_medium: utmData.utm_medium || 'none',
+        utm_campaign: utmData.utm_campaign || 'none',
+        utm_content: utmData.utm_content || 'none',
+        campaign_bucket: utmData.campaignBucket || 'other',
+        target_model: utmData.targetModel || 'unknown',
+        campaign_type: utmData.campaignType || 'other'
+      });
+    }
+
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: 'lead_form_displayed',
+        form_name: 'Test Drive Form Embed',
+        utm_source: utmData.utm_source || 'direct',
+        utm_medium: utmData.utm_medium || 'none', 
+        utm_campaign: utmData.utm_campaign || 'none',
+        utm_content: utmData.utm_content || 'none',
+        campaign_bucket: utmData.campaignBucket || 'other',
+        target_model: utmData.targetModel || 'unknown',
+        campaign_type: utmData.campaignType || 'other',
+        is_known_campaign: utmData.isKnownCampaign || false
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [utmData]);
+
   // Load Typeform when in view or when user clicks
   const handleLoadTypeform = useCallback(async () => {
     if (typeformLoaded || isLoading) return;
@@ -221,39 +254,6 @@ const TypeformEmbed = ({ title = "Book Your Test Drive", subtitle = "Experience 
       setTypeformLoaded(true); // Still show the div as fallback
     }
   }, [utmData, isLoading, typeformLoaded, sendAnalyticsEvents]);
-
-  const sendAnalyticsEvents = useCallback(() => {
-    const currentUTMData = utmData;
-    
-    if (window.gtag) {
-      window.gtag('event', 'lead_form_displayed', {
-        event_category: 'Form',
-        event_label: 'Test Drive Form Embed',
-        utm_source: currentUTMData.utm_source || 'direct',
-        utm_medium: currentUTMData.utm_medium || 'none',
-        utm_campaign: currentUTMData.utm_campaign || 'none',
-        utm_content: currentUTMData.utm_content || 'none',
-        campaign_bucket: currentUTMData.campaignBucket || 'other',
-        target_model: currentUTMData.targetModel || 'unknown',
-        campaign_type: currentUTMData.campaignType || 'other'
-      });
-    }
-
-    if (window.dataLayer) {
-      window.dataLayer.push({
-        event: 'lead_form_displayed',
-        form_name: 'Test Drive Form Embed',
-        utm_source: currentUTMData.utm_source || 'direct',
-        utm_medium: currentUTMData.utm_medium || 'none', 
-        utm_campaign: currentUTMData.utm_campaign || 'none',
-        utm_content: currentUTMData.utm_content || 'none',
-        campaign_bucket: currentUTMData.campaignBucket || 'other',
-        target_model: currentUTMData.targetModel || 'unknown',
-        campaign_type: currentUTMData.campaignType || 'other',
-        is_known_campaign: currentUTMData.isKnownCampaign || false
-      });
-    }
-  }, [utmData]);
 
   // Auto-load when in view
   useEffect(() => {
