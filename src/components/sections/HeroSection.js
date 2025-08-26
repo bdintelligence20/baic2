@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ResponsiveImage from '../common/ResponsiveImage';
 
 // Carousel container that will size to fit the images
 const CarouselContainer = styled.section`
@@ -25,14 +26,12 @@ const CarouselSlide = styled.div`
   justify-content: center;
 `;
 
-// Banner image that will maintain its aspect ratio with contain
-const BannerImage = styled.img`
+// Banner image styled component for ResponsiveImage
+const BannerImageContainer = styled.div`
   width: 100%;
   height: auto;
-  object-fit: contain;
   display: block;
   max-width: 100%;
-  transition: opacity 0.3s ease;
 `;
 
 // Navigation arrows
@@ -170,8 +169,8 @@ const ContentGroup = styled.div`
   }
 `;
 
-// Logo Image
-const LogoImage = styled.img`
+// Logo Container for ResponsiveImage
+const LogoContainer = styled.div`
   max-width: 450px;
   height: auto;
   
@@ -282,20 +281,27 @@ const HeroSection = () => {
             transition: 'opacity 0.8s cubic-bezier(0.7, 0, 0.3, 1)'
           }}
         >
-          <BannerImage 
-            src={slide.image} 
-            alt={slide.alt}
-            loading={index === 0 ? "eager" : "lazy"}
-            decoding="async"
-          />
+          <BannerImageContainer>
+            <ResponsiveImage 
+              src={slide.image} 
+              alt={slide.alt}
+              priority={index === 0}
+              objectFit="contain"
+              sizes="100vw"
+              preload={index === 0}
+            />
+          </BannerImageContainer>
           {index === currentSlide && (
             <ContentGroup>
-              <LogoImage 
-                src={slide.logo} 
-                alt={slide.logoAlt}
-                loading="lazy"
-                decoding="async"
-              />
+              <LogoContainer>
+                <ResponsiveImage 
+                  src={slide.logo} 
+                  alt={slide.logoAlt}
+                  lazy={true}
+                  objectFit="contain"
+                  sizes="450px"
+                />
+              </LogoContainer>
               <ExploreButton to={slide.link}>
                 Explore Now
               </ExploreButton>

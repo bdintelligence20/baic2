@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
 import { useModal } from '../../context/ModalContext';
+import ResponsiveImage from '../common/ResponsiveImage';
 
 const HeaderContainer = styled.header`
   background-color: #ffffff;
@@ -31,11 +32,7 @@ const HeaderContainer = styled.header`
 const LogoContainer = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const LogoImage = styled.img`
   height: 30px;
-  width: auto;
   
   @media (max-width: 768px) {
     height: 25px;
@@ -526,7 +523,13 @@ const Header = () => {
     }}>
       <LogoContainer>
         <Link to="/">
-          <LogoImage src="/images/logos/download.png" alt="BAIC Logo" />
+          <ResponsiveImage 
+            src="/images/logos/download.png" 
+            alt="BAIC Logo" 
+            priority={true}
+            objectFit="contain"
+            sizes="30px"
+          />
         </Link>
       </LogoContainer>
       

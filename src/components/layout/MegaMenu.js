@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
+import ResponsiveImage from '../common/ResponsiveImage';
 import './MegaMenu.css';
 
 const fadeIn = keyframes`
@@ -128,10 +129,9 @@ const ModelMenuItem = styled(MenuItem)`
   margin-bottom: 1.5rem;
 `;
 
-const ModelImage = styled.img`
+const ModelImageContainer = styled.div`
   width: 80px;
   height: 60px;
-  object-fit: contain;
   margin-right: 15px;
   transition: transform 0.3s ease;
   /* Apply specific scaling for B30 model */
@@ -142,7 +142,7 @@ const ModelLink = styled(MenuLink)`
   display: flex;
   align-items: center;
   
-  &:hover ${ModelImage} {
+  &:hover ${ModelImageContainer} {
     transform: translateX(5px) scale(1.05);
   }
 `;
@@ -258,23 +258,43 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
               <MenuList>
                 <ModelMenuItem className="menu-item">
                   <div style={{ display: 'flex', alignItems: 'center', cursor: 'default' }}>
-                    <ModelImage 
-                      src="/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png" 
-                      alt="B30" 
-                      $isB30={true}
-                    />
+                    <ModelImageContainer $isB30={true}>
+                      <ResponsiveImage 
+                        src="/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png" 
+                        alt="B30"
+                        lazy={true}
+                        objectFit="contain"
+                        sizes="80px"
+                      />
+                    </ModelImageContainer>
                     <span>B30 (Coming Soon)</span>
                   </div>
                 </ModelMenuItem>
                 <ModelMenuItem className="menu-item">
                   <ModelLink to="/vehicles/models/x55-plus">
-                    <ModelImage src="/images/models/x55-plus/15_20240708121819A007.png" alt="X55 PLUS" />
+                    <ModelImageContainer>
+                      <ResponsiveImage 
+                        src="/images/models/x55-plus/15_20240708121819A007.png" 
+                        alt="X55 PLUS"
+                        lazy={true}
+                        objectFit="contain"
+                        sizes="80px"
+                      />
+                    </ModelImageContainer>
                     <span>X55 PLUS</span>
                   </ModelLink>
                 </ModelMenuItem>
                 <ModelMenuItem className="menu-item">
                   <ModelLink to="/vehicles/models/b40-honor-edition">
-                    <ModelImage src="/images/models/b40-honor-edition/b40-honor-edition-black.png" alt="B40 HONOR EDITION" />
+                    <ModelImageContainer>
+                      <ResponsiveImage 
+                        src="/images/models/b40-honor-edition/b40-honor-edition-black.png" 
+                        alt="B40 HONOR EDITION"
+                        lazy={true}
+                        objectFit="contain"
+                        sizes="80px"
+                      />
+                    </ModelImageContainer>
                     <span>B40 HONOR EDITION</span>
                   </ModelLink>
                 </ModelMenuItem>
