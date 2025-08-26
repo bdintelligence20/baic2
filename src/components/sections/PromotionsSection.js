@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ResponsiveImage from '../common/ResponsiveImage';
 
 const SectionContainer = styled.section`
   padding: 6rem 0;
@@ -140,11 +141,12 @@ const PromotionsSection = () => {
         <SectionTitle>Current Promotions</SectionTitle>
         
         <PromoContainer>
-          <PromoImage 
+          <ResponsiveImage 
             src={promotion.image} 
             alt={promotion.title}
-            loading="lazy"
-            decoding="async"
+            lazy={true}
+            objectFit="cover"
+            sizes="100vw"
           />
         </PromoContainer>
         

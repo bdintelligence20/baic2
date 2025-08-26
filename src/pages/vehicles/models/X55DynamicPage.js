@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ResponsiveImage from '../../../components/common/ResponsiveImage';
 
 const PageContainer = styled.div`
   padding-top: 80px;
@@ -487,7 +488,13 @@ const X55DynamicPage = () => {
             </FeatureDescription>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/models/x55-dynamic/14_20240708121758A006.png" alt="Sport-Tuned Performance" />
+            <ResponsiveImage 
+              src="/images/models/x55-dynamic/14_20240708121758A006.png" 
+              alt="Sport-Tuned Performance" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -505,7 +512,13 @@ const X55DynamicPage = () => {
             </FeatureDescription>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/models/x55-dynamic/15_20240708121819A007.png" alt="Dynamic Styling" />
+            <ResponsiveImage 
+              src="/images/models/x55-dynamic/15_20240708121819A007.png" 
+              alt="Dynamic Styling" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -522,7 +535,13 @@ const X55DynamicPage = () => {
             </FeatureDescription>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/models/x55-dynamic/16_20240708121837A008.png" alt="Sport Interior" />
+            <ResponsiveImage 
+              src="/images/models/x55-dynamic/16_20240708121837A008.png" 
+              alt="Sport Interior" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -577,7 +596,13 @@ const X55DynamicPage = () => {
             </FeatureDescription>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/models/x55-dynamic/17_20240708121853A009.png" alt="Advanced Technology" />
+            <ResponsiveImage 
+              src="/images/models/x55-dynamic/17_20240708121853A009.png" 
+              alt="Advanced Technology" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>

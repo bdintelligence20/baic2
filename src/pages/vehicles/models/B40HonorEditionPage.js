@@ -5,6 +5,7 @@ import B40HonorEditionSpecificationsSection from '../../../components/vehicles/B
 import HeritageSection from '../../../components/sections/HeritageSection';
 import { useModal } from '../../../context/ModalContext';
 import TypeformEmbed from '../../../components/common/TypeformEmbed';
+import ResponsiveImage from '../../../components/common/ResponsiveImage';
 
 const PageContainer = styled.div`
   overflow-x: hidden;
@@ -1073,7 +1074,13 @@ const B40HonorEditionPage = () => {
         <HeroBackground />
         <HeroOverlay />
         <HeroContent>
-          <LogoImage src="/images/homehero/WEBSITE LANDSCAPE B40 LOGO (1).png" alt="B40 Honor Edition Logo" />
+          <ResponsiveImage 
+            src="/images/homehero/WEBSITE LANDSCAPE B40 LOGO (1).png" 
+            alt="B40 Honor Edition Logo"
+            priority={true}
+            objectFit="contain"
+            sizes="450px"
+          />
           
           <CTAContainer>
             <CTAButton as="a" href="/documents/brochures/B40-HONOR-EDITION-Brochure.pdf" target="_blank" rel="noopener noreferrer">Download Brochure</CTAButton>
@@ -1103,7 +1110,13 @@ const B40HonorEditionPage = () => {
             <FeatureCTAButton to="/find-dealer">Find a Dealer</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/b40-plus-honor-edition/features/77543817 ext.jpg" alt="Choose Your Path" />
+            <ResponsiveImage 
+              src="/images/vehicles/b40-plus-honor-edition/features/77543817 ext.jpg" 
+              alt="Choose Your Path"
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1118,7 +1131,13 @@ const B40HonorEditionPage = () => {
             <FeatureCTAButtonScroll onClick={scrollToForm}>Book a Test Drive</FeatureCTAButtonScroll>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/b40-plus-honor-edition/features/78317802 ext np.jpg" alt="Design That Demands Respect" />
+            <ResponsiveImage 
+              src="/images/vehicles/b40-plus-honor-edition/features/78317802 ext np.jpg" 
+              alt="Design That Demands Respect"
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1133,7 +1152,13 @@ const B40HonorEditionPage = () => {
             <FeatureCTAButton to="/about/company-overview">About BAIC</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/b40-plus-honor-edition/features/77543845 ext np 2.jpg" alt="Performance Without Limits" />
+            <ResponsiveImage 
+              src="/images/vehicles/b40-plus-honor-edition/features/77543845 ext np 2.jpg" 
+              alt="Performance Without Limits"
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1149,7 +1174,13 @@ const B40HonorEditionPage = () => {
             </FeatureDescription>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/b40-plus-honor-edition/features/4.2.jpg" alt="Confidence Inside and Out" />
+            <ResponsiveImage 
+              src="/images/vehicles/b40-plus-honor-edition/features/4.2.jpg" 
+              alt="Confidence Inside and Out"
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1230,7 +1261,13 @@ const B40HonorEditionPage = () => {
         <GalleryGrid>
           {galleryImages.map((image, index) => (
             <GalleryItem key={index} onClick={() => openLightbox(index)}>
-              <img src={image} alt={`B40 Honor Edition Gallery ${index + 1}`} />
+              <ResponsiveImage 
+                src={image} 
+                alt={`B40 Honor Edition Gallery ${index + 1}`}
+                lazy={true}
+                objectFit="cover"
+                sizes="200px"
+              />
             </GalleryItem>
           ))}
         </GalleryGrid>

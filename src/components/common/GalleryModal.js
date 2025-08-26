@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import ResponsiveImage from './ResponsiveImage';
 
 // Gallery Modal Components
 const GalleryModalContainer = styled.div`
@@ -194,7 +195,13 @@ const GalleryModal = ({ isOpen, onClose, images, title }) => {
         <GalleryGrid>
           {images.map((image, index) => (
             <GalleryItem key={index} onClick={() => openLightbox(index)}>
-              <img src={image} alt={`${title} Gallery ${index + 1}`} />
+              <ResponsiveImage 
+                src={image} 
+                alt={`${title} Gallery ${index + 1}`} 
+                lazy={true}
+                objectFit="cover"
+                sizes="200px"
+              />
             </GalleryItem>
           ))}
         </GalleryGrid>

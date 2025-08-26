@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import SpecificationsSection from '../../../components/vehicles/SpecificationsSection';
 import HeritageSection from '../../../components/sections/HeritageSection';
+import ResponsiveImage from '../../../components/common/ResponsiveImage';
 
 const PageContainer = styled.div`
   overflow-x: hidden;
@@ -995,7 +996,13 @@ const B40PlusPage = () => {
             <FeatureCTAButton to="/book-test-drive">Enquire Today</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/b40-plus/features/WEBSITE_1920X1080PX_HOMEPAGE6.jpg" alt="Rugged Appearance" />
+            <ResponsiveImage 
+              src="/images/vehicles/b40-plus/features/WEBSITE_1920X1080PX_HOMEPAGE6.jpg" 
+              alt="Rugged Appearance" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1013,7 +1020,13 @@ const B40PlusPage = () => {
             <FeatureCTAButton to="/find-dealer">Find a dealer</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/b40-plus/features/B40-exterior-gallery-1.jpg" alt="Mechanical Aesthetics" />
+            <ResponsiveImage 
+              src="/images/vehicles/b40-plus/features/B40-exterior-gallery-1.jpg" 
+              alt="Mechanical Aesthetics" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1031,7 +1044,13 @@ const B40PlusPage = () => {
             <FeatureCTAButton to="/book-test-drive">Book a test drive</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/b40-plus/features/B40-interior-gallery-2.jpg" alt="Interior Tech" />
+            <ResponsiveImage 
+              src="/images/vehicles/b40-plus/features/B40-interior-gallery-2.jpg" 
+              alt="Interior Tech" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1049,7 +1068,13 @@ const B40PlusPage = () => {
             <FeatureCTAButton to="/about/company-overview">About BAIC</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/b40-plus/features/B40-interior-gallery-3.jpg" alt="Stylish Gear Lever" />
+            <ResponsiveImage 
+              src="/images/vehicles/b40-plus/features/B40-interior-gallery-3.jpg" 
+              alt="Stylish Gear Lever" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1124,7 +1149,13 @@ const B40PlusPage = () => {
         <GalleryGrid>
           {galleryImages.map((image, index) => (
             <GalleryItem key={index} onClick={() => openLightbox(index)}>
-              <img src={image} alt={`B40 Plus Gallery ${index + 1}`} />
+              <ResponsiveImage 
+                src={image} 
+                alt={`B40 Plus Gallery ${index + 1}`} 
+                lazy={true}
+                objectFit="cover"
+                sizes="200px"
+              />
             </GalleryItem>
           ))}
         </GalleryGrid>

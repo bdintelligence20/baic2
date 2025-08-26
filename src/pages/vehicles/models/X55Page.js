@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import X55SpecificationsSection from '../../../components/vehicles/X55SpecificationsSection';
 import FinanceOptionsSection from '../../../components/vehicles/FinanceOptionsSection';
 import HeritageSection from '../../../components/sections/HeritageSection';
+import ResponsiveImage from '../../../components/common/ResponsiveImage';
 
 const PageContainer = styled.div`
   overflow-x: hidden;
@@ -915,7 +916,13 @@ const X55Page = () => {
             <FeatureCTAButton to="/book-test-drive">Enquire Today</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55/features/63f3351fb366b767f7580bbd_X55-exterior-gallery-1.jpg" alt="Crystal Star Design" />
+            <ResponsiveImage 
+              src="/images/vehicles/x55/features/63f3351fb366b767f7580bbd_X55-exterior-gallery-1.jpg" 
+              alt="Crystal Star Design" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -933,7 +940,13 @@ const X55Page = () => {
             <FeatureCTAButton to="/find-dealer">Find a dealer</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55/features/X55-interior-gallery-3.jpg" alt="Star Trails Ambient Light" />
+            <ResponsiveImage 
+              src="/images/vehicles/x55/features/X55-interior-gallery-3.jpg" 
+              alt="Star Trails Ambient Light" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -951,7 +964,13 @@ const X55Page = () => {
             <FeatureCTAButton to="/book-test-drive">Book a test drive</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55/features/63f3351fb366b73c98580bc8_X55-exterior-gallery-3.jpg" alt="Inductive Hidden Door Handles" />
+            <ResponsiveImage 
+              src="/images/vehicles/x55/features/63f3351fb366b73c98580bc8_X55-exterior-gallery-3.jpg" 
+              alt="Inductive Hidden Door Handles" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -969,7 +988,13 @@ const X55Page = () => {
             <FeatureCTAButton to="/about/company-overview">About BAIC</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/vehicles/x55/features/63f3351fb366b7a88d580be9_X55-exterior-gallery-9.jpg" alt="Super Low Cd Design" />
+            <ResponsiveImage 
+              src="/images/vehicles/x55/features/63f3351fb366b7a88d580be9_X55-exterior-gallery-9.jpg" 
+              alt="Super Low Cd Design" 
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1047,7 +1072,13 @@ const X55Page = () => {
         <GalleryGrid>
           {galleryImages.map((image, index) => (
             <GalleryItem key={index} onClick={() => openLightbox(index)}>
-              <img src={image} alt={`X55 Gallery ${index + 1}`} />
+              <ResponsiveImage 
+                src={image} 
+                alt={`X55 Gallery ${index + 1}`} 
+                lazy={true}
+                objectFit="cover"
+                sizes="200px"
+              />
             </GalleryItem>
           ))}
         </GalleryGrid>

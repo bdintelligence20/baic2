@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import X55PlusSpecificationsSection from '../../../components/vehicles/X55PlusSpecificationsSection';
 import X55PlusFinanceSection from '../../../components/vehicles/X55PlusFinanceSection';
 import TypeformEmbed from '../../../components/common/TypeformEmbed';
+import ResponsiveImage from '../../../components/common/ResponsiveImage';
 
 const PageContainer = styled.div`
   overflow-x: hidden;
@@ -78,7 +79,7 @@ const HeroContent = styled.div`
   }
 `;
 
-const LogoImage = styled.img`
+const LogoContainer = styled.div`
   max-width: 450px;
   height: auto;
   
@@ -983,7 +984,15 @@ const X55PlusPage = () => {
         <HeroBackground />
         <HeroOverlay />
         <HeroContent>
-          <LogoImage src="/images/homehero/WEBSITE LANDSCAPE3 (1) (1).png" alt="X55 Plus Logo" />
+          <LogoContainer>
+            <ResponsiveImage 
+              src="/images/homehero/WEBSITE LANDSCAPE3 (1) (1).png" 
+              alt="X55 Plus Logo"
+              priority={true}
+              objectFit="contain"
+              sizes="450px"
+            />
+          </LogoContainer>
           
           <CTAContainer>
             <CTAButton as="a" href="/documents/brochures/X55-PLUS-Brochure.pdf" target="_blank" rel="noopener noreferrer">View Specsheet</CTAButton>
@@ -1005,7 +1014,13 @@ const X55PlusPage = () => {
             <FeatureCTAButtonScroll onClick={scrollToForm}>Enquire Today</FeatureCTAButtonScroll>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/models/x55-plus-new/1.jpg" alt="Crystal Star Design" />
+            <ResponsiveImage 
+              src="/images/models/x55-plus-new/1.jpg" 
+              alt="Crystal Star Design"
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1023,7 +1038,13 @@ const X55PlusPage = () => {
             <FeatureCTAButton to="/find-dealer">Find a dealer</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/models/x55-plus-new/5.jpg" alt="Star Trails Ambient Light" />
+            <ResponsiveImage 
+              src="/images/models/x55-plus-new/5.jpg" 
+              alt="Star Trails Ambient Light"
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1041,7 +1062,13 @@ const X55PlusPage = () => {
             <FeatureCTAButtonScroll onClick={scrollToForm}>Book a test drive</FeatureCTAButtonScroll>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/models/x55-plus-new/4.jpg" alt="Panoramic Sunroof" />
+            <ResponsiveImage 
+              src="/images/models/x55-plus-new/4.jpg" 
+              alt="Panoramic Sunroof"
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1060,7 +1087,13 @@ const X55PlusPage = () => {
             <FeatureCTAButton to="/about/company-overview">About BAIC</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
-            <img src="/images/models/x55-plus-new/6.jpg" alt="First-class Comfort" />
+            <ResponsiveImage 
+              src="/images/models/x55-plus-new/6.jpg" 
+              alt="First-class Comfort"
+              lazy={true}
+              objectFit="cover"
+              sizes="50vw"
+            />
           </FeatureImage>
         </FeatureContainer>
       </FeatureSection>
@@ -1118,9 +1151,12 @@ const X55PlusPage = () => {
             Compare specifications across different X55 Plus variants to find the perfect match for your needs.
           </TechSpecsDescription>
           <TechSpecsImageContainer>
-            <TechSpecsImage 
+            <ResponsiveImage 
               src="/images/models/x55-plus-new/8.jpg" 
-              alt="X55 Plus Technical Specifications" 
+              alt="X55 Plus Technical Specifications"
+              lazy={true}
+              objectFit="contain"
+              sizes="800px"
             />
           </TechSpecsImageContainer>
           <SpecsButton onClick={openModal}>View Specifications</SpecsButton>
@@ -1149,7 +1185,13 @@ const X55PlusPage = () => {
         <GalleryGrid>
           {galleryImages.map((image, index) => (
             <GalleryItem key={index} onClick={() => openLightbox(index)}>
-              <img src={image} alt={`X55 Plus Gallery ${index + 1}`} />
+              <ResponsiveImage 
+                src={image} 
+                alt={`X55 Plus Gallery ${index + 1}`} 
+                lazy={true}
+                objectFit="cover"
+                sizes="200px"
+              />
             </GalleryItem>
           ))}
         </GalleryGrid>

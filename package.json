@@ -22,7 +22,9 @@
     "build": "react-scripts build",
     "build:prerender": "react-scripts build && react-snap",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "optimize-images": "node scripts/optimizeImages.js",
+    "build:optimized": "npm run optimize-images && npm run build"
   },
   "reactSnap": {
     "include": [
@@ -50,7 +52,7 @@
     "inlineCss": false,
     "minifyHtml": false,
     "puppeteerArgs": [
-      "--no-sandbox", 
+      "--no-sandbox",
       "--disable-setuid-sandbox",
       "--disable-dev-shm-usage",
       "--disable-accelerated-2d-canvas",
@@ -89,6 +91,7 @@
     ]
   },
   "devDependencies": {
-    "react-snap": "^1.23.0"
+    "react-snap": "^1.23.0",
+    "sharp": "^0.34.3"
   }
 }

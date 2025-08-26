@@ -524,8 +524,9 @@ const Header = () => {
       <LogoContainer>
         <Link to="/">
           <ResponsiveImage 
-            src="/images/logos/download.png" 
-            alt="BAIC Logo" 
+            src="/images/logos/download.png"
+            alt="BAIC Logo"
+            lazy={false}
             priority={true}
             objectFit="contain"
             sizes="30px"

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ResponsiveImage from '../../../components/common/ResponsiveImage';
 
 const PromotionContainer = styled.div`
   padding: 120px 2rem 4rem;
@@ -145,7 +146,13 @@ const B40HonorEditionPromotionPage = () => {
       
       <PromotionContent>
         <PromotionImage>
-          <img src="/images/models/b40-honor-edition/b40-honor-edition-black.png" alt="BAIC B40 Honor Edition" />
+          <ResponsiveImage 
+            src="/images/models/b40-honor-edition/b40-honor-edition-black.png" 
+            alt="BAIC B40 Honor Edition" 
+            lazy={true}
+            objectFit="cover"
+            sizes="50vw"
+          />
         </PromotionImage>
         
         <PromotionDetails>

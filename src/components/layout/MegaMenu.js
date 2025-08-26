@@ -259,8 +259,8 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
                 <ModelMenuItem className="menu-item">
                   <div style={{ display: 'flex', alignItems: 'center', cursor: 'default' }}>
                     <ModelImageContainer $isB30={true}>
-                      <ResponsiveImage 
-                        src="/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png" 
+                      <ResponsiveImage
+                        src="/images/models/b30/导航_20240924095856A090_20250108160710A181_20250108171254A795.png"
                         alt="B30"
                         lazy={true}
                         objectFit="contain"
