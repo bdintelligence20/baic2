@@ -25,6 +25,7 @@ import X55PlusPage from './pages/vehicles/models/X55PlusPage';
 import X55DynamicPage from './pages/vehicles/models/X55DynamicPage';
 import B40PlusPage from './pages/vehicles/models/B40PlusPage';
 import B40HonorEditionPage from './pages/vehicles/models/B40HonorEditionPage';
+import B30Page from './pages/vehicles/models/B30Page';
 
 // Promotion Pages
 import X55PromotionPage from './pages/vehicles/promotions/X55PromotionPage';
@@ -131,6 +132,7 @@ function App() {
           <Route path="/vehicles/models/x55-dynamic" element={<X55DynamicPage />} />
           <Route path="/vehicles/models/b40-plus" element={<B40PlusPage />} />
           <Route path="/vehicles/models/b40-honor-edition" element={<B40HonorEditionPage />} />
+          <Route path="/vehicles/models/b30" element={<B30Page />} />
           <Route path="/vehicles/promotions/x55" element={<X55PromotionPage />} />
           <Route path="/vehicles/promotions/x55-plus" element={<X55PlusPromotionPage />} />
           <Route path="/vehicles/promotions/x55-dynamic" element={<X55DynamicPromotionPage />} />
