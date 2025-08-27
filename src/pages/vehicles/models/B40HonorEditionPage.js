@@ -80,7 +80,7 @@ const HeroContent = styled.div`
   }
 `;
 
-const LogoImage = styled.img`
+const LogoContainer = styled.div`
   max-width: 450px;
   height: auto;
   
@@ -1074,13 +1074,15 @@ const B40HonorEditionPage = () => {
         <HeroBackground />
         <HeroOverlay />
         <HeroContent>
-          <ResponsiveImage 
-            src="/images/homehero/WEBSITE LANDSCAPE B40 LOGO (1).png" 
-            alt="B40 Honor Edition Logo"
-            priority={true}
-            objectFit="contain"
-            sizes="450px"
-          />
+          <LogoContainer>
+            <ResponsiveImage 
+              src="/images/homehero/WEBSITE LANDSCAPE B40 LOGO (1).png" 
+              alt="B40 Honor Edition Logo"
+              priority={true}
+              objectFit="contain"
+              sizes="450px"
+            />
+          </LogoContainer>
           
           <CTAContainer>
             <CTAButton as="a" href="/documents/brochures/B40-HONOR-EDITION-Brochure.pdf" target="_blank" rel="noopener noreferrer">Download Brochure</CTAButton>
