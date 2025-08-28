@@ -663,7 +663,6 @@ const B30Page = () => {
             <FeatureDescription>
               Advanced intelligent systems and intuitive infotainment screen put effortless control at your fingertips.
             </FeatureDescription>
-            <FeatureCTAButtonScroll onClick={scrollToForm}>Book a test drive</FeatureCTAButtonScroll>
           </FeatureContent>
           <FeatureImage>
             <ResponsiveImage 
