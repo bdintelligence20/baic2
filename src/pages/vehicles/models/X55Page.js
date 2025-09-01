@@ -897,7 +897,7 @@ const X55Page = () => {
           <TaglineLarge>BRAVE IT INTELLIGENTLY</TaglineLarge>
           
           <CTAContainer>
-            <CTAButton to="/book-test-drive" $primary>Test Drive</CTAButton>
+            <CTAButton to="/book-a-test-drive-today" $primary>Test Drive</CTAButton>
             <CTAButton as="button" onClick={openGallery}>View Gallery</CTAButton>
           </CTAContainer>
         </HeroContent>
@@ -913,7 +913,7 @@ const X55Page = () => {
               'Crystal Diamond Interstellar Grille.' The bold and distinctive design commands attention 
               on the road, making a statement wherever it goes.
             </FeatureDescription>
-            <FeatureCTAButton to="/book-test-drive">Enquire Today</FeatureCTAButton>
+            <FeatureCTAButton to="/book-a-test-drive-today">Enquire Today</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
             <ResponsiveImage 
@@ -961,7 +961,7 @@ const X55Page = () => {
               pop out, adding to the X55's sleek profile and offering an 'ice-break mode' feature. This 
               sophisticated detail enhances both the vehicle's aesthetics and functionality.
             </FeatureDescription>
-            <FeatureCTAButton to="/book-test-drive">Book a test drive</FeatureCTAButton>
+            <FeatureCTAButton to="/book-a-test-drive-today">Book a test drive</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
             <ResponsiveImage 

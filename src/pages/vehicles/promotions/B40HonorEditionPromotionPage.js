@@ -173,7 +173,7 @@ const B40HonorEditionPromotionPage = () => {
           </PromotionFeatures>
           
           <PromotionCTA>
-            <Button href="/book-test-drive" $primary={true}>Book a Test Drive</Button>
+            <Button href="/book-a-test-drive-today" $primary={true}>Book a Test Drive</Button>
             <Button href="/find-dealer">Find a Dealer</Button>
           </PromotionCTA>
         </PromotionDetails>

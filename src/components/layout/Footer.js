@@ -146,7 +146,7 @@ const Footer = () => {
           <FooterLink to="/about/company-overview">Company Overview</FooterLink>
           <FooterLink to="/find-dealer">Find a Dealer</FooterLink>
           <FooterLink to="/finance">Finance</FooterLink>
-          <FooterLink to="/book-test-drive">Book a Test Drive</FooterLink>
+          <FooterLink to="/book-a-test-drive-today">Book a Test Drive</FooterLink>
         </FooterColumn>
         
         <FooterColumn>

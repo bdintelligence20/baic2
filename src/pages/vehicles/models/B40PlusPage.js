@@ -976,7 +976,7 @@ const B40PlusPage = () => {
           <TaglineLarge>OWN EVERY ROAD</TaglineLarge>
           
           <CTAContainer>
-            <CTAButton to="/book-test-drive" $primary>Test Drive</CTAButton>
+            <CTAButton to="/book-a-test-drive-today" $primary>Test Drive</CTAButton>
             <CTAButton as="button" onClick={openGallery}>View Gallery</CTAButton>
             <CTAButton as="a" href="/documents/brochures/B40-PLUS-Brochure.pdf" target="_blank" rel="noopener noreferrer">Download Brochure</CTAButton>
           </CTAContainer>
@@ -993,7 +993,7 @@ const B40PlusPage = () => {
               creating a distinctive and commanding presence. Its 'disconnected' light strip design inspiration adds a touch of modern 
               flair to its rugged aesthetic.
             </FeatureDescription>
-            <FeatureCTAButton to="/book-test-drive">Enquire Today</FeatureCTAButton>
+            <FeatureCTAButton to="/book-a-test-drive-today">Enquire Today</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
             <ResponsiveImage 
@@ -1041,7 +1041,7 @@ const B40PlusPage = () => {
               driving experience. Set the mood with 256-color ambient lighting, featuring 5 recommended colors (red, green, 
               ice blue, white, and orange) and three modes: single-color static, single-color breathing, and multi-color breathing.
             </FeatureDescription>
-            <FeatureCTAButton to="/book-test-drive">Book a test drive</FeatureCTAButton>
+            <FeatureCTAButton to="/book-a-test-drive-today">Book a test drive</FeatureCTAButton>
           </FeatureContent>
           <FeatureImage>
             <ResponsiveImage 

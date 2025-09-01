@@ -469,7 +469,7 @@ const X55DynamicPage = () => {
           </ColorOptions>
           
           <CTAContainer>
-            <CTAButton to="/book-test-drive" $primary>Test Drive</CTAButton>
+            <CTAButton to="/book-a-test-drive-today" $primary>Test Drive</CTAButton>
             <CTAButton to="/vehicles/promotions/x55-dynamic">View Offers</CTAButton>
           </CTAContainer>
         </HeroContent>

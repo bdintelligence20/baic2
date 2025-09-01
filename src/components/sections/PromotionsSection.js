@@ -131,7 +131,7 @@ const PromotionsSection = () => {
     image: '/images/promotions/WEBSITE LANDSCAPE (2).jpg',
     title: 'X55 PLUS',
     subtitle: 'From R429 900',
-    enquireLink: '/book-test-drive',
+    enquireLink: '/book-a-test-drive-today',
     financeLink: '/finance'
   };
 

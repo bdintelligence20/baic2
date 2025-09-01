@@ -305,7 +305,7 @@ const MegaMenu = ({ isOpen, activeMenu }) => {
               <MenuTitle>Shopping Tools</MenuTitle>
               <MenuList>
                 <MenuItem className="menu-item">
-                  <MenuLink to="/book-test-drive">Book a Test Drive</MenuLink>
+                  <MenuLink to="/book-a-test-drive-today">Book a Test Drive</MenuLink>
                 </MenuItem>
                 <MenuItem className="menu-item">
                   <MenuLink to="/find-dealer">Find a Dealer</MenuLink>
