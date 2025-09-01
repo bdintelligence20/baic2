@@ -11,7 +11,7 @@ import { initializeUTMTracking, sendUTMToDataLayer } from './utils/utmTracking';
 import HomePage from './pages/HomePage';
 import ContactUsPage from './pages/ContactUsPage';
 import FindDealerPage from './pages/FindDealerPage';
-import BookTestDrivePage from './pages/BookTestDrivePage';
+import CampaignLandingPage from './pages/CampaignLandingPage';
 import FinancePage from './pages/FinancePage';
 import OwnersPage from './pages/OwnersPage';
 import ThankYouPage from './pages/ThankYouPage';
@@ -122,31 +122,182 @@ function App() {
       <ModalProvider>
         <GlobalStyle />
         <UTMTracker />
-        <Header />
-        <main>
-          <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/about/company-overview" element={<CompanyOverviewPage />} />
-          <Route path="/vehicles/models/x55" element={<X55Page />} />
-          <Route path="/vehicles/models/x55-plus" element={<X55PlusPage />} />
-          <Route path="/vehicles/models/x55-dynamic" element={<X55DynamicPage />} />
-          <Route path="/vehicles/models/b40-plus" element={<B40PlusPage />} />
-          <Route path="/vehicles/models/b40-honor-edition" element={<B40HonorEditionPage />} />
-          <Route path="/vehicles/models/b30" element={<B30Page />} />
-          <Route path="/vehicles/promotions/x55" element={<X55PromotionPage />} />
-          <Route path="/vehicles/promotions/x55-plus" element={<X55PlusPromotionPage />} />
-          <Route path="/vehicles/promotions/x55-dynamic" element={<X55DynamicPromotionPage />} />
-          <Route path="/vehicles/promotions/b40-plus" element={<B40PlusPromotionPage />} />
-          <Route path="/vehicles/promotions/b40-honor-edition" element={<B40HonorEditionPromotionPage />} />
-          <Route path="/find-dealer" element={<FindDealerPage />} />
-          <Route path="/book-test-drive" element={<BookTestDrivePage />} />
-          <Route path="/thank-you-test-drive" element={<ThankYouPage />} />
-          <Route path="/contact" element={<ContactUsPage />} />
-          <Route path="/finance" element={<FinancePage />} />
-          <Route path="/owners" element={<OwnersPage />} />
-          </Routes>
-        </main>
-        <Footer />
+        <Routes>
+          {/* Campaign landing pages - with header/footer like rest of site */}
+          <Route path="/book-a-test-drive-today" element={
+            <>
+              <Header />
+              <main>
+                <CampaignLandingPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          
+          {/* All other pages with header/footer layout */}
+          <Route path="/" element={
+            <>
+              <Header />
+              <main>
+                <HomePage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/about/company-overview" element={
+            <>
+              <Header />
+              <main>
+                <CompanyOverviewPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/models/x55" element={
+            <>
+              <Header />
+              <main>
+                <X55Page />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/models/x55-plus" element={
+            <>
+              <Header />
+              <main>
+                <X55PlusPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/models/x55-dynamic" element={
+            <>
+              <Header />
+              <main>
+                <X55DynamicPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/models/b40-plus" element={
+            <>
+              <Header />
+              <main>
+                <B40PlusPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/models/b40-honor-edition" element={
+            <>
+              <Header />
+              <main>
+                <B40HonorEditionPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/models/b30" element={
+            <>
+              <Header />
+              <main>
+                <B30Page />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/promotions/x55" element={
+            <>
+              <Header />
+              <main>
+                <X55PromotionPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/promotions/x55-plus" element={
+            <>
+              <Header />
+              <main>
+                <X55PlusPromotionPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/promotions/x55-dynamic" element={
+            <>
+              <Header />
+              <main>
+                <X55DynamicPromotionPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/promotions/b40-plus" element={
+            <>
+              <Header />
+              <main>
+                <B40PlusPromotionPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/vehicles/promotions/b40-honor-edition" element={
+            <>
+              <Header />
+              <main>
+                <B40HonorEditionPromotionPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/find-dealer" element={
+            <>
+              <Header />
+              <main>
+                <FindDealerPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/thank-you-test-drive" element={
+            <>
+              <Header />
+              <main>
+                <ThankYouPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/contact" element={
+            <>
+              <Header />
+              <main>
+                <ContactUsPage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/finance" element={
+            <>
+              <Header />
+              <main>
+                <FinancePage />
+              </main>
+              <Footer />
+            </>
+          } />
+          <Route path="/owners" element={
+            <>
+              <Header />
+              <main>
+                <OwnersPage />
+              </main>
+              <Footer />
+            </>
+          } />
+        </Routes>
         <TypeformModal />
       </ModalProvider>
     </Router>

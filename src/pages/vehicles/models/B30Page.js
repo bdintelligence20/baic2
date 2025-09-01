@@ -698,7 +698,18 @@ const B30Page = () => {
       <TypeformSection id="typeform-section">
         <TypeformContainer>
           <TypeformTitle>Experience the B30</TypeformTitle>
-          <TypeformSubtitle>The empowering SUV is on the horizon. Be the first to know when it arrives.</TypeformSubtitle>
+          <TypeformSubtitle>
+            <strong>A Brave Reward</strong><br />
+            Secure your new B30 and get rewarded for your courage.<br /><br />
+            
+            By placing a fully refundable deposit of just R5,000, you will receive an exclusive R25,000 expansion benefit when purchasing your B30 within 15 days of its official launch.<br /><br />
+            
+            <strong>Your Seat at the Journey's Start</strong><br />
+            Be part of the inaugural chapter.<br /><br />
+            
+            We are inviting 10 lucky pre-order customers to attend the official B30 South Africa Launch Event. 
+            You will take part in an exclusive First Batch Customer Handover Ceremony and receive a selection of exclusive gifts to begin your Brave New Road.
+          </TypeformSubtitle>
           <TypeformEmbed>
             <div data-tf-live="01K3NPSM8ZPTH19PA8E752PX9A"></div>
           </TypeformEmbed>
